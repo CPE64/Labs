@@ -1,3 +1,11 @@
 *.synctex.gz
 
 *.pyg
+
+*.out
+
+*.aux
+
+*.fdb_latexmk
+
+*.log
