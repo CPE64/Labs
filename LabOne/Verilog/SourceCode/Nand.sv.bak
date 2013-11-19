@@ -16,6 +16,6 @@ module NandGate(
 
     always @(posedge clk)
     begin
-        q <= a ~& b;
+        q <= a & b;
     end
 endmodule

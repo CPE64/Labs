@@ -9,3 +9,17 @@
 *.fdb_latexmk
 
 *.log
+
+TOC.fls
+
+*.fls
+
+*.toc
+
+/LabOne/Lab Manual/Manual.lof
+/LabOne/Lab Manual/Manual.blg
+/LabOne/Lab Manual/Manual.bbl
+
+/LabOne/Verilog/QuartusProject/CPE64-Lab1.sta.rpt.htm_files/css/sscq_home.css
+
+*.css
