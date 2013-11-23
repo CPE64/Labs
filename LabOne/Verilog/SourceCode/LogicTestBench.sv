@@ -13,52 +13,51 @@ module LogicTestBench();
     reg            simClk = 0;
     reg            logicA = 0;
     reg            logicB = 0;
-    wire           logicOutputAND = 0;
-    wire           logicOutputOR  = 0;
+    wire           logicOutputNAND;
+    wire           logicOutputAND;
+    wire           logicOutputOR;
+    wire           logicOutputInverter;
 
     //| We create the module instances that we want to test
     //| The wires allow the gates to be manipulated by the test module
     //| ===========================================================
-    andGate Inverter(
-        .clk(simClk),       //System clock used to
+    Inverter Inverter(
+        .a(logicA),             //Logic input 1
+        .q(logicOutputInverter)  //Output
+    );
+
+    AndGate And(
         .a(logicA),         //Logic input 1
         .b(logicB),         //Logic input 2
         .q(logicOutputAND)  //Output
     );
 
-    andGate AND(
-        .clk(simClk),       //System clock used to
-        .a(logicA),         //Logic input 1
-        .b(logicB),         //Logic input 2
-        .q(logicOutputAND)  //Output
-    );
-
-    orGate OR(
-        .clk(simClk),       //System clock used to
+    OrGate OR(
         .a(logicA),         //Logic input 1
         .b(logicB),         //Logic input 2
         .q(logicOutputOR)   //Output
     );
 
-    andGate Nand(
-        .clk(simClk),       //System clock used to
+    NandGate Nand(
         .a(logicA),         //Logic input 1
         .b(logicB),         //Logic input 2
-        .q(logicOutputAND)  //Output
+        .q(logicOutputNAND)  //Output
     );
-
-    //| Generate "virtual" clock for synchronus logic modules
-    //| ===========================================================
-    always #1 simClk = !simClk;
 
     //| Generate input table for logic modules
     //| ===========================================================
     initial
         begin
-        #4  {logicA, logicB} = 2'b00;
-        #4  {logicA, logicB} = 2'b01;
-        #4  {logicA, logicB} = 2'b10;
-        #4  {logicA, logicB} = 2'b11;
-        #4  {logicA, logicB} = 2'b00;
+        #8 {logicA, logicB} = 2'b00;
+        #2 $display("A:%d B:%d - Inverter:%d AND:%d OR:%d NAND:%d", logicA, logicB, logicOutputInverter, logicOutputAND, logicOutputOR, logicOutputNAND);
+
+        #8 {logicA, logicB} = 2'b01;
+        #2 $display("A:%d B:%d - Inverter:%d AND:%d OR:%d NAND:%d", logicA, logicB, logicOutputInverter, logicOutputAND, logicOutputOR, logicOutputNAND);
+
+        #10 {logicA, logicB} = 2'b10;
+        #2  $display("A:%d B:%d - Inverter:%d AND:%d OR:%d NAND:%d", logicA, logicB, logicOutputInverter, logicOutputAND, logicOutputOR, logicOutputNAND);
+
+        #10 {logicA, logicB} = 2'b11;
+        #2  $display("A:%d B:%d - Inverter:%d AND:%d OR:%d NAND:%d", logicA, logicB, logicOutputInverter, logicOutputAND, logicOutputOR, logicOutputNAND);
         end
 endmodule

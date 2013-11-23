@@ -7,15 +7,11 @@
 //| Revision History-----------------------------------------------
 //| 19/22/13 - Initial input
 //|
-module orGate(
-    input   wire    clk,       //System clock used to
+module OrGate(
     input   wire    a,         //Logic input 1
     input   wire    b,         //Logic input 2
-    output  reg     q = 0      //Output
+    output  reg     q      //Output
     );
 
-    always @(posedge clk)
-    begin
-        q <= a || b;
-    end
+    assign q = a || b;
 endmodule

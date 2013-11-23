@@ -8,13 +8,9 @@
 //| 19/22/13 - Initial input
 //|
 module Inverter(
-    input   wire    clk,       //System clock used to
-    input   wire    a,         //Logic input 1
-    output  reg     q = 0      //Output
+    input   wire    a,     //Logic input 1
+    output  reg     q      //Output
     );
 
-    always @(posedge clk)
-    begin
-        q <= ~a;
-    end
+    assign q = !a;
 endmodule
