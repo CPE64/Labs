@@ -13,8 +13,7 @@
 
 \newcommand{\TITLE}{Lab Two: Introduction to Verilog}
 \newcommand{\KEYWORDS}{Logic Gates, Verilog, FPGA, Signaltap, Synthesis}
-\newcommand{\ABSTRACT}{Two input logic gates are synthesized for the Altera Cyclone IV FPGA using the Quartus IDE. The logic
-                       gates are verified using a System Verilog testbench and Mentor's Modelsim HDL simulator}
+\newcommand{\ABSTRACT}{This document is an introduction to the DE0-Nano development board, Altera's Cyclone FPGAs and the Quartus IDE. The block editor feature of Quartus is used to synthesize logic gate primitives and more complex logic functions from these primitives.}
 
 %| Override compsoc class' Palatino font for body text, restores to Times New Roman
 \renewcommand{\rmdefault}{ptm}\selectfont
@@ -22,7 +21,7 @@
 %| IEEE Citation package
 \usepackage{cite}
 
-\usepackage[cmex10]{amsmath}        %| Asmerican Mathematical Society package for fancy maths  
+\usepackage[cmex10]{amsmath}        %| Asmerican Mathematical Society package for fancy maths  b
 \interdisplaylinepenalty=2500       %| Restores IEEE line spacing after amsmath
 
 %| Better tables than LaTeX 2e
@@ -98,10 +97,7 @@
   %| =================================================================================================
   \section{Introduction}
     \PARstart{T}{his} lab introduces the DE0-Nano and Altera's Quartus development environment. Quartus will be
-    used to program the Altera FPGA on the DE0-Nano. We will start by using Quartus' schematic representation of logic modules. 
-    This will be very similar to the logic that you have created in Multisim. The schematic editor in Quartus can be
-    used to graphically represent Verilog modules, like you will do in Lab Two, or logic primitives like will be done
-    in this lab. This lab is created to introduce the student to the following concepts.
+    used to program the Altera FPGA on the DE0-Nano. We will start by using Quartus' schematic representation of logic modules. This will be very similar to the logic designs that you have created in Multisim. The schematic editor in Quartus can be used to graphically represent Verilog modules as well, like you will do in Lab Two, or logic primitives like will be done in this lab. This lab is created to introduce the student to the following concepts.
     \begin{itemize}
        \item Logic primitives on the FPGA
        \item Quartus development environment
@@ -114,50 +110,17 @@
       A number of screencasts are included with this set of labs. They are available on Youtube and as zipped MP4s
       on the course website. They are intended to be short and to the point so they cover individual topics.
       \begin{enumerate}
-        \item Installing Quartus
-        \item Opening, Compiling, programming with Quartus
-        \item Block editor in Quartus
-        \item Pin assignments in quartus.
+        \item TIME - Installing Quartus
+        \item TIME - Opening, Compiling, programming with Quartus
+        \item TIME - Block editor in Quartus
+        \item TIME - Using the generated pin assignments from the TerasIC system builder
       \end{enumerate}
-    % \PARstart{V}{erilog} is a powerful way to describe circuits. Logic diagrams like those being used in lecture 
-    % can become cumbersome in large designs. ``Text based design entry'' can be less prone to error because 
-    % it is easier to track differences in large designs. Verilog is a text based hardware descriptive language
-    % the begun being used in ASIC(Application Specific Integrated Circuit) and now is the language of choice for
-    % FPGAs(Field Programmable Gate Array). We will be using the Terasic DE0-Nano development board with an Altera 
-    % Cyclone IV FPGA on board. Altera provides a comprehensive solution for programming and debugging their FPGAs 
-    % called Quartus. These labs will explore Quartus and use it to program the FPGA on the DE0-Nano development 
-    % board. In this lab we will:
-    % \begin{itemize}
-    %   \item Instantiate a System Verilog module
-    %   \item Use a System Verilog Testbench
-    %   \item Interact with external switches and indicators
-    %   \item Synthesize Verilog code for a FPGA
-    % \end{itemize}
-  
-    % \subsection{\bfseries Verilog Modularity}
-    %   One of the most important features of Verilog is it's ability to reuse a design. Reusing code allows you to
-    %   rapidly assemble and test new designs. The ability to rapidly prototype a design is one the biggest advantages 
-    %   to the FPGA. This section will involve provided logic gate Verilog modules which will be reused in later labs to 
-    %   build more complex structures. Reusing these modules is very similar to how you would reuse code in the workplace 
-    %   to be more productive. The lab documentation comes with Verilog implementations of the four logic gates in 
-    %   {\bfseries Source.zip} The demo for the lab will be implementing these modules with the DE0-Nano development
-    %   board and testing the design on a breadboard. You could think of this as the source libraries that would
-    %   be available at the company that you might work for. 
-
-    % \subsection{\bfseries Test Bench}
-    %   Verilog roughly breaks into two halves synthesizable and non-synthesizable. FPGAs synthesis can
-    %   take a very long time, using a simulator to verify individual modules can be much faster than
-    %   resynthesizing the entire design. The Testbench also offers a unique ability to check expected
-    %   outputs generate test stimulus. We will use a test bench to check the provided Verilog modules
-    %   are providing the desired operation in part C of the procedure. This simulation should be verified
-    %   against the known truth table for the logic gate to ensure the module is accurate.
 
   %| =================================================================================================
   %| Procedure
   %| =================================================================================================
   \section{Lab Procedure}
-    \PARstart{T}{his} section is a guide for what must be accomplished in the lab. Keep in mind the some of
-    the following material will need to be documented in your lab report. For this section you will need:
+    \PARstart{T}{his} section is a guide for what must be accomplished in the lab. Keep in mind the some of the following material will need to be documented in your lab report. It would behoove you to take a look at the lab report section. For this section you will need:
     \begin{itemize}
       \item DE0-Nano Development board
       \item A breadboard
@@ -176,39 +139,12 @@
     %| Step One: Expand source .zip
     %| =================================================================================================
     \subsection{Expand Source.Zip}
-    The Quartus project file, logic gate modules, and test bench are contained within this archive. 
-    Expand it wherever is convenient for you, it will be accessed frequently. The Quartus project file
-    included with the source code is generated with the Terasic DE0-Nano System Builder that is included
-    with the Terasic System CD. You can use this if you want to generate a clean project for yourself.
+    The Quartus project file and top level schematic are contained within this archive. Expand it wherever is convenient for you, it will be accessed frequently. The Quartus project file included with the source code is generated with the Terasic DE0-Nano System Builder that is included with the Terasic System CD. You can use this if you want to generate a clean project for yourself.
     \begin{figure}[H]
       \includegraphics[width=.48\textwidth]{Images/screenshot_88.jpg}
       \caption{TerasIC System Builder GUI}
     \end{figure}
     
-%     %| Step Two: Compile and run testbench
-%     %| =================================================================================================
-%     \subsection{\bfseries Run testbench}
-%     Now we want to verify our design. Using a simulator for a single logic gate is a bit asinine but
-%     the experience gained with the example test bench will help you greatly in the future. Start a new simulation 
-%     and add the waveforms as shown in screencast 2. You'll want to have have truth tables laid out for the
-%     gates your testing so you can be sure they behave the way you expect. Have an extra column ready to record
-%     the behavior of the FPGA once it's programed. Figure \ref{LogicOut} shows an example of what the wave section
-%     should look like.
-%     \begin{figure}[H]
-%       \label{LogicOut}
-%       \includegraphics[width=.48\textwidth]{Images/LogicOutput.png}
-%       \caption{Example output of testbench}
-%     \end{figure}
-%     Take a moment to look at the simulation transcript, it provides the states of the logic elements being tested.
-%     I prefer having the simulator give a test listing instead of reading the waveforms. This is from the \$display()
-%     lines in the testbench. listing the outputs can be a very powerful debugging tool. I typically use the \$assert()
-%     statement which can pause the simulation and alert you when an unexpected result is produced.
-%     \begin{lstlisting}
-% A:0 B:0 - Inverter:1 AND:0 OR:0 NAND:1
-% A:0 B:1 - Inverter:1 AND:0 OR:1 NAND:1
-% A:1 B:0 - Inverter:0 AND:0 OR:1 NAND:1
-% A:1 B:1 - Inverter:0 AND:1 OR:1 NAND:0
-%     \end{lstlisting}
 
     %| Step Two: Open Quartus project
     %| =================================================================================================
@@ -242,18 +178,13 @@
       \end{figure}
 
       %| GPIO Headers
-      \subsubsection{GPIO headers on the DE0-Nano}
-        Be careful when referencing the pin diagrams in the DE0-Nano user manual. It is easy to read it backwards and
-        that can be a mistake that will cost you hours. It is easiest to match the Nano's orientation with the schematic
-        and count from the nearest edge. Always check VCC\_SYS, VCC3P3, and GND with a multimeter before attaching a circuit
-        you have built. 
+      \subsubsection{GPIO headers on the DE0-Nano} 
+        Be careful when referencing the pin diagrams in the DE0-Nano user manual. It is easy to read it backwards and that can be a mistake that will cost you hours. It is easiest to match the Nano's orientation with the schematic and count from the nearest edge. Always check VCC\_SYS, VCC3P3, and GND with a multimeter before attaching a circuit you have built. 
         \begin{figure}[H]
           \includegraphics[width=.48\textwidth]{Images/GPIOHeader.jpg}
           \caption{Schematic of GPIO-0 header\cite{DE0Manual}}
         \end{figure}
-        This is the header pin schematic from the DE0-Nano user manual. Inside the verilog code these pins follow a little
-        different nomenclature. What is labeled as GPIO\_0\_IN[0] in figure 5 is GPIO0\_IN[0] and GPIO\_00 is GPIO0[0]. Refer
-        to the DE0-Nano user guide for details on the orientation of the headers.
+        This is the header pin schematic from the DE0-Nano user manual. Inside the verilog code these pins follow a little different nomenclature. What is labeled as GPIO\_0\_IN[0] in figure 5 is GPIO0\_IN[0] and GPIO\_00 is GPIO0[0]. Refer to the DE0-Nano user guide for details on the orientation of the headers.
 
         \begin{figure}[H]
           \includegraphics[width=.45\textwidth]{Images/GPIOpicture.jpg}
@@ -271,20 +202,17 @@
         with the Quartus development environment. A walk through is provided in screencastX. 
 
       %| Step Six: Program Nano
-      \subsubsection{Use Quartus to program the Nano} refer to screencastX for a walk through. After synthesis
-      Quartus will generate a .SOF\footnote{the .SOF stands for SRAM object file. This is an Altera standard for
-      of their FPGAs.} file that can be used to program the FPGA using Quartus' programmer. Follow the procedure
-      outlined in screencastX.
-        
+      \subsubsection{Use Quartus to program the Nano} refer to screencastX for a walk through. After synthesis Quartus will generate a .SOF\footnote{the .SOF stands for SRAM object file. This is an Altera standard for of their FPGAs.} file that can be used to program the FPGA using Quartus' programmer.
+
       %| Step Seven: Record Results
       %| =================================================================================================
       \subsection{Test behavior against expected truth table} 
-      Use the known behavior of the logic gates to test your design on the FPGA. 
+      Use the known behavior of the logic gates to test your design on the FPGA. It is imparative that you always verify the operation of a design. This design can be verified by creating a Logic Table for each of the gates. If the LED and switch behaves as expected, record the experimental data and move on. If not the design will have to be debugged.
 
       %| Step Eight: Create XOR from logic primitives
       %| =================================================================================================
       \subsection{Design XOR module} 
-        Now that you have had the opportunity to experiment with the logic primitives in the schematic editor the time has come to create your own design. Lets say that we need a four input XOR gate for some reason. We know the truth table of a XOR gate, it must be high when any number of the inputs is high but all of them as shown in Table \ref{XORTT}. Quartus does have an embedded XOR primitive which the use of is disallowed. Create the circuit from the basic 7400series logic operators. Always remember, Google is your best friend. 
+        Now that you have had the opportunity to experiment with the logic primitives in the schematic editor the time has come to create your own design. Lets say that we need a four input XOR gate for some reason. We know the truth table of a XOR gate, it must be high when any number of the inputs is high but all of them as shown in Table \ref{XORTT}. Quartus does have an embedded XOR primitive which the use of is disallowed. Create the circuit from the basic 7400 series logic operators(AND, OR, NOT, NAND). Always remember, Google is your best friend. 
         \begin{table}[H]
           \renewcommand{\arraystretch}{1.3}
             \caption{Truth table for XOR logic function}
@@ -313,16 +241,18 @@
             \hline
             \end{tabular}
           \end{table}
+          Be sure to include a boolean logic expression for this truth table in your report.
 
       %| Step Eight: Create XOR from logic primitives
       %| =================================================================================================
       \subsection{Design AOI module from logical equation} 
-      The ``And or Invert'' function is common in digital design, you will implement it with logic primitives.
+      The ``And or Invert'' function is common in digital design, you will implement it with logic primitives. 
 
       \begin{displaymath}
         F = \overline{(A \wedge B) \vee (C \wedge D)}
       \end{displaymath}
 
+      Be sure to include a truth table in your lab report.
       % Now that you've had the opportunity to experiment with the provided modules the time had come to write
       % your own module. When starting a module it's usually best to copy something you know works and modify it
       % to suit your need. In this case I would make a copy of AND.sv and change the logic to XOR. Verilog does
@@ -344,18 +274,17 @@
 
     \subsection{Questions to answer}
     \begin{enumerate}
-      \item Notice the report that pops up when you compile your project. There are a number of statistics given
-            by Quartus, the logic element usage ratio is your designs use of the total device capacity.
-      \item The synthesis engine in Quartus is very powerful and will optimize your design for the resources on the FPGA. Quartus generates the design using three logic gates and two inverters, which gates do you think it changed to inverters?
+      \item Notice the report that pops up when you compile your project. There are a number of statistics given by Quartus, the logic element usage ratio is your designs use of the total device capacity. What was the logic usage of your FPGA?
+      \item The synthesis engine in Quartus is very powerful and will optimize your design for the resources on the   FPGA. Quartus generates the design using three logic gates and two inverters, which gate do you think it changed to inverters?
     \end{enumerate}
 
   %| =================================================================================================
   %| Conclusions
   %| =================================================================================================
   \section{Conclusion}
-    \IEEEPARstart{T}{this} lab introduced Quartus and some of it's basic functionality. Quartus is very similar to many industry standard tools. Xilinx, another manufacturer of programmable logic, offers a tool suite very similar to Quartus called ISE. An understanding of Quartus will allow ISE to be learned very quickly.
+    \IEEEPARstart{T}{this} lab introduced Quartus and some of it's basic functionality. Quartus is very similar to many industry standard tools. Xilinx, another manufacturer of programmable logic devices, offers a tool suite very similar to Quartus called ISE. An understanding of Quartus will allow ISE to be learned very quickly.
 
-     The block editor introduced in theis section can also generate block diagrams for Verilog modules, which will be explored in Lab 3. While Verilog is a much more efficient way to create a digital design, the high level block diagram can serve as a great visualization tool when combined with the behavioral modeling of Verilog.
+    The block editor introduced in theis section can also generate block diagrams for Verilog modules, which will be explored in Lab 3. While Verilog is a much more efficient way to create a digital design, the high level block diagram can serve as a great visualization tool when combined with the behavioral modeling of Verilog.
 
     % \IEEEPARstart{V}{erilog} is an IEEE standard(1364)\cite{Wikipedia:Verilog}, it is pervasive in industry and can be used to develop specialized hardware
     % in the form of ASICs or reconfigurable FPGAs. It is important to underscore the differences between Verilog
