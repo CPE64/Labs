@@ -25,3 +25,10 @@ TOC.fls
 *.css
 
 *.bak
+
+*.bbl
+
+/LabThree/LabManual/Manual.lof
+/LabThree/LabManual/Manual.blg
+
+/LabThree/LabManual/Output/Manual.lof

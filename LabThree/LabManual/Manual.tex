@@ -1,0 +1,148 @@
+%| Weekly report template for CSUS Senior Design
+%|
+%| language: LaTeX
+%| Author: Ben Smith
+%| 
+%| This source has been tagged with the "<CHANGE" tag in areas
+%| that require updating when making a new docuent
+%|
+%| This source will generate a PDF file complete with thumbnails navigation menu and metadata.
+%| Much of the tex awesomeness comes from http://www.michaelshell.org/ praise be to him for creating the guide
+
+\documentclass[12pt,journal]{IEEEtran}
+
+\newcommand{\TITLE}{Lab Two: Verilog and Behavioral Modeling}
+\newcommand{\KEYWORDS}{Logic Gates, Verilog, FPGA, Signaltap, Synthesis}
+\newcommand{\ABSTRACT}{Two input logic gates are synthesized for the Altera Cyclone IV FPGA using the Quartus IDE. The logic gates are verified using a System Verilog testbench and Mentor's Modelsim HDL simulator}
+
+%| Override compsoc class' Palatino font for body text, restores to Times New Roman
+\renewcommand{\rmdefault}{ptm}\selectfont
+
+%| IEEE Citation package
+\usepackage{cite}
+
+\usepackage[cmex10]{amsmath}        %| Asmerican Mathematical Society package for fancy maths  
+\interdisplaylinepenalty=2500       %| Restores IEEE line spacing after amsmath
+
+%| Better tables than LaTeX 2e
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{url}                    %| Improved URL handling
+\usepackage{minted}
+\usepackage{etoolbox}
+%\AtBeginEnvironment{minted}{\singlespacing
+%    \fontsize{9}{p}\selectfont}
+\usepackage{listings}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{ltgray}{rgb}{0.9,0.9,0.9}
+\definecolor{dkgray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{ %
+  backgroundcolor=\color{ltgray},  % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,                    % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Verilog,                 % the language of the code
+  morekeywords={*,...},            % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{dkgray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,                       % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+%| Enables PDF metadata, thumbnails, and navigation
+\newcommand\MYhyperrefoptions{
+  bookmarks=true,
+  bookmarksnumbered=true,
+  pdfpagemode={UseOutlines},
+  plainpages=false,
+  pdfpagelabels=true,
+  colorlinks=true,
+  linkcolor={black},
+  citecolor={black},
+  urlcolor={blue},
+  pdftitle={CPE/EEE 64: Lab Three},
+  pdfsubject={Engineering},                        
+  pdfauthor={California State University Sacramento},
+  pdfkeywords={\KEYWORDS}}                       
+
+%| Calls hyperref package with the options specified above
+\usepackage[\MYhyperrefoptions,pdftex]{hyperref}
+
+\begin{document}
+%| Inserts header cover sheet 
+\include{Title_Page}
+\include{TOC}
+
+
+  %| =================================================================================================
+  %| Introduction
+  %| =================================================================================================
+  \section{\bfseries Introduction}
+    \IEEEPARstart{T}{his} lab will introduce Verilog's behavioral modeling ability. It is a powerful tool that allows the programmer to abstract themselves from the burdons of stuctural modeling. In the previous lab we used whats called Structual modeling, we created indivual gate ``structures'' and wired them together to implement the design. This is the most basic use of Verilog but bmagine creating Karnaugh maps for all 72GPIO pins, or better yet the 548 user configurable pins on the Stratix\cite{Altera:StratixDeviceOverview}. This is simply unreasonable, behavioral modeling allows the use of higher level statements like If's and Cases. if you don't know what these are, don't worry, we will explore them throughly in this lab. The purpose of this lab is to introduce the following concepts:
+    \begin{itemize}
+      \item Verilog behavioral modeling
+      \item Construction of adders and Comparitors
+      \item Verilog's constant syntax
+      \item Verilog behavioral blocks
+      \item Testbench assertions
+      \item Instantiate a System Verilog module
+      \item Use a System Verilog Testbench
+      \item Synthesize Verilog code for a FPGA
+    \end{itemize}
+    
+    \subsection{Verilog Design Entry}
+      Verilog is a powerful way to describe circuits. Logic diagrams like those being used in lecture can become cumbersome in large designs. ``Text based design entry'' can be less prone to error because it is easier to track differences in large designs. Verilog is a text based hardware descriptive language the begun being used in ASIC(Application Specific Integrated Circuit) and now is the language of choice for FPGAs(Field Programmable Gate Array). Quartus provides a comprehensive solution for testing verilog and synthesyzing it for use on a FPGA.
+  
+    \subsection{Verilog Modularity}
+      One of the most important features of Verilog is it's ability to reuse a design. Reusing code allows you to  rapidly assemble and test new designs. The ability to rapidly prototype a design is one the biggest advantages of the FPGA. This section will involve provided logic gate Verilog modules which will be reused in later labs to build more complex structures. Reusing these modules is very similar to how you would reuse code in the workplace to be more productive. The lab documentation comes with Verilog implementations of the four logic ates in {\bfseries Source.zip} The demo for the lab will be implementing these modules with the DE0-Nano development board and testing the design on a breadboard. You could think of this as the source libraries that would be available at the company that you might work for. 
+
+    \subsection{Test Bench for automated debugging}
+      Verilog roughly breaks into two halves synthesizable and non-synthesizable. FPGAs synthesis cantake a very long time, using a simulator to verify individual modules can be much faster thanresynthesizing the entire design. The Testbench also offers a unique ability to check expectedoutputs and generate test stimulus. We will use a test bench to check the provided Verilog modulesare providing the desired operation in part C of the procedure. This simulation should be verifiedagainst the known truth table for the logic gate to ensure the module is accurate.
+
+  %| =================================================================================================
+  %| Procedure: Verilog Testbench
+  %| =================================================================================================
+  \section{Procedure: Verilog Testbench}
+    \IEEEPARstart{V}{erification} is more than half the battle when working with Verilog. Foruntunataly the language offers a number of tools to make checking your code easier. The first of which is the assertion; it will run two different blocks of code depending on if a logical condition is met, It works much like an if statement that might be more familiar.
+
+    \begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
+//| This assertion will list an error if not met
+assert (Logical statement)
+  <code for true case>
+else
+  <code for false case>
+    \end{lstlisting}
+    
+    The same code is used to test the adder from this lab's example code. The true case is used to display the valid output of the module. The false case throws a simulation error and shows the user the case. The logical statement in this code block checks to see if the output of the module is equal to the sum of specified constant and Number.Many designers write the test bench from specification in advance of the verilog module. Testing should be an integral part of Verilog development from the beginning.
+
+    \begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
+//| This assertion will list an error if not met
+assert (Sum == SpecifiedConstant + Number)
+  $display("Case %d: Pass", Number);
+else
+  $error("Case %d: FAIL:%d + %d /= %d", Number, Number, SpecifiedConstant, Sum);
+    \end{lstlisting} 
+
+  %| =================================================================================================
+  %| Bibliography
+  %| =================================================================================================
+  \bibliographystyle{IEEEtran}
+  \bibliography{IEEEfull}
+\end{document}
