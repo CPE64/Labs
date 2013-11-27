@@ -114,24 +114,61 @@
     \end{itemize}
     
     \subsection{Verilog Design Entry}
-      Verilog is a powerful way to describe circuits. Logic diagrams like those being used in lecture can become cumbersome in large designs. ``Text based design entry'' can be less prone to error because it is easier to track differences in large designs. Verilog is a text based hardware descriptive language the begun being used in ASIC(Application Specific Integrated Circuit) and now is the language of choice for FPGAs(Field Programmable Gate Array). Quartus provides a comprehensive solution for testing Verilog and synthesyzing it for use on a FPGA.
-    
-    \subsection{Anatomy of a Verilog Module}
+      Verilog is a powerful way to describe circuits. Logic diagrams like those being used in lecture can become cumbersome in large designs. ``Text based design entry'' can be less prone to error because it is easier to track differences in large designs. Verilog is a text based hardware descriptive language the begun being used in ASIC(Application Specific Integrated Circuit). It is now the language of choice for FPGAs(Field Programmable Gate Array) and CPLDs(Computer Programmable Logic Devices). Quartus provides a comprehensive solution for testing Verilog and synthesizing it for use on their FPGAs and CPLDs.
 
     \subsection{Verilog Modularity}
-      One of the most important features of Verilog is it's ability to reuse a design. Reusing code allows you to  rapidly assemble and test new designs. The ability to rapidly prototype a design is one the biggest advantages of the FPGA. Reusing these modules is very similar to how you would reuse code in the workplace to be more productive. You could think of this as the source libraries that would be available at the company that you might work for. A Verilog module
+      One of the most important features of Verilog is it's ability to reuse a design. Reusing code allows you to  rapidly assemble and test new designs. The ability to rapidly prototype a design is one the biggest advantages of the FPGA. Reusing these modules is very similar to how you would reuse code in the workplace to be more productive. You could think of this as the source libraries that would be available at the company that you might work for.
+
+    \subsection{Anatomy of a Verilog Module}
+      The ``module'' is at the heart of Verilog. 
+      \begin{lstlisting}[caption={Example Module}]
+//       Title: Example Module for CPE/EEE64
+//      Author: Smart Guy
+// Description: This module serves as a template for SystemVerilog modules
+module <ModuleName>(
+    input  wire        <PortName>,
+    input  wire  [7:0] <PortName>,
+    output reg         <PortName>,
+    output reg   [7:0] <PortName>
+  );
+
+always @posedge(<SensativityList>)
+  begin
+    //logic goes here
+  end
+endmodule
+      \end{lstlisting}
+      Compare this template to the example constant adder module from the Laboratory Procedure section.
+\begin{lstlisting}
+//|       Title: Example adder module for CSUS CPE/EEE64
+//|      Author: Ben Smith
+//| Description: This module will add a specified number to a constant parameter.
+module Adder(
+  input     wire [3:0]    UserNumber,
+  output    reg  [7:0]    sum = 0
+  );
+
+  parameter constant = 4'b0000;
+
+  //| This is a verilog behavioral block that executes whenever UserNumber changes value
+  always @(UserNumber)
+    begin
+      sum = constant + UserNumber;
+    end
+endmodule
+\end{lstlisting}
 
     \subsection{Instantiation of a Verilog module}
       At the core of modular design is the module instantiation. Think of it of plopping a piece of hardware down on a breadboard. You could make a LS7400 Verilog module and every instantiation would be another discrete device just like using a real LS7400 on your breadboard. In Verilog the module name, <Module> in the listing below, is the name of the module you are instantiating.
     \begin{lstlisting}[caption={Module instantiation template}]
 <Module><InstanceName>(
-    .Port1(<Wire>),
-    .Port2(<Reg>)
+    .<PortName>(<Wire>),
+    .<PortName>(<Reg>)
   );
     \end{lstlisting}
     
     \subsection{Parameterization of Verilog modules}
-      A Verilog module's parameters allow a module to be reused in a number of different situations. An example would be a variable length shift register. In one application you might need a 32-bit version in another a 64-bit. Building the module in a particular manner will allow a parameter to control the length with the parameter. The parameter and its default value is specified in the Adder Module on line 14.s
+      A Verilog module's parameters allow a module to be reused in a number of different situations. An example would be a variable length shift register. In one application you might need a 32-bit version in another a 64-bit. Building the module in a particular manner will allow a parameter to control the length with the parameter. The parameter and its default value is specified in the Adder Module on line
       \begin{lstlisting}
 parameter constant = 4'b0000;
       \end{lstlisting}
@@ -140,8 +177,8 @@ parameter constant = 4'b0000;
 <Module> #(
     .ParameterName(ParameterValue)
   )<InstanceName>(
-    .Port1(<Wire>),
-    .Port2(<Reg>)
+    .<PortName>(<Wire>),
+    .<PortName>(<Reg>)
   );
     \end{lstlisting}
     Notice the addition of the \#() before the instance name in the last design. We can see the adder module instantiation in the test bench follows this syntax.
@@ -155,7 +192,7 @@ Adder #(
     \end{lstlisting}
 
       \subsection{Test Bench for automated debugging}
-      Verilog roughly breaks into two halves synthesizable and non-synthesizable. FPGAs synthesis cantake a very long time, using a simulator to verify individual modules can be much faster than resynthesizing the entire design. The Testbench also offers a unique ability to check expected outputs and generate test stimulus. We will use a test bench to check the provided Verilog modules are providing the desired operation in part C of the procedure. This simulation should be verified against the known truth table for the logic gate to ensure the module is accurate.
+      Verilog roughly breaks into two halves synthesizable and non-synthesizable. FPGAs synthesis cantake a very long time, using a simulator to verify individual modules can be much faster than resynthesizing the entire design. The Testbench also offers a unique ability to check expected outputs and generate test stimulus. We will use a test bench to check the provided Verilog modules are providing the desired operation in part C of the procedure. This simulation should be verified against the known truth table for the logic gate to ensure the module is accurate. If you are particularly driven to be an expert in programmable logic I highly recommend a series of MOOC courses on debugging taught by Andreas Zeller on debugging. Both classes deal only with Python but the way of thinking is the key. The classes are \href{https://www.udacity.com/course/cs258}{Software Testing} and \href{https://www.udacity.com/course/cs259}{Software Debugging} the first few videos in each series cover the important topics. Keep in mind these classes are outside the scope of this class and I only offer them because how much they helped me be a better designer. 
 
     \subsection{Included Screencasts}
       \begin{enumerate}
