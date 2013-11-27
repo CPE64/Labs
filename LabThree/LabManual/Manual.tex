@@ -11,7 +11,7 @@
 
 \documentclass[12pt,journal]{IEEEtran}
 
-\newcommand{\TITLE}{Lab Two: Verilog and Behavioral Modeling}
+\newcommand{\TITLE}{Lab Three: Verilog and Behavioral Modeling}
 \newcommand{\KEYWORDS}{Logic Gates, Verilog, FPGA, Signaltap, Synthesis}
 \newcommand{\ABSTRACT}{Two input logic gates are synthesized for the Altera Cyclone IV FPGA using the Quartus IDE. The logic gates are verified using a System Verilog testbench and Mentor's Modelsim HDL simulator}
 
@@ -40,7 +40,7 @@
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
 \lstset{ %
   backgroundcolor=\color{ltgray},  % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
-  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  basicstyle=\scriptsize\ttfamily,        % the size of the fonts that are used for the code
   breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
   breaklines=true,                 % sets automatic line breaking
   captionpos=b,                    % sets the caption-position to bottom
@@ -51,7 +51,7 @@
   frame=single,                    % adds a frame around the code
   keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
   keywordstyle=\color{blue},       % keyword style
-  language=Verilog,                 % the language of the code
+  language=SystemVerilog,                % the language of the code
   morekeywords={*,...},            % if you want to add more keywords to the set
   numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
   numbersep=5pt,                   % how far the line-numbers are from the code
@@ -65,6 +65,12 @@
   tabsize=2,                       % sets default tabsize to 2 spaces
   title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
 }
+
+\lstset{keywordstyle=\color{purple}}
+\lstset{keywordstyle={[2]\color{purple}} }
+\lstset{keywordstyle={[3]\color{magenta}} }
+\lstset{keywordstyle={[4]\color{teal} }}
+\lstset{keywordstyle={[5]\color{violet!40}} }
 
 %| Enables PDF metadata, thumbnails, and navigation
 \newcommand\MYhyperrefoptions{
@@ -108,37 +114,122 @@
     \end{itemize}
     
     \subsection{Verilog Design Entry}
-      Verilog is a powerful way to describe circuits. Logic diagrams like those being used in lecture can become cumbersome in large designs. ``Text based design entry'' can be less prone to error because it is easier to track differences in large designs. Verilog is a text based hardware descriptive language the begun being used in ASIC(Application Specific Integrated Circuit) and now is the language of choice for FPGAs(Field Programmable Gate Array). Quartus provides a comprehensive solution for testing verilog and synthesyzing it for use on a FPGA.
-  
-    \subsection{Verilog Modularity}
-      One of the most important features of Verilog is it's ability to reuse a design. Reusing code allows you to  rapidly assemble and test new designs. The ability to rapidly prototype a design is one the biggest advantages of the FPGA. This section will involve provided logic gate Verilog modules which will be reused in later labs to build more complex structures. Reusing these modules is very similar to how you would reuse code in the workplace to be more productive. The lab documentation comes with Verilog implementations of the four logic ates in {\bfseries Source.zip} The demo for the lab will be implementing these modules with the DE0-Nano development board and testing the design on a breadboard. You could think of this as the source libraries that would be available at the company that you might work for. 
+      Verilog is a powerful way to describe circuits. Logic diagrams like those being used in lecture can become cumbersome in large designs. ``Text based design entry'' can be less prone to error because it is easier to track differences in large designs. Verilog is a text based hardware descriptive language the begun being used in ASIC(Application Specific Integrated Circuit) and now is the language of choice for FPGAs(Field Programmable Gate Array). Quartus provides a comprehensive solution for testing Verilog and synthesyzing it for use on a FPGA.
+    
+    \subsection{Anatomy of a Verilog Module}
 
-    \subsection{Test Bench for automated debugging}
-      Verilog roughly breaks into two halves synthesizable and non-synthesizable. FPGAs synthesis cantake a very long time, using a simulator to verify individual modules can be much faster thanresynthesizing the entire design. The Testbench also offers a unique ability to check expectedoutputs and generate test stimulus. We will use a test bench to check the provided Verilog modulesare providing the desired operation in part C of the procedure. This simulation should be verifiedagainst the known truth table for the logic gate to ensure the module is accurate.
+    \subsection{Verilog Modularity}
+      One of the most important features of Verilog is it's ability to reuse a design. Reusing code allows you to  rapidly assemble and test new designs. The ability to rapidly prototype a design is one the biggest advantages of the FPGA. Reusing these modules is very similar to how you would reuse code in the workplace to be more productive. You could think of this as the source libraries that would be available at the company that you might work for. A Verilog module
+
+    \subsection{Instantiation of a Verilog module}
+      At the core of modular design is the module instantiation. Think of it of plopping a piece of hardware down on a breadboard. You could make a LS7400 Verilog module and every instantiation would be another discrete device just like using a real LS7400 on your breadboard. In Verilog the module name, <Module> in the listing below, is the name of the module you are instantiating.
+    \begin{lstlisting}[caption={Module instantiation template}]
+<Module><InstanceName>(
+    .Port1(<Wire>),
+    .Port2(<Reg>)
+  );
+    \end{lstlisting}
+    
+    \subsection{Parameterization of Verilog modules}
+      A Verilog module's parameters allow a module to be reused in a number of different situations. An example would be a variable length shift register. In one application you might need a 32-bit version in another a 64-bit. Building the module in a particular manner will allow a parameter to control the length with the parameter. The parameter and its default value is specified in the Adder Module on line 14.s
+      \begin{lstlisting}
+parameter constant = 4'b0000;
+      \end{lstlisting}
+      This is the Value that will be used if the parameter is not specified in the module instantiation. An example of parameter usage when instantiating a new module is below. Anything in angle brackets is something that you will need to replace with the information form your design.
+    \begin{lstlisting}[caption={Module instantiation template with parameterization}]
+<Module> #(
+    .ParameterName(ParameterValue)
+  )<InstanceName>(
+    .Port1(<Wire>),
+    .Port2(<Reg>)
+  );
+    \end{lstlisting}
+    Notice the addition of the \#() before the instance name in the last design. We can see the adder module instantiation in the test bench follows this syntax.
+    \begin{lstlisting}[caption={Module instantiation from Adder test bench}]
+Adder #(
+    .constant(SpecifiedConstant)
+  )AdderDUT(
+    .UserNumber(Number),
+    .sum(Sum)
+  );
+    \end{lstlisting}
+
+      \subsection{Test Bench for automated debugging}
+      Verilog roughly breaks into two halves synthesizable and non-synthesizable. FPGAs synthesis cantake a very long time, using a simulator to verify individual modules can be much faster than resynthesizing the entire design. The Testbench also offers a unique ability to check expected outputs and generate test stimulus. We will use a test bench to check the provided Verilog modules are providing the desired operation in part C of the procedure. This simulation should be verified against the known truth table for the logic gate to ensure the module is accurate.
+
+    \subsection{Included Screencasts}
+      \begin{enumerate}
+        \item TIME - Some video
+        \item TIME - Some video
+        \item TIME - Some video
+        \item TIME - Some video
+      \end{enumerate}
 
   %| =================================================================================================
   %| Procedure: Verilog Testbench
   %| =================================================================================================
-  \section{Procedure: Verilog Testbench}
-    \IEEEPARstart{V}{erification} is more than half the battle when working with Verilog. Foruntunataly the language offers a number of tools to make checking your code easier. The first of which is the assertion; it will run two different blocks of code depending on if a logical condition is met, It works much like an if statement that might be more familiar.
+  \section{Laboratory Procedure}
+  \subsection{Verilog Testbench}
+    \IEEEPARstart{T}{his} section will explore the basics of Modelsim and using a Verilog Testbench in Modelsim. The schematic representation of the first lab's logic blocks have been replaced with Verilog behavioral code. Using a simulator for single logic gates is a bit asinine but the experience gained with the example test bench will help you greatly in the future, particularly when you write your own testbench in the next lab. Start a new simulation and add the waveforms as shown in screencast 2. Figure \ref{LogicOut} shows an example of what the wave section should look like. 
+    \begin{figure}[H]
+      \label{LogicOut}
+      \includegraphics[width=.48\textwidth]{Images/LogicOutput.png}
+      \caption{Example output of testbench}
+    \end{figure}
 
-    \begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
+    Take a moment to look at the simulation transcript, it provides the states of the logic elements being tested.
+    I prefer having the simulator give a test listing instead of reading the waveforms. This is from the \$display()
+    lines in the testbench. listing the outputs can be a very powerful debugging tool. I typically use the \$assert()
+    statement, which will be explored below, which can execute two different blocks of code based on a logical test and alert you when an unexpected result is produced.
+    \begin{lstlisting}
+A:0 B:0 - Inverter:1 AND:0 OR:0 NAND:1
+A:0 B:1 - Inverter:1 AND:0 OR:1 NAND:1
+A:1 B:0 - Inverter:0 AND:0 OR:1 NAND:1
+A:1 B:1 - Inverter:0 AND:1 OR:1 NAND:0
+    \end{lstlisting}
+
+  %| =================================================================================================
+  %| Procedure: Verilog Testbench
+  %| =================================================================================================
+  \subsection{Verilog Testbench II}
+    Verification is more than half the battle when working with Verilog. Mentor Graphics HDL simulator Modelsim is installed with Quartus. Modelsim is used extensively in logic design with Verilog. Fortunately Verilog offers a number of tools to make checking your code easier. The first of which is the assertion; it will run two different blocks of code depending on if a logical condition is met, It works much like an if statement that might be more familiar.
+    \begin{lstlisting}[caption={Template for System Verilog assertion}]
 //| This assertion will list an error if not met
 assert (Logical statement)
-  <code for true case>
+  <code-for-true-case>
 else
-  <code for false case>
+  <code-for-false-case>
     \end{lstlisting}
-    
-    The same code is used to test the adder from this lab's example code. The true case is used to display the valid output of the module. The false case throws a simulation error and shows the user the case. The logical statement in this code block checks to see if the output of the module is equal to the sum of specified constant and Number.Many designers write the test bench from specification in advance of the verilog module. Testing should be an integral part of Verilog development from the beginning.
 
-    \begin{lstlisting}[basicstyle=\scriptsize\ttfamily]
+    The same code is used to test the adder from this lab's example code. The true case is used to display the valid output of the module. The false case throws a simulation error and shows the user the case. 
+    \begin{lstlisting}[caption={Assertion Example from test bench}]
 //| This assertion will list an error if not met
 assert (Sum == SpecifiedConstant + Number)
   $display("Case %d: Pass", Number);
 else
   $error("Case %d: FAIL:%d + %d /= %d", Number, Number, SpecifiedConstant, Sum);
     \end{lstlisting} 
+    The logical statement in this code block checks to see if the output of the module is equal to the sum of specified constant and Number.Many designers write the test bench from specification in advance of the Verilog module. Testing should be an integral part of Verilog development from the beginning.
+
+    All of the code from this first section is provided in source.zip. There is quite a learning curve to this part, be sure to watch the screen cast which describes the included modules. You will be assigned a constant by the lab instructor that the input number will be added to. This number should be entered as a parameter in the adder module's instantiation as is done in the test bench.
+
+  %| =================================================================================================
+  %| Procedure: Verilog Synthesis
+  %| =================================================================================================
+  \subsection{8-bit and Constant Adder Synthesis}
+    The second section's adder will be synthesized and loaded onto the FPGA for this section. Use your dip switches and the LED circuits from the previous labs to test the adder for expected operation. This section is included with the example code, all you need to do is change the constant and test its operation.  
+
+  %| =================================================================================================
+  %| Procedure: Verilog Synthesis
+  %| =================================================================================================
+  \subsection{8-bit Full Adder Synthesis}
+    This section requires the previous sections code to be modified to add two 4-bit inputs. This will require the removal of the previous modules' parametrization and the addition of an additional input port. 
+
+  %| =================================================================================================
+  %| Procedure: Verilog Synthesis
+  %| =================================================================================================
+  \subsection{Design of Comparator}
+    This section requires the previous sections code to be modified to add two 4-bit inputs. This will require the removal of the previous modules' parametrization and the addition of an additional input port. 
 
   %| =================================================================================================
   %| Bibliography
