@@ -9,9 +9,9 @@
 %| This source will generate a PDF file complete with thumbnails navigation menu and metadata.
 %| Much of the tex awesomeness comes from http://www.michaelshell.org/ praise be to him for creating the guide
 
-\documentclass[12pt,journal]{IEEEtran}
+\documentclass[12pt,journal,Roman]{IEEEtran}
 
-\newcommand{\TITLE}{Lab Three: Verilog and Behavioral Modeling}
+\newcommand{\TITLE}{Lab Three: Introduction to Verilog}
 \newcommand{\KEYWORDS}{Logic Gates, Verilog, FPGA, Signaltap, Synthesis}
 \newcommand{\ABSTRACT}{Two input logic gates are synthesized for the Altera Cyclone IV FPGA using the Quartus IDE. The logic gates are verified using a System Verilog testbench and Mentor's Modelsim HDL simulator}
 
@@ -138,7 +138,7 @@ always @posedge(<SensativityList>)
   end
 endmodule
       \end{lstlisting}
-      Compare this template to the example constant adder module from the Laboratory Procedure section.
+      Notice the [7:0] next to the wire declarations. This is a way to declare a ``parallel'' bus. We are just hooking up 7 wires at once. Compare this template to the example constant adder module from the Laboratory Procedure section.
 \begin{lstlisting}
 //|       Title: Example adder module for CSUS CPE/EEE64
 //|      Author: Ben Smith
@@ -192,7 +192,7 @@ Adder #(
     \end{lstlisting}
 
       \subsection{Test Bench for automated debugging}
-      Verilog roughly breaks into two halves synthesizable and non-synthesizable. FPGAs synthesis cantake a very long time, using a simulator to verify individual modules can be much faster than resynthesizing the entire design. The Testbench also offers a unique ability to check expected outputs and generate test stimulus. We will use a test bench to check the provided Verilog modules are providing the desired operation in part C of the procedure. This simulation should be verified against the known truth table for the logic gate to ensure the module is accurate. If you are particularly driven to be an expert in programmable logic I highly recommend a series of MOOC courses on debugging taught by Andreas Zeller on debugging. Both classes deal only with Python but the way of thinking is the key. The classes are \href{https://www.udacity.com/course/cs258}{Software Testing} and \href{https://www.udacity.com/course/cs259}{Software Debugging} the first few videos in each series cover the important topics. Keep in mind these classes are outside the scope of this class and I only offer them because how much they helped me be a better designer. 
+      Verilog roughly breaks into two halves synthesizable and non-synthesizable. FPGAs synthesis cantake a very long time, using a simulator to verify individual modules can be much faster than resynthesizing the entire design. The Testbench also offers a unique ability to check expected outputs and generate test stimulus. We will use a test bench to check the provided Verilog modules are providing the desired operation in part C of the procedure. This simulation should be verified against the known truth table for the logic gate to ensure the module is accurate. Verification is a very important topic in logic design. \footnote{If you are particularly driven to be an expert in programmable logic I highly recommend a series of MOOC courses on debugging taught by Andreas Zeller on debugging. Both classes deal only with Python but the way of thinking is important topic. The classes are \href{https://www.udacity.com/course/cs258}{Software Testing} and \href{https://www.udacity.com/course/cs259}{Software Debugging} the first few videos in each series cover the important topics. Keep in mind these classes are outside the scope of this class and I only offer them because how much they helped me be a better designer.}
 
     \subsection{Included Screencasts}
       \begin{enumerate}
