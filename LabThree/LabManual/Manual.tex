@@ -9,7 +9,7 @@
 %| This source will generate a PDF file complete with thumbnails navigation menu and metadata.
 %| Much of the tex awesomeness comes from http://www.michaelshell.org/ praise be to him for creating the guide
 
-\documentclass[12pt,journal,Roman]{IEEEtran}
+\documentclass[12pt,journal]{IEEEtran}
 
 \newcommand{\TITLE}{Lab Three: Introduction to Verilog}
 \newcommand{\KEYWORDS}{Logic Gates, Verilog, FPGA, Signaltap, Synthesis}
@@ -101,7 +101,7 @@
   %| Introduction
   %| =================================================================================================
   \section{\bfseries Introduction}
-    \IEEEPARstart{T}{his} lab will introduce Verilog's behavioral modeling ability. It is a powerful tool that allows the programmer to abstract themselves from the burdons of stuctural modeling. In the previous lab we used whats called Structual modeling, we created indivual gate ``structures'' and wired them together to implement the design. This is the most basic use of Verilog but bmagine creating Karnaugh maps for all 72GPIO pins, or better yet the 548 user configurable pins on the Stratix\cite{Altera:StratixDeviceOverview}. This is simply unreasonable, behavioral modeling allows the use of higher level statements like If's and Cases. if you don't know what these are, don't worry, we will explore them throughly in this lab. The purpose of this lab is to introduce the following concepts:
+    \IEEEPARstart{T}{his} lab will introduce Verilog's behavioral modeling ability. It is a powerful tool that allows the programmer to abstract themselves from the burdons of stuctural modeling. In the previous lab we used whats called Structual modeling, we created indivual gate ``structures'' and wired them together to implement the design. This is the most basic use of Verilog but bmagine creating Karnaugh maps for all 72GPIO pins, or better yet the 548 user configurable pins on the Stratix\cite{Altera:StratixDeviceOverview}. This is simply unreasonable, behavioral modeling allows the use of higher level statements like Ifs and Cases. if you don't know what these are, don't worry, we will explore them throughly in this lab. The purpose of this lab is to introduce the following concepts:
     \begin{itemize}
       \item Verilog behavioral modeling
       \item Construction of adders and Comparitors
@@ -120,7 +120,7 @@
       One of the most important features of Verilog is it's ability to reuse a design. Reusing code allows you to  rapidly assemble and test new designs. The ability to rapidly prototype a design is one the biggest advantages of the FPGA. Reusing these modules is very similar to how you would reuse code in the workplace to be more productive. You could think of this as the source libraries that would be available at the company that you might work for.
 
     \subsection{Anatomy of a Verilog Module}
-      The ``module'' is at the heart of Verilog. 
+      The ``module'' is at the heart of Verilog. Cleaver design will allow you to create a module that you can reuse in many designs.
       \begin{lstlisting}[caption={Example Module}]
 //       Title: Example Module for CPE/EEE64
 //      Author: Smart Guy
@@ -251,22 +251,39 @@ else
     All of the code from this first section is provided in source.zip. There is quite a learning curve to this part, be sure to watch the screen cast which describes the included modules. You will be assigned a constant by the lab instructor that the input number will be added to. This number should be entered as a parameter in the adder module's instantiation as is done in the test bench.
 
   %| =================================================================================================
-  %| Procedure: Verilog Synthesis
+  %| Procedure: 4-bit and constant adder 
   %| =================================================================================================
-  \subsection{8-bit and Constant Adder Synthesis}
+  \subsection{4-bit and Constant Adder Synthesis}
     The second section's adder will be synthesized and loaded onto the FPGA for this section. Use your dip switches and the LED circuits from the previous labs to test the adder for expected operation. This section is included with the example code, all you need to do is change the constant and test its operation.  
 
   %| =================================================================================================
-  %| Procedure: Verilog Synthesis
+  %| Procedure: 4-bit and 4-bit adder
   %| =================================================================================================
-  \subsection{8-bit Full Adder Synthesis}
+  \subsection{4-bit Full Adder Synthesis}
     This section requires the previous sections code to be modified to add two 4-bit inputs. This will require the removal of the previous modules' parametrization and the addition of an additional input port. 
 
   %| =================================================================================================
-  %| Procedure: Verilog Synthesis
+  %| Procedure: Comparator Design
   %| =================================================================================================
   \subsection{Design of Comparator}
     This section requires the previous sections code to be modified to add two 4-bit inputs. This will require the removal of the previous modules' parametrization and the addition of an additional input port. 
+
+  %| =================================================================================================
+  %| Procedure: Comparator Design
+  %| =================================================================================================
+  \section{Lab report}
+    \IEEEPARstart{D}{ocumentation} is the most important part of an engineer's job. The sharper your writing skills the more employable you will be. Keep that in mind as you have to churn out documentation throughout college. This lab manual is written in almost textbook This particular lab report will require:
+    \subsection{figures to include}
+    \begin{itemize}
+      \item Code listing of Full Adder
+      \item Code listing for comparator
+      \item It's important to remember Verilog is a Hardware Descriptive Language. The synthesis actually implements the Verilog in code. Quartus contains what are called ``Netlist Viewers'' that show the actual implementation. take a look at how Quartus synthesized your design as is shown in screencastX. Include screen captures of the combinatorial blocks listed in your design.
+    \end{itemize}
+
+    \subsection{Questions to Answer}
+      \begin{enumerate}
+        \item Do you think you would prefer the schematic design entry method of Lab two or the text based representation of this lab? In what situations do you think Schematic entry would be better, in which situations would Text base be advantageous.
+      \end{enumerate}
 
   %| =================================================================================================
   %| Bibliography
