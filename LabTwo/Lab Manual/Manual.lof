@@ -1,7 +1,0 @@
-\contentsline {figure}{\numberline {1}{\ignorespaces TerasIC System Builder GUI}}{2}{figure.1}
-\contentsline {figure}{\numberline {2}{\ignorespaces Quartus logic schematic editor example}}{2}{figure.2}
-\contentsline {figure}{\numberline {3}{\ignorespaces LED with current limiting resistor}}{3}{figure.3}
-\contentsline {figure}{\numberline {4}{\ignorespaces Switch with pulldown resistor}}{3}{figure.4}
-\contentsline {figure}{\numberline {5}{\ignorespaces Schematic of GPIO-0 header\cite {DE0Manual}}}{3}{figure.5}
-\contentsline {figure}{\numberline {6}{\ignorespaces Picture of loaded GPIO-0 header}}{3}{figure.6}
-\contentsline {figure}{\numberline {7}{\ignorespaces Example switch and LED configuration with SIP resistors}}{4}{figure.7}
