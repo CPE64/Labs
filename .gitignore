@@ -48,3 +48,5 @@ TOC.fls
 *.blg
 
 *.summary
+
+*.lof
