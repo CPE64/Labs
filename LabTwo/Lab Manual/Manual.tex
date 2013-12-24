@@ -30,10 +30,8 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{url}                    %| Improved URL handling
-%\usepackage{minted}
 \usepackage{etoolbox}
-%\AtBeginEnvironment{minted}{\singlespacing
-%    \fontsize{9}{p}\selectfont}
+
 
 \usepackage{listings}
 \definecolor{mygreen}{rgb}{0,0.6,0}
@@ -96,10 +94,9 @@
   %| Introduction
   %| =================================================================================================
   \section{Introduction}
-    \PARstart{T}{his} lab introduces the DE0-Nano and Altera's Quartus development environment. Quartus will be
-    used to program the Altera FPGA on the DE0-Nano. We will start by using Quartus' schematic representation of logic modules. This will be very similar to the logic designs that you have created in Multisim. The schematic editor in Quartus can be used to graphically represent Verilog modules as well, like you will do in Lab Two, or logic primitives like will be done in this lab. This lab is created to introduce the student to the following concepts.
+    \PARstart{T}{his} lab introduces the DE0-Nano development board and Altera's Quartus development environment. Quartus will be used to program the Altera FPGA on the DE0-Nano. We will start by using Quartus' schematic representation of logic modules. This will be very similar to the logic designs that you have created in Multisim and implemented with discrete 7400 series logic ICs. The schematic editor in Quartus can be used to graphically represent Verilog modules as well, like you will do in Lab Two, or logic primitives like will be done in this lab. This lab is intended to introduce the student to the following concepts.
     \begin{itemize}
-       \item Logic primitives on the FPGA
+       \item Logic primitives on a FPGA
        \item Quartus development environment
        \item Synthesis of a block based design
        \item Assigning pins for a design
@@ -107,8 +104,7 @@
     \end{itemize}
 
     \subsection{Included Screencasts}
-      A number of screencasts are included with this set of labs. They are available on Youtube and as zipped MP4s
-      on the course website. They are intended to be short and to the point so they cover individual topics.
+      A number of screencasts are included with this set of labs. They are available on Youtube and as zipped MP4s on the course website. They are intended to be short and to the point so they cover individual topics.
       \begin{enumerate}
         \item TIME - Installing Quartus
         \item TIME - Opening, Compiling, programming with Quartus
@@ -116,6 +112,23 @@
         \item TIME - Using the generated pin assignments from the TerasIC system builder
       \end{enumerate}
 
+    \subsection{Included Code}
+      A number of screencasts are included with this set of labs. They are available on Youtube and as zipped MP4s on the course website. They are intended to be short and to the point so they cover individual topics.
+      \begin{enumerate}
+        \item TIME - Installing Quartus
+        \item TIME - Opening, Compiling, programming with Quartus
+        \item TIME - Block editor in Quartus
+        \item TIME - Using the generated pin assignments from the TerasIC system builder
+      \end{enumerate}
+
+    \subsection{DE0-Nano Development board}
+      The DE0-Nano has a number of devices built into the board to expand the capabilities of the FPGA. Most of these will be beyond the scope of the course but represent real world design challenges and are worth experimenting with after this basic course is completed. Altera offers a number of tutorials for anyone interested in learning more. These labs will use one of the 40-pin GPIO headers to interact with the outside world. 
+      \begin{figure}[H]
+        \includegraphics[width=.48\textwidth]{Images/DEONanoBlockDiagram.png}
+        \caption{Block Diagram of DE0-Nano \cite{DE0Manual}}
+      \end{figure}
+      The A/D converter and G-sensor will be great tools to interact with sensors in your later classes. If you choose to go down a path of controls engineering FPGAs will be a great way to implement ``deterministic'' 
+      \clearpage
   %| =================================================================================================
   %| Procedure
   %| =================================================================================================
@@ -132,8 +145,8 @@
 
     %| Step Zero: Install Quartus
     %| =================================================================================================
-    \subsection{Install Quartus}
-    Download most recent version of Quartus and Cyclone device drivers from Altera. Screencast 1
+    \subsection{Optional: Install Quartus}
+    You can download the most recent version of Quartus and Cyclone device drivers from Altera. Screencast 1
     is a walk through for windows, but Quartus is also available for Linux.
 
     %| Step One: Expand source .zip
@@ -169,11 +182,11 @@
       \end{figure}
       The LED will allow you to see the the output but we'll also need to be able to generate some input for
       the FPGA. We will do this with a dip switch and pulldown resistor. The pulldown resistor is needed
-      to literally pull the charge off the wire so the input will read a solid zero. Otherwise the pin would ``float''
-      between 1 and 0 arbitrarily.
+      to literally pull the charge off the wire so the input will read a solid zero. Otherwise the pin would ``float'' between 1 and 0 arbitrarily.
+
       \begin{figure}[H]
         \label{swPulldown}
-        \includegraphics[width=.48\textwidth]{Schematics/SwitchCircuit.pdf}
+        \includegraphics[width=.38\textwidth]{Schematics/SwitchCircuit.pdf}
         \caption{Switch with pulldown resistor}
       \end{figure}
 
@@ -257,7 +270,8 @@
       % your own module. When starting a module it's usually best to copy something you know works and modify it
       % to suit your need. In this case I would make a copy of AND.sv and change the logic to XOR. Verilog does
       % have a built in operator for this. Your best friend is google, that's always the best place to start.
-
+      \clearpage
+      
   %| =================================================================================================
   %| Lab Report Requirements
   %| =================================================================================================
@@ -282,9 +296,7 @@
   %| Conclusions
   %| =================================================================================================
   \section{Conclusion}
-    \IEEEPARstart{T}{this} lab introduced Quartus and some of it's basic functionality. Quartus is very similar to many industry standard tools. Xilinx, another manufacturer of programmable logic devices, offers a tool suite very similar to Quartus called ISE. An understanding of Quartus will allow ISE to be learned very quickly.
-
-    The block editor introduced in theis section can also generate block diagrams for Verilog modules, which will be explored in Lab 3. While Verilog is a much more efficient way to create a digital design, the high level block diagram can serve as a great visualization tool when combined with the behavioral modeling of Verilog.
+    \IEEEPARstart{T}{this} lab introduced Quartus and some of it's basic functionality. Quartus is very similar to many industry standard tools. Xilinx, another manufacturer of programmable logic devices, offers a tool suite very similar to Quartus called ISE. Although we will not discuss ISE, a understanding of Quartus will allow ISE to be learned very quickly.
 
     % \IEEEPARstart{V}{erilog} is an IEEE standard(1364)\cite{Wikipedia:Verilog}, it is pervasive in industry and can be used to develop specialized hardware
     % in the form of ASICs or reconfigurable FPGAs. It is important to underscore the differences between Verilog
