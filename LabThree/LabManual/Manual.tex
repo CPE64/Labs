@@ -31,14 +31,12 @@
 \usepackage{url}                    %| Improved URL handling
 \usepackage{minted}
 \usepackage{etoolbox}
-%\AtBeginEnvironment{minted}{\singlespacing
-%    \fontsize{9}{p}\selectfont}
 \usepackage{listings}
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{ltgray}{rgb}{0.9,0.9,0.9}
 \definecolor{dkgray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
-\lstset{ %
+\lstset{
   backgroundcolor=\color{ltgray},  % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
   basicstyle=\scriptsize\ttfamily,        % the size of the fonts that are used for the code
   breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
@@ -284,6 +282,12 @@ else
       \begin{enumerate}
         \item Do you think you would prefer the schematic design entry method of Lab two or the text based representation of this lab? In what situations do you think Schematic entry would be better, in which situations would Text base be advantageous.
       \end{enumerate}
+
+  %| =================================================================================================
+  %| Conclusion
+  %| =================================================================================================
+  \section{Conclusion}
+    \IEEEPARstart{V}{erilog} is an IEEE standard(1364)\cite{Wikipedia:Verilog}, it is pervasive in industry and can be used to develop specialized hardware in the form of ASICs or reconfigurable FPGAs. It is important to underscore the differences between Verilog and a programming language like C, Java, even Assembly. Verilog offers the ability to take parallel action. Two numbers can be multiplied at once, multiple registers can be set and cleared. Entire microprocessors can be implemented on the Nano, one of the later labs will explore Altera's softprocessor the NIOS II. The TerASIC documentation included with the DE0-Nano kit is pretty good and worth the read. It will help you get the most out of the FPGA. The CD included with the Nano will also include circuit schematics that can provide a great reference when it comes time to make one of your own.
 
   %| =================================================================================================
   %| Bibliography
