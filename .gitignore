@@ -42,3 +42,9 @@ TOC.fls
 *.rpt
 
 *.sof
+
+*.done
+
+*.blg
+
+*.summary
