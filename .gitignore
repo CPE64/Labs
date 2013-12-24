@@ -38,3 +38,7 @@ TOC.fls
 .rpt
 
 .lol
+
+*.rpt
+
+*.sof
