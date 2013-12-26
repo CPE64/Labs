@@ -18,12 +18,12 @@
 
   \maketitle
     \begin{abstract}
-      Two input logic gates are synthesized for the Altera Cyclone IV FPGA using the Quartus IDE. The logic gates are verified using a System Verilog testbench and Mentor's Modelsim HDL simulator
+      Two input logic gates are synthesized for the Altera Cyclone IV FPGA using the Quartus IDE. The logic gates are described using System Verilog HDL and verified using a System Verilog testbench and Mentor's Modelsim HDL simulator
     \end{abstract}
   %| =================================================================================================
   %| Introduction
   %| =================================================================================================
-  \section{\bfseries Introduction}
+  \section{Introduction}
     \IEEEPARstart{T}{his} lab will introduce Verilog's behavioral modeling ability. It is a powerful tool that allows the programmer to abstract themselves from the burdons of stuctural modeling. In the previous lab we used whats called Structual modeling, we created indivual gate ``structures'' and wired them together to implement the design. This is the most basic use of Verilog but bmagine creating Karnaugh maps for all 72GPIO pins, or better yet the 548 user configurable pins on the Stratix\cite{Altera:StratixDeviceOverview}. This is simply unreasonable, behavioral modeling allows the use of higher level statements like Ifs and Cases. if you don't know what these are, don't worry, we will explore them throughly in this lab. The purpose of this lab is to introduce the following concepts:
     \begin{itemize}
       \item Verilog behavioral modeling

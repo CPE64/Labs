@@ -11,7 +11,6 @@
 
 \newcommand{\TITLE}{Lab Five: State Machines}
 \newcommand{\KEYWORDS}{Logic Gates, Verilog, FPGA, Signaltap, Synthesis}
-\newcommand{\ABSTRACT}{Two input logic gates are synthesized for the Altera Cyclone IV FPGA using the Quartus IDE. The logic gates are verified using a System Verilog testbench and Mentor's Modelsim HDL simulator}
 \title{Lab Five: State Machines}
 \author{Ben Smith}
 
@@ -38,7 +37,7 @@
   %| The Case Statement
   %| =================================================================================================
   \section{The Case Statement}
-    Verilog makes use of the case statement like most other progamming languages. The case statement provides a clear way for your code to step through a procedure. It is common to implement a state machine using the case statement for a number of reasons.
+    \IEEEPARstart{V}{erilog} makes use of the case statement like most other progamming languages. The case statement provides a clear way for your code to step through a procedure. It is common to implement a state machine using the case statement for a number of reasons.
     \begin{enumerate}
       \item Enumerated types show up in Signaltap for easy debugging.
       \item The organized syntax creates more readable code.
@@ -48,7 +47,7 @@
   %| The state machine
   %| =================================================================================================
   \section{The state machine}
-    This lab will assume that you have had a basic introduction to state machines in the lecture. We will cover some topics that are particular to the FPGA and HDL implementation of the logic. Altera offers a number of templates for the creation of a state machine\cite{Altera:QuartusHandbook}:
+    \IEEEPARstart{T}{his} lab will assume that you have had a basic introduction to state machines in the lecture. We will cover some topics that are particular to the FPGA and HDL implementation of the logic. Altera offers a number of templates for the creation of a state machine\cite{Altera:QuartusHandbook}:
       
       \subsection{4-State Mealy Machine:} This style of logic was coined in George Mealy's 1955 paper “A Method for Synthesizing Sequential Circuits.” The trademark feature is that it's outputs are determined by both the current state and the current inputs. \cite{Wikipedia:MealyMachine}
       
@@ -76,9 +75,12 @@
 %| Procedure
 %| =================================================================================================
 \section{ Lab Procedure}
+\IEEEPARstart{T}{hese} labs 
   \subsection{Case State Warmup: The Multiplexer}
 
   \subsection{Binary sequence dector}
+
+  \subsection{Hard Mode: I2C Start and Stop conddition identifier}
   We are to build a state machine that can detect a binary sequence. This structure is a common use of the state machine for identifying start and stop conditions in a datastream. This will be a simple machine based on the starting sequence for the I2C bus.
 %| =================================================================================================
 %| Lab Report Requirements
