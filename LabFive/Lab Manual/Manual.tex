@@ -12,10 +12,16 @@
 \newcommand{\TITLE}{Lab Five: State Machines}
 \newcommand{\KEYWORDS}{Logic Gates, Verilog, FPGA, Signaltap, Synthesis}
 \newcommand{\ABSTRACT}{Two input logic gates are synthesized for the Altera Cyclone IV FPGA using the Quartus IDE. The logic gates are verified using a System Verilog testbench and Mentor's Modelsim HDL simulator}
+\title{Lab Five: State Machines}
+\author{Ben Smith}
 
 \input{./../../ProjectWideTex/header.tex}
+\begin{document}
 
-
+  \maketitle
+    \begin{abstract}
+      Two input logic gates are synthesized for the Altera Cyclone IV FPGA using the Quartus IDE. The logic gates are verified using a System Verilog testbench and Mentor's Modelsim HDL simulator
+    \end{abstract}
 %| =================================================================================================
 %| Introduction
 %| =================================================================================================
@@ -51,7 +57,8 @@
       \subsection{Safe State Machine:} This style of machine uses a specific altera directive that inserts extra logic to detect invalid states and returns the state machine to the initial state.
       
       \subsection{User-Encoded State Machine:} This can be incorporated into all of the previous types. It allows the states to be named which aids in debugging and overall code readability.
-      \lstinputlisting[caption=Example of enumerated state machine]{./Codesnips/StateMachineExample.sv}
+
+      We will focus on the Mealy and Moore state machines. Now even with just these two state machines there are a number of different ways to code them. I will reference a number of papers whose author's spent alot of time measuring the advantages of each style. The top performer is a ``two always block'' with the state enumeration provided by System Verilog. This is going to get heavy for a minute but focus on the templates for now, understanding will come with experience.
 
     %| Important reccomendations from altera
     \subsubsection{Important reccomendations from altera}
@@ -62,12 +69,17 @@
         \item If your design contains an operation that is used by more than one state, define the operation outside the state machine and cause the output logic of the state machine to use this value.
         \item Use a simple asynchronous or synchronous reset to ensure a defined power-up state. If your state machine design contains more elaborate reset logic, such as both an asynchronous reset and an asynchronous load, the Quartus II software generates regular logic rather than inferring a state machine.
       \end{enumerate}
+
+      \clearpage
+      \lstinputlisting[caption=Example of enumerated state machine\cite{Sunburst:FSMs}]{./Codesnips/StateMachineExample.sv}
 %| =================================================================================================
 %| Procedure
 %| =================================================================================================
 \section{ Lab Procedure}
   \subsection{Case State Warmup: The Multiplexer}
 
+  \subsection{Binary sequence dector}
+  We are to build a state machine that can detect a binary sequence. This structure is a common use of the state machine for identifying start and stop conditions in a datastream. This will be a simple machine based on the starting sequence for the I2C bus.
 %| =================================================================================================
 %| Lab Report Requirements
 %| =================================================================================================
@@ -83,6 +95,4 @@
 %| =================================================================================================
 %| Bibliography
 %| =================================================================================================
-\bibliographystyle{IEEEtran}
-\bibliography{IEEEfull}
-\end{document}
+\input{../../ProjectWideTex/Bibliography}\end{document}

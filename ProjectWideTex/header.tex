@@ -1,4 +1,4 @@
-\documentclass[12pt,journal]{IEEEtran}
+\documentclass[10pt,journal]{IEEEtran}
 
 %| Override compsoc class' Palatino font for body text, restores to Times New Roman
 \renewcommand{\rmdefault}{ptm}\selectfont
@@ -11,7 +11,6 @@
 
 \usepackage[section]{placeins}
 
-%| Better tables than LaTeX 2e
 \usepackage{array}
 \usepackage{dblfloatfix}
 \usepackage{color}
@@ -21,9 +20,10 @@
 \usepackage{etoolbox}
 \usepackage{subcaption}
 \usepackage{listings}
-\usepackage{fixltx2e}
+\usepackage{fixltx2e}               %| Better tables than for LaTeX 2e
 \usepackage{minted}
 
+%| Highlighting for source code listings
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{ltgray}{rgb}{0.9,0.9,0.9}
 \definecolor{dkgray}{rgb}{0.5,0.5,0.5}
@@ -50,7 +50,7 @@
   showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
   showstringspaces=false,          % underline spaces within strings only
   showtabs=false,                  % show tabs within strings adding particular underscores
-  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
   stringstyle=\color{mymauve},     % string literal style
   tabsize=2,                       % sets default tabsize to 2 spaces
   title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
@@ -99,17 +99,3 @@
 
 %| Calls hyperref package with the options specified above
 \usepackage[\MYhyperrefoptions,pdftex]{hyperref}
-
-\begin{document}
-%| Inserts header cover sheet 
-\include{Title_Page}
-
-\pagenumbering{roman}
-
-\onecolumn
-\tableofcontents
-\listoffigures
-\twocolumn
-
-\pagenumbering{arabic}
-\setcounter{page}{1}
