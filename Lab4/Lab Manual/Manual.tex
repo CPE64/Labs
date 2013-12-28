@@ -1,0 +1,66 @@
+%| Weekly report template for CSUS Senior Design
+%|
+%| language: LaTeX
+%| Author: Ben Smith
+%| 
+%| This source has been tagged with the "<CHANGE" tag in areas
+%| that require updating when making a new docuent
+%|
+%| This source will generate a PDF file complete with thumbnails navigation menu and metadata.
+%| Much of the tex awesomeness comes from http://www.michaelshell.org/ praise be to him for creating the guide
+
+\newcommand{\TITLE}{Lab Four: Shift registers, Counters}
+\newcommand{\KEYWORDS}{Logic Gates, Verilog, FPGA, Signaltap, Synthesis}
+\newcommand{\ABSTRACT}{Two input logic gates are synthesized for the Altera Cyclone IV FPGA using the Quartus IDE. The logic gates are verified using a System Verilog testbench and Mentor's Modelsim HDL simulator}
+
+\title{Lab Four: Shift registers, Counters}
+\author{Ben Smith}
+
+\input{./../../ProjectWideTex/header.tex}
+\begin{document}
+
+  \maketitle
+    \begin{abstract}
+      Two input logic gates are synthesized for the Altera Cyclone IV FPGA using the Quartus IDE. The logic gates are verified using a System Verilog testbench and Mentor's Modelsim HDL simulator
+    \end{abstract}
+%| =================================================================================================
+%| Introduction
+%| =================================================================================================
+\section{Introduction}
+  \PARstart{T}{his} lab will reinforce the idea of modularity as we design modules which depend on a clock. Clocking circuits allows the synchronization of large blocks of logic. 
+
+  \subsection{What a Register really is}
+
+  \subsection{Posedge and Negedge in the sensitivity list}
+
+  \subsection{Blocking and non blocking operators}
+
+%| =================================================================================================
+%| Procedure
+%| =================================================================================================
+\section{Lab Procedure}
+  \IEEEPARstart{T}{his} lab focuses on applications of the shift register. It can be found in a number of uses like the serialization and de-serialization of data streams. A common trick to expand IO on a device is to use the venerable HC595 shift register. The data for the output pins can be output serially to the shift register instead of directly parallel. This trades update speed and code complexity for IO pin usage. Let's take some indicator LED's for example. They do not need to be updated frequently and we can save the complex IO pins on the FPGA for other purposes. 
+
+  \subsection{Timers}
+    \subsubsection{LED Brightness modulation}
+  
+  \subsection{Shift Registers}
+    \subsubsection{Interaction with External Shift register}   
+
+%| =================================================================================================
+%| Lab Report Requirements
+%| =================================================================================================
+\section{\bfseries  Lab Report}
+  
+%| =================================================================================================
+%| Conclusions
+%| =================================================================================================
+\section{\bfseries  Conclusion}
+ 
+
+%| =================================================================================================
+%| Bibliography
+%| =================================================================================================
+%\input{../../ProjectWideTex/Bibliography}
+
+\end{document}

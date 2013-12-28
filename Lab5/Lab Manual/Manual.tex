@@ -1,0 +1,100 @@
+%| Weekly report template for CSUS Senior Design
+%|
+%| language: LaTeX
+%| Author: Ben Smith
+%| 
+%| This source has been tagged with the "<CHANGE" tag in areas
+%| that require updating when making a new docuent
+%|
+%| This source will generate a PDF file complete with thumbnails navigation menu and metadata.
+%| Much of the tex awesomeness comes from http://www.michaelshell.org/ praise be to him for creating the guide
+
+\newcommand{\TITLE}{Lab Five: State Machines}
+\newcommand{\KEYWORDS}{Logic Gates, Verilog, FPGA, Signaltap, Synthesis}
+\title{Lab Five: State Machines}
+\author{Ben Smith}
+
+\input{./../../ProjectWideTex/header.tex}
+\begin{document}
+
+  \maketitle
+    \begin{abstract}
+      Two input logic gates are synthesized for the Altera Cyclone IV FPGA using the Quartus IDE. The logic gates are verified using a System Verilog testbench and Mentor's Modelsim HDL simulator
+    \end{abstract}
+%| =================================================================================================
+%| Introduction
+%| =================================================================================================
+\section{ Introduction}
+  \PARstart{I}{n} this lab state machines will be explored. We will walk through a number of examples from Altera to investigate the different types of state machines available to the digitial designer and why you might choose a particular one.
+
+    \subsubsection{The Case Statement}
+     The ``Enumeration'' of case statements is the first unique feature of System Verilog that we will use in these labs. before you could have named your files .v or .sv and it would not have mattered. Now for the project to compile, it must be .sv.
+
+  \subsection{Implement state machine using state table and K-Map}
+
+  \subsection{The Difference between Meely and Moore State Machines}
+
+  %| The Case Statement
+  %| =================================================================================================
+  \section{The Case Statement}
+    \IEEEPARstart{V}{erilog} makes use of the case statement like most other progamming languages. The case statement provides a clear way for your code to step through a procedure. It is common to implement a state machine using the case statement for a number of reasons.
+    \begin{enumerate}
+      \item Enumerated types show up in Signaltap for easy debugging.
+      \item The organized syntax creates more readable code.
+      \item easily expandable to include more states.
+    \end{enumerate}
+
+  %| The state machine
+  %| =================================================================================================
+  \section{The state machine}
+    \IEEEPARstart{T}{his} lab will assume that you have had a basic introduction to state machines in the lecture. We will cover some topics that are particular to the FPGA and HDL implementation of the logic. Altera offers a number of templates for the creation of a state machine\cite{Altera:QuartusHandbook}:
+      
+      \subsection{4-State Mealy Machine:} This style of logic was coined in George Mealy's 1955 paper “A Method for Synthesizing Sequential Circuits.” The trademark feature is that it's outputs are determined by both the current state and the current inputs. \cite{Wikipedia:MealyMachine}
+      
+      \subsection{4-State Moore State Machine:} created a year after the Mealy machine the Moore Machine was described in a 1956 paper Gedanken-experiments on Sequential Machines. The difference is the Moore machine is only dependant on it's current state. \cite{Wikipedia:MooreMachine}
+      
+      \subsection{Safe State Machine:} This style of machine uses a specific altera directive that inserts extra logic to detect invalid states and returns the state machine to the initial state.
+      
+      \subsection{User-Encoded State Machine:} This can be incorporated into all of the previous types. It allows the states to be named which aids in debugging and overall code readability.
+
+      We will focus on the Mealy and Moore state machines. Now even with just these two state machines there are a number of different ways to code them. I will reference a number of papers whose author's spent alot of time measuring the advantages of each style. The top performer is a ``two always block'' with the state enumeration provided by System Verilog. This is going to get heavy for a minute but focus on the templates for now, understanding will come with experience.
+
+    %| Important reccomendations from altera
+    \subsubsection{Important reccomendations from altera}
+      Quartus will recognise when you have created a state machine during synthesis. This will allow Quartus to optimize the design based on the known behavior of state machines. The Quartus II handbook offers the following reccomendations for writing state machines that we will follow.
+      \begin{enumerate}
+        \item Assign default values to outputs derived from the state machine so that synthesis does not generate unwanted latches.
+        \item Separate the state machine logic from all arithmetic functions and data paths, including assigning output values.
+        \item If your design contains an operation that is used by more than one state, define the operation outside the state machine and cause the output logic of the state machine to use this value.
+        \item Use a simple asynchronous or synchronous reset to ensure a defined power-up state. If your state machine design contains more elaborate reset logic, such as both an asynchronous reset and an asynchronous load, the Quartus II software generates regular logic rather than inferring a state machine.
+      \end{enumerate}
+
+      \clearpage
+      \lstinputlisting[caption=Example of enumerated state machine\cite{Sunburst:FSMs}]{./Codesnips/StateMachineExample.sv}
+%| =================================================================================================
+%| Procedure
+%| =================================================================================================
+\section{ Lab Procedure}
+\IEEEPARstart{T}{hese} labs 
+  \subsection{Case State Warmup: The Multiplexer}
+
+  \subsection{Binary sequence dector}
+
+  \subsection{Hard Mode: I2C Start and Stop conddition identifier}
+    We are to build a state machine that can detect a binary sequence. This structure is a common use of the state machine for identifying start and stop conditions in a datastream. This will be a simple machine based on the starting sequence for the I2C bus.
+%| =================================================================================================
+%| Lab Report Requirements
+%| =================================================================================================
+\section{ Lab Report}
+  
+
+%| =================================================================================================
+%| Conclusions
+%| =================================================================================================
+\section{ Conclusion}
+ 
+
+%| =================================================================================================
+%| Bibliography
+%| =================================================================================================
+\input{../../ProjectWideTex/Bibliography}\end{document}
