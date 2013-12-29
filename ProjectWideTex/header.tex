@@ -15,7 +15,7 @@
 \usepackage{float}
 \usepackage{url}                    %| Improved URL handling
 \usepackage{etoolbox}
-\usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage[font=footnotesize]{subcaption}
 \usepackage{listings}
 \usepackage{fixltx2e}               %| Better tables than for LaTeX 2e
 \usepackage{minted}
@@ -92,7 +92,7 @@
   pdftitle={CPE/EEE 64: Lab One},
   pdfsubject={Engineering},                        
   pdfauthor={California State University Sacramento},
-  pdfkeywords={\KEYWORDS}}                       
+  pdfkeywords={}}                       
 
 %| Calls hyperref package with the options specified above
 \usepackage[\MYhyperrefoptions,pdftex]{hyperref}
@@ -102,3 +102,5 @@
 \renewcommand{\ttdefault}{pcr}
 % enable Times/Palatino main text font
 \normalfont\selectfont
+
+\captionsetup[table]{format=plain,labelformat=simple,justification=centering, labelsep=newline, singlelinecheck=false, textfont={sc}}
