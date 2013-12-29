@@ -44,10 +44,11 @@
       \end{enumerate}
 
     \subsection{DE0-Nano Development board}
-      The DE0-Nano has a number of devices built into the board to expand the capabilities of the FPGA. Interacting with most of these will be beyond the scope of the course but represent real world design challenges and are worth experimenting with after this basic course is completed. Altera offers a number of tutorials for anyone interested in learning more. These labs will mostly use one of the 40-pin GPIO headers to interact with the outside world. 
+      The DE0-Nano has a number of devices built into the board to expand the capabilities of the FPGA. Interacting with most of these will be beyond the scope of the course but represent real world design challenges and are worth experimenting with after this basic course is completed. Altera offers a number of tutorials for anyone interested in learning more. These labs will mostly use one of the 40-pin GPIO headers to interact with the outside world. Let's take a moment to recognise the potential of this development board should you choose to persue it. Figure \ref{DEOBlockDia} shows a high level diagram of the development board. There is much more information availabile in the DE0-Nano manual.
       \begin{figure}[htpb]
         \includegraphics[width=.48\textwidth]{Images/DEONanoBlockDiagram.png}
         \caption{Block Diagram of DE0-Nano \cite{DE0Manual}}
+        \label{DEOBlockDia}
       \end{figure}
       The A/D converter and G-sensor will be great tools to interact with sensors in your later classes. If you choose to go down a path of controls engineering FPGAs will be a great way to implement ``deterministic''\footnote{a deterministic system is a system in which no randomness is involved in the development of future states of the system. A deterministic model will thus always produce the same output from a given starting condition or initial state.\cite{DynamicSystems}} control systems. Interfacing with these components will require the implementation of a SPI or I2C bus protocol. The De0-Nano system CD comes with some example code that uses these devices that would get the interested student off the ground in no time. 
 
@@ -136,18 +137,8 @@
           \caption{GPIO0 and it's orientation of the development board}
           \label{pinmap}
         \end{figure*}
-        This is the header pin schematic from the DE0-Nano user manual. Inside the verilog code these pins follow a little different nomenclature. What is labeled as GPIO\_0\_IN[0] in figure 5 is GPIO0\_IN[0] and GPIO\_00 is GPIO0[0]. Refer to the DE0-Nano user guide for details on the orientation of the headers.
-
-        \begin{figure}[htpb]
-          \includegraphics[width=.45\textwidth]{Images/GPIOpicture.jpg}
-          \caption{Picture of loaded GPIO-0 header}
-        \end{figure}
-
-        \begin{figure}[htpb]
-          \includegraphics[width=.48\textwidth]{Images/ExampleLayout.jpg}
-          \caption{Example switch and LED configuration with SIP resistors}
-        \end{figure}
-
+        This is the header pin schematic from the DE0-Nano user manual. Inside the verilog code these pins follow a little different nomenclature. What is labeled as GPIO\_0\_IN[0] in figure 5 is GPIO0\_IN[0] and GPIO\_00 is GPIO0[0]. Refer to the DE0-Nano user guide for details on the orientation of the headers. 
+        
       %| Step Five: Compile
       \subsubsection{Compile example with Quartus}
         Once you've created and tested your switch circuit we'll need to compile the example project. This can be done
