@@ -125,14 +125,14 @@
         Be careful when referencing the pin diagrams in the DE0-Nano user manual. It is easy to read it backwards and that can be a mistake that will cost you hours. It is easiest to match the Nano's orientation with the schematic and count from the nearest edge. Figure \ref{pinmap} shows GPIO 0 next to a schematic of the header. Always check VCC\_SYS, VCC3P3, and GND with a multimeter before attaching a circuit you have built. 
         \begin{figure*}
           \centering
-          \begin{subfigure}[b]{.38\textwidth}
+          \begin{minipage}[b]{.38\textwidth}
             \includegraphics[angle=270, width=.9\textwidth]{Images/LabeledGPIOHeaders.jpg}
             \caption{Orientation of GPIO Header\cite{DE0Manual}}
-          \end{subfigure}
-          \begin{subfigure}[b]{.45\textwidth}
+          \end{minipage}
+          \begin{minipage}[b]{.45\textwidth}
             \includegraphics[width=\textwidth]{Images/GPIOHeader.jpg}
             \caption{Schematic of GPIO-0 header\cite{DE0Manual}}
-          \end{subfigure}
+          \end{minipage}
           \caption{GPIO0 and it's orientation of the development board}
           \label{pinmap}
         \end{figure*}
