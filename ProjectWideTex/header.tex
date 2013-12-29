@@ -1,8 +1,5 @@
 \documentclass[10pt,journal]{IEEEtran}
 
-%| Override compsoc class' Palatino font for body text, restores to Times New Roman
-\renewcommand{\rmdefault}{ptm}\selectfont
-
 %| IEEE Citation package
 \usepackage{cite}
 
@@ -18,7 +15,7 @@
 \usepackage{float}
 \usepackage{url}                    %| Improved URL handling
 \usepackage{etoolbox}
-\usepackage{subcaption}
+\usepackage[caption=false,font=footnotesize]{subfig}
 \usepackage{listings}
 \usepackage{fixltx2e}               %| Better tables than for LaTeX 2e
 \usepackage{minted}
@@ -99,3 +96,9 @@
 
 %| Calls hyperref package with the options specified above
 \usepackage[\MYhyperrefoptions,pdftex]{hyperref}
+
+\renewcommand{\sfdefault}{phv}
+\renewcommand{\rmdefault}{ptm}
+\renewcommand{\ttdefault}{pcr}
+% enable Times/Palatino main text font
+\normalfont\selectfont
