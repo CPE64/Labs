@@ -1,4 +1,4 @@
-\documentclass[10pt,journal]{IEEEtran}
+\documentclass[9pt,journal]{IEEEtran}
 
 %| IEEE Citation package
 \usepackage{cite}
@@ -19,6 +19,12 @@
 \usepackage{listings}
 \usepackage{fixltx2e}               %| Better tables than for LaTeX 2e
 \usepackage{minted}
+
+%| for boxed text and stuch
+\usepackage{fancybox}
+\newenvironment{fminipage}%
+{\begin{Sbox}\begin{minipage}}%
+{\end{minipage}\end{Sbox}\shadowbox{\TheSbox}}
 
 %| Highlighting for source code listings
 \definecolor{mygreen}{rgb}{0,0.6,0}
