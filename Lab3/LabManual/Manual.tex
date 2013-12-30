@@ -48,7 +48,7 @@
       \lstinputlisting[caption=Template for System Verilog Modules]{./codesnips/AdderExample.sv}
 
     \subsection{Instantiation of a Verilog module}
-      At the core of modular design is the module instantiation. Think of it of plopping a piece of hardware down on a breadboard. You could make a LS7400 Verilog module and every instantiation would be another discrete device just like using a real LS7400 on your breadboard. In Verilog the module name, <Module> in the listing below, is the name of the module you are instantiating.
+      At the core of modular design is the module instantiation. Think of it of plopping a piece of hardware down on a breadboard. You could make a LS7400 Verilog module and every instantiation would be another discrete device just like using a real LS7400 on your breadboard. In Verilog the module name, is the name of the module you are instantiating.
       \lstinputlisting[caption=Template for System Verilog Modules]{./codesnips/InstantiationTemplate.sv}
 
     
@@ -58,10 +58,10 @@
   parameter constant = 4'b0000;
       \end{lstlisting}
       This is the Value that will be used if the parameter is not specified in the module instantiation. An example of parameter usage when instantiating a new module is below. Anything in angle brackets is something that you will need to replace with the information form your design.
-      \lstinputlisting[caption=Template for System Verilog Modules]{./codesnips/instantiationTemplate.sv}
+      \lstinputlisting[caption=Template for System Verilog module instantiation]{./codesnips/instantiationTemplate.sv}
 
     Notice the addition of the \#() before the instance name in the last design. We can see the adder module instantiation in the test bench follows this syntax.
-    \lstinputlisting[caption=Template for System Verilog Modules]{./codesnips/AdderInstantiationTemplate.sv}
+    \lstinputlisting[caption=Instantiation example form the testbench]{./codesnips/AdderInstantiationTemplate.sv}
 
     \subsection{Test Bench for automated debugging}
       Verilog roughly breaks into two halves synthesizable and non-synthesizable. FPGAs synthesis cantake a very long time, using a simulator to verify individual modules can be much faster than resynthesizing the entire design. The Testbench also offers a unique ability to check expected outputs and generate test stimulus. We will use a test bench to check the provided Verilog modules are providing the desired operation in part C of the procedure. This simulation should be verified against the known truth table for the logic gate to ensure the module is accurate. Verification is a very important topic in logic design. \footnote{If you are particularly driven to be an expert in programmable logic I highly recommend a series of MOOC courses on debugging taught by Andreas Zeller on debugging. Both classes deal only with Python but the way of thinking is important topic. The classes are \href{https://www.udacity.com/course/cs258}{Software Testing} and \href{https://www.udacity.com/course/cs259}{Software Debugging} the first few videos in each series cover the important topics. Keep in mind these classes are outside the scope of this class and I only offer them because how much they helped me be a better designer.}
@@ -107,6 +107,24 @@
 
     All of the code from this first section is provided in source.zip. There is quite a learning curve to this part, be sure to watch the screen cast which describes the included modules. You will be assigned a constant by the lab instructor that the input number will be added to. This number should be entered as a parameter in the adder module's instantiation as is done in the test bench.
 
+    %| Required Lab Demo
+    %| =================================================================================================
+      \vspace{15px}
+      \begin{centering}
+        \begin{fminipage}{.43\textwidth}
+          \vspace{3px}
+          \centering{\bfseries \large Laboratory Demo}\\*
+          \vspace{10px}
+          \begin{tabular}{p{1.8cm}  p{5.4cm}}
+            %|==Requirements for lab demo==
+            \raggedright Physical deliverable:                         &Constructed circuit on breadboard,  the Nano programmed with your AOI module.\\
+            \\
+            \raggedright Documentation deliverable:          & Labeled schematic of circuit,  truth table from your  experimental result.\\
+            \\
+            Process :                                                                            &The student will be asked the result of a few random numbers to verify the correct operation of their circuit.
+          \end{tabular}
+        \end{fminipage}
+      \end{centering}
   %| =================================================================================================
   %| Procedure: 4-bit and constant adder 
   %| =================================================================================================
@@ -124,7 +142,30 @@
   %| =================================================================================================
   \subsection{Design of Comparator}
     This section requires the previous sections code to be modified to add two 4-bit inputs. This will require the removal of the previous modules' parametrization and the addition of an additional input port. 
+    \begin{figure}[H]
+      \label{TestbenchOutput}
+      \includegraphics[width=.48\textwidth]{Images/ComparitorTestbench.png}
+      \caption{Example output of testbench}
+    \end{figure}
 
+    %| Required Lab Demo
+    %| =================================================================================================
+      \vspace{15px}
+      \begin{centering}
+        \begin{fminipage}{.43\textwidth}
+          \vspace{3px}
+          \centering{\bfseries \large Laboratory Demo}\\*
+          \vspace{10px}
+          \begin{tabular}{p{1.8cm}  p{5.4cm}}
+            %|==Requirements for lab demo==
+            \raggedright Physical deliverable:                         &Constructed circuit on breadboard,  the Nano programmed with your AOI module.\\
+            \\
+            \raggedright Documentation deliverable:          & Labeled schematic of circuit,  truth table from your  experimental result.\\
+            \\
+            Process :                                                                            &The student will be asked the result of a few random numbers to verify the correct operation of their circuit.
+          \end{tabular}
+        \end{fminipage}
+      \end{centering}
   %| =================================================================================================
   %| Procedure: Comparator Design
   %| =================================================================================================
@@ -134,7 +175,7 @@
     \begin{itemize}
       \item Code listing of Full Adder
       \item Code listing for comparator
-      \item It's important to remember Verilog is a Hardware Descriptive Language. The synthesis actually implements the Verilog in code. Quartus contains what are called ``Netlist Viewers'' that show the actual implementation. take a look at how Quartus synthesized your design as is shown in screencastX. Include screen captures of the combinatorial blocks listed in your design.ww
+      \item It's important to remember Verilog is a Hardware Descriptive Language. The synthesis actually implements the Verilog in code. Quartus contains what are called ``Netlist Viewers'' that show the actual implementation. take a look at how Quartus synthesized your design as is shown in screencastX. Include screen captures of the combinatorial blocks listed in your design.
     \end{itemize}
 
     \subsection{Questions to Answer}
