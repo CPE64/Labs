@@ -1,31 +1,29 @@
-%| Weekly report template for CSUS Senior Design
+%|  CSUS CPE64/EEE64 Verilog Labs: Lab Two
 %|
-%| language: LaTeX
-%| Author: Ben Smith
+%|  language: LaTeX
+%|  Author: Ben Smith
 %| 
-%| This source has been tagged with the "CHANGE" tag in areas
-%| that require updating when making a new docuent
+%|  This source generates the lab manual document when compiled using a LaTeX processor.  All packages are included in a full
+%|  installation of a LaTeX System.  
 %|
-%| This source will generate a PDF file complete with thumbnails navigation menu and metadata.
-%| Much of the tex awesomeness comes from http://www.michaelshell.org/ praise be to him for creating the guide
-\newcommand{\KEYWORDS}{Logic Gates, Verilog, FPGA, Signaltap, Synthesis}
-
+%| 
+%| 
+\title{Lab Two: Introduction to logic on the FPGA}
+\author{Ben Smith}
 \input{./../../ProjectWideTex/header.tex}
 
 \begin{document}
-\title{Lab Two: Introduction to logic on the FPGA}
-\author{Ben Smith}
 \maketitle
 
   \begin{abstract}
-    This document is an introduction to the DE0-Nano development board, Altera's Cyclone FPGAs and the Quartus IDE. The block editor feature of Quartus is used to synthesize logic gate primitives and more complex logic functions from these primitives.
+    This document is an introduction to the DE0-Nano development board, Altera's Cyclone FPGAs and the Quartus IDE. The block editor feature of Quartus is used to synthesize logic gate primitives and more complex logic functions from these primitives. The synthesis of these simple structures allows the student to gain experience with the development tools used by the DE0-Nano Development board.
   \end{abstract}
 
   %| =================================================================================================
   %| Introduction
   %| =================================================================================================
   \section{Introduction}
-    \PARstart{T}{his} lab introduces the DE0-Nano development board and Altera's Quartus development environment. Quartus will be used to program the Altera Cyclone IV FPGA on the DE0-Nano.\footnote{FPGAs remained a mystery to me for quite some time, this video does a great job of discussing the benefits and drawbacks of the devices \href{https://www.youtube.com/watch?v=gUsHwi4M4xE}{EEV Blog: What is a FPGA?}} We will start by using Quartus' schematic representation of logic modules and move into text based design capture in the later labs. The schematic entry method his will be very similar to the logic designs that you have created in Multisim and implemented with discrete 7400 series logic ICs. This lab is intended to introduce the student to the following concepts.
+    \PARstart{T}{his} lab introduces the DE0-Nano development board and Altera's Quartus development environment. Quartus will be used to program the Altera Cyclone IV FPGA on the DE0-Nano.\footnote{FPGAs remained a mystery to me for quite some time, this video does a great job of discussing the benefits and drawbacks of the devices \href{https://www.youtube.com/watch?v=gUsHwi4M4xE}{EEV Blog: What is a FPGA?}}  The schematic entry method his will be very similar to the logic designs that you have created in Multisim and implemented with discrete 7400 series logic ICs. The only difference is now the discrete logic can be implemented using the FPGA. This lab is intended to introduce the student to the following concepts.
     \begin{itemize}
        \item Logic primitives on a FPGA
        \item Quartus development environment
@@ -44,7 +42,7 @@
       \end{enumerate}
 
     \subsection{DE0-Nano Development board}
-      The DE0-Nano has a number of devices built into the board to expand the capabilities of the FPGA. Interacting with most of these will be beyond the scope of the course but represent real world design challenges and are worth experimenting with after this basic course is completed. Altera offers a number of tutorials for anyone interested in learning more. These labs will mostly use one of the 40-pin GPIO headers to interact with the outside world. Let's take a moment to recognise the potential of this development board should you choose to persue it. Figure \ref{DEOBlockDia} shows a high level diagram of the development board. There is much more information availabile in the DE0-Nano manual.
+      The DE0-Nano has a number of devices built into the board to expand the capabilities of the FPGA. Interacting with most of these will be beyond the scope of this course but represent real world design challenges and are worth experimenting with after this basic course is completed. Altera offers a number of tutorials for anyone interested in learning more. These labs will mostly use one of the 40-pin GPIO headers to interact with the outside world. Let's take a moment to recognise the potential of this development board should you choose to persue it. Figure \ref{DEOBlockDia} shows a high level diagram of the development board. There is much more information availabile in the DE0-Nano manual but the highlights are all here. The SDRAM can be used to store large amounts of information for fast access, great for a ``soft processor''\footnote{A softprocessor is a microcontroller implemented inside of the FPGA. These can be programmed in languages like C for more standard development processes. The advantage of this method is the ability to build the microcontroller to need using a hardware descriptive language}. The EEPROM allows program memory that does not clear with power reset, also very useful for a soft processor. The A/D converter allows analog voltages to be read which allows the devlopment board to interact with the outside world. It also features an accelerometer that will refresh at rates up to 1600Hz.
       \begin{figure}[htpb]
         \includegraphics[width=.48\textwidth]{Images/DEONanoBlockDiagram.png}
         \caption{Block Diagram of DE0-Nano \cite{DE0Manual}}
@@ -56,7 +54,7 @@
   %| Procedure
   %| =================================================================================================
   \section{Lab Procedure}
-    \PARstart{T}{his} section is a guide for what must be accomplished in the lab. Keep in mind the some of the following material will need to be documented in your lab report. It would behoove you to take a look at the lab report section before starting the procedure. Knowing what you need to record in the experiment will save you a great deal of time. Recording results of experiments will be stressed because the documentation of what you do is the most important part. To begin these labs you will need:
+    \PARstart{T}{his} section is a guide for what must be accomplished in the lab. Keep in mind the some of the following material will need to be documented in your lab report. It would behoove you to take a look at the lab report section before starting the procedure. Recording results of experiments will be stressed because the documentation of what you do is the most important part. To begin these labs you will need:
     \begin{itemize}
       \item De0-Nano Development board
       \item A breadboard
@@ -150,7 +148,22 @@
       %| Step Seven: Record Results
       %| =================================================================================================
       \subsection{Test behavior against expected truth table} 
-      Use the known behavior of the logic gates to test your design on the FPGA. It is imperative that you always verify the operation of a design. This design can be verified by creating a Logic Table for each of the gates. If the LED and switch behaves as expected, record the experimental data and move on. If not the design will have to be debugged.
+      Use the known behavior of the logic gates to test your design on the FPGA. It is imperative that you always verify the operation of a design. This design can be verified by creating a Logic Table for each of the gates. If the LED and switch behaves as expected, record the experimental data and move on. If not the design will have to be debugged.\\*
+
+      %| Required Lab Demo
+      %| =================================================================================================
+        \begin{centering}
+        \begin{fminipage}{.43\textwidth}
+          \centering{\bfseries \large Laboratory Demo}\\*
+          \vspace{10px}
+          \begin{tabular}{p{2.5cm}  p{4.7cm}}
+          %|==Requirements for lab demo==
+            \raggedright Physical Deliverable:  &Constructed circuit \\
+            \\
+            \raggedright Documentation     Deliverable:          & Labeled schematic of circuit\\
+          \end{tabular}
+        \end{fminipage}
+      \end{centering}
 
       %| Step Eight: Create XOR from logic primitives
       %| =================================================================================================
@@ -184,8 +197,22 @@
             \hline
             \end{tabular}
           \end{table}
-          Be sure to include a boolean logic expression for this truth table in your report.
 
+      %| Required Lab Demo
+      %| =================================================================================================
+        \begin{centering}
+        \begin{fminipage}{.43\textwidth}
+          \centering{\bfseries \large Laboratory Demo}\\*
+          \vspace{10px}
+          \begin{tabular}{p{2.5cm}  p{4.7cm}}
+          %|==Requirements for lab demo==
+            \raggedright Physical Deliverable:  &Constructed circuit \\
+            \\
+            \raggedright Documentation     Deliverable:          & Labeled schematic of circuit\\
+          \end{tabular}
+        \end{fminipage}
+      \end{centering}
+      
       %| Step Eight: Create XOR from logic primitives
       %| =================================================================================================
       \subsection{Design AOI module from logical equation} 
