@@ -26,9 +26,9 @@
     \IEEEPARstart{T}{his} lab will introduce Verilog's behavioral modeling ability. It is a powerful tool that allows the programmer to abstract themselves from the burdons of stuctural modeling. In the previous lab we used whats called Structual modeling, we created indivual gate ``structures'' and wired them together to implement the design. This is the most basic use of Verilog but bmagine creating Karnaugh maps for all 72GPIO pins, or better yet the 548 user configurable pins on the Stratix\cite{Altera:StratixDeviceOverview}. This is simply unreasonable, behavioral modeling allows the use of higher level statements like Ifs and Cases. if you don't know what these are, don't worry, we will explore them throughly in this lab. The purpose of this lab is to introduce the following concepts:
     \begin{itemize}
       \item Verilog behavioral modeling
-      \item Construction of adders and Comparitors
       \item Verilog's constant syntax
       \item Verilog behavioral blocks
+      \item Construction of adders and Comparitors
       \item Testbench assertions
       \item Instantiate a System Verilog module
       \item Use a System Verilog Testbench
@@ -39,12 +39,14 @@
       Verilog is a powerful way to describe circuits. Logic diagrams like those being used in lecture can become cumbersome in large designs. ``Text based design entry'' can be less prone to error because it is easier to track differences in large designs. Verilog is a text based hardware descriptive language the begun being used in ASIC(Application Specific Integrated Circuit). It is now the language of choice for FPGAs(Field Programmable Gate Array) and CPLDs(Computer Programmable Logic Devices). Quartus provides a comprehensive solution for testing Verilog and synthesizing it for use on their FPGAs and CPLDs.
 
     \subsection{Verilog Modularity}
-      One of the most important features of Verilog is it's ability to reuse a design. Reusing code allows you to  rapidly assemble and test new designs. The ability to rapidly prototype a design is one the biggest advantages of the FPGA. Reusing these modules is very similar to how you would reuse code in the workplace to be more productive. You could think of this as the source libraries that would be available at the company that you might work for.
+      One of the most important features of Verilog is it's ability to reuse a design. Reusing code allows you to  rapidly assemble and test new designs. The ability to rapidly prototype a design is one of the greatest advantages of the FPGA. Reusing these modules is very similar to how you would reuse code in the workplace to be more productive. You could think of this as the source libraries that would be available at the company that you might work for.
 
     \subsection{Anatomy of a Verilog Module}
-      The ``module'' is at the heart of Verilog. Cleaver design will allow you to create a module that you can reuse in many designs.
-      \lstinputlisting[caption=Template for System Verilog Modules]{./codesnips/exampleModule.sv}
+      The ``module'' is at the heart of Verilog. Cleaver design will allow you to create a module that you can reuse in many designs. These labs will stress design for reusability sa
+      \lstinputlisting[caption=Template for System Verilog Modules]{./codesnips/exampleModule.sv} 
+
       Notice the [7:0] next to the wire declarations. This is a way to declare a ``parallel'' bus. We are just hooking up 7 wires at once. Compare this template to the example constant adder module from the Laboratory Procedure section.
+      
       \lstinputlisting[caption=Template for System Verilog Modules]{./codesnips/AdderExample.sv}
 
     \subsection{Instantiation of a Verilog module}

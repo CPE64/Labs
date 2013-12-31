@@ -139,11 +139,10 @@
         
       %| Step Five: Compile
       \subsubsection{Compile example with Quartus}
-        Once you've created and tested your switch circuit we'll need to compile the example project. This can be done
-        with the Quartus development environment. A walk through is provided in screencastX. 
+        Once you've created and tested your switch circuit we'll need to compile the example project. This can be done with the Quartus development environment. A walk through is provided in screencastX. 
 
       %| Step Six: Program Nano
-      \subsubsection{Use Quartus to program the Nano} refer to screencastX for a walk through. After synthesis Quartus will generate a .SOF\footnote{the .SOF stands for SRAM object file. This is an Altera standard for of their FPGAs.} file that can be used to program the FPGA using Quartus' programmer.
+      \subsubsection{Use Quartus to program the Nano} refer to screencastX for a walk through. After synthesis Quartus will generate a .SOF\footnote{the .SOF stands for SRAM object file. This is an Altera standard for of their FPGAs.} file that a can be used to program the FPGA using Quartus' programmer.
 
       %| Step Seven: Record Results
       %| =================================================================================================
@@ -152,18 +151,22 @@
 
       %| Required Lab Demo
       %| =================================================================================================
+        \vspace{15px}
         \begin{centering}
-        \begin{fminipage}{.43\textwidth}
-          \centering{\bfseries \large Laboratory Demo}\\*
-          \vspace{10px}
-          \begin{tabular}{p{2.5cm}  p{4.7cm}}
-          %|==Requirements for lab demo==
-            \raggedright Physical Deliverable:  &Constructed circuit \\
-            \\
-            \raggedright Documentation     Deliverable:          & Labeled schematic of circuit\\
-          \end{tabular}
-        \end{fminipage}
-      \end{centering}
+          \begin{fminipage}{.43\textwidth}
+            \vspace{3px}
+            \centering{\bfseries \large Laboratory Demo}\\*
+            \vspace{10px}
+            \begin{tabular}{p{1.8cm}  p{5.4cm}}
+              %|==Requirements for lab demo==
+              \raggedright Physical deliverable:                         &Constructed circuit on breadboard, with the Nano programmed with the example logic.\\
+              \\
+              \raggedright Documentation deliverable:          & Labeled schematic of circuit,  truth table from your  experimental result.\\
+              \\
+              Process :                                                                            &The student will be asked the result of a few random numbers to verify the correct operation of their circuit.
+            \end{tabular}
+          \end{fminipage}
+        \end{centering}
 
       %| Step Eight: Create XOR from logic primitives
       %| =================================================================================================
@@ -197,21 +200,6 @@
             \hline
             \end{tabular}
           \end{table}
-
-      %| Required Lab Demo
-      %| =================================================================================================
-        \begin{centering}
-        \begin{fminipage}{.43\textwidth}
-          \centering{\bfseries \large Laboratory Demo}\\*
-          \vspace{10px}
-          \begin{tabular}{p{2.5cm}  p{4.7cm}}
-          %|==Requirements for lab demo==
-            \raggedright Physical Deliverable:  &Constructed circuit \\
-            \\
-            \raggedright Documentation     Deliverable:          & Labeled schematic of circuit\\
-          \end{tabular}
-        \end{fminipage}
-      \end{centering}
       
       %| Step Eight: Create XOR from logic primitives
       %| =================================================================================================
@@ -222,7 +210,24 @@
         F = \overline{(A \wedge B) \vee (C \wedge D)}
       \end{displaymath}
 
-      Be sure to include a truth table in your lab report.
+      %| Required Lab Demo
+      %| =================================================================================================
+        \vspace{15px}
+        \begin{centering}
+          \begin{fminipage}{.43\textwidth}
+            \vspace{3px}
+            \centering{\bfseries \large Laboratory Demo}\\*
+            \vspace{10px}
+            \begin{tabular}{p{1.8cm}  p{5.4cm}}
+              %|==Requirements for lab demo==
+              \raggedright Physical deliverable:                         &Constructed circuit on breadboard,  the Nano programmed with your AOI module.\\
+              \\
+              \raggedright Documentation deliverable:          & Labeled schematic of circuit,  truth table from your  experimental result.\\
+              \\
+              Process :                                                                            &The student will be asked the result of a few random numbers to verify the correct operation of their circuit.
+            \end{tabular}
+          \end{fminipage}
+        \end{centering}
 
   %| =================================================================================================
   %| Lab Report Requirements
