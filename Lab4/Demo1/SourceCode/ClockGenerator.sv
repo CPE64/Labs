@@ -1,3 +1,11 @@
+//| Author          : Ben Smith
+//| Purpose         : Creates some pulses at some times for some period
+//| Revision        : 1.0
+//| Change History  :
+//| ============================================================================
+//|  1.0 - Initial Input
+//|
+//| ============================================================================
 `timescale 10us/10ns
 
 module ClockGenerator(
@@ -11,13 +19,13 @@ module ClockGenerator(
     // all we need to know now is the number of 10uS clocks required to make our timers
     // If this seems sketcky look up dimensional analysis on the intenet
 
-    //      1 s           10 000 000 us      1 Clock             
-    // ======= X =========== X ========    = 100 000 Clocks per pulse
-    //                                 1 ns                 10 us           
+    //   1 s     10 000 000 us   1 Clock
+    // ======= X ============= X ======== = 100 000 Clocks per pulse
+    //               1 ns         10 us
 
-    //     1 ms           1000 us        1 Clock             
-    // ======= X  ======== X ========    = 100 Clocks per pulse
-    //                            1 ms               10 us           
+    //  1 ms      1000 us    1 Clock
+    // ======= X ========= X ========     = 100 Clocks per pulse
+    //             1 ms       10 us
 
     //We'll need to count to 100k so the smallest register that can do that is
     // log base 2 of 100k = 16.6 so a 17bit counter will do. because the  smaller timer

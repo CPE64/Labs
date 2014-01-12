@@ -1,20 +1,19 @@
-//|     Example adder testbench module for CSUS CPE/EEE64
+//| Author          : Ben Smith
+//| Purpose         : testbench for comparitor.
+//| Revision        : 1.0
+//| Change History  :
+//| ============================================================================
+//|  1.0 - Initial Input
 //|
-//|     Author: Ben Smith
-//|
-//|     This module will test the verilog adder module
-//|     Parameter can be changed in this file or overridden in
-//|
-//|
-localparam SpecifiedConstant = 4'b0001;
+//| ============================================================================
 
 module ComparitorTestbench();
   //|
   //| Local reg/wire declarations
   //|--------------------------------------------
   reg             SimClk = 0;
-  reg   [7:0]     ReferenceNumber = 127;
-  reg   [7:0]     InputNumber = 0;
+  reg   [3:0]     ReferenceNumber = 127;
+  reg   [3:0]     InputNumber = 0;
   wire            G,E,L;
 
   //|

@@ -1,11 +1,12 @@
-//|     Example adder testbench module for CSUS CPE/EEE64
+//| Author          : Ben Smith
+//| Purpose         : Testbench for parameterized 4bit constant to variable 4 bit adder.
+//| Revision        : 1.0
+//| Change History  :
+//| ============================================================================
+//|  1.0 - Initial Input
 //|
-//|     Author: Ben Smith
-//|
-//|     This module will test the verilog adder module
-//|     Parameter can be changed in this file or overridden in
-//|
-//|
+//| ============================================================================
+
 localparam SpecifiedConstant = 4'b0001;
 
 module adderTestbench();

@@ -1,14 +1,16 @@
-//|     Example adder module for CSUS CPE/EEE64
+//| Author          : Ben Smith
+//| Purpose         : Provides an indication if one of two four bit is larger than
+//|                   the other.
+//| Revision        : 1.0
+//| Change History  :
+//| ============================================================================
+//|  1.0 - Initial Input
 //|
-//|     Author: Ben Smith
-//|
-//|     This module will add a specified number to a constant parameter. The
-//|     Parameter can be changed in this file or overridden in
-//|
-//|
+//| ============================================================================
+
 module Comparitor(
-  input     wire [7:0]    ComparisonReference,
-  input     wire [7:0]    ComparisonInput,
+  input     wire [3:0]    ComparisonReference,
+  input     wire [3:0]    ComparisonInput,
   output    reg           G,E,L = 0
   );
 

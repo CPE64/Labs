@@ -32,4 +32,28 @@ To find the rendered text of the lab manual look in an individual lab's folder. 
 - objective: Allow Student to investigate particular topic of interest through project.
 
 ## Screencasts
- todo
+### Lab Two
+- Installing Quartus
+- Block editor in Quartus
+- Pin Editor in Quartus
+
+### Lab Three
+- Verilog Testbench
+- Automated debugging
+
+### Lab Four
+
+### Lab Five
+
+## Content to add
+###Lab Two
+
+###Lab Three
+- Signals and probes editor
+
+### Lab Four
+- Signaltap
+
+### Lab Five
+
+### Lab Six

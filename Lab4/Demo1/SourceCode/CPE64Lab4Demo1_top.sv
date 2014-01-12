@@ -1,3 +1,11 @@
+//| Author          : Ben Smith
+//| Purpose         : Creates some pulses at some times for some period
+//| Revision        : 1.0
+//| Change History  :
+//| ============================================================================
+//|  1.0 - Initial Input
+//|
+//| ============================================================================
 module CPE64Lab4Demo1_top(
     input                       CLOCK_50,   //brought in for debug use
 

@@ -64,7 +64,7 @@
 \section{Lab Procedure}
 
   \subsection{Application of registers: Timers}
-      The DE0-Nano has a 50MHz crystal oscillator and this is input to the FPGA clock pin.  This clock must used to trigger operations every nanosecond and every 2 milliseconds.  Measure the frequency  of this trigger signal using a debugging tool like Signaltap or output the signal to pins and measure the output with an oscilloscope.
+      The DE0-Nano has a 50MHz crystal oscillator and this is input to the FPGA clock pin.  This clock must used to trigger operations every second and every 2 milliseconds. The operations are triggered by a pulse longer than 100 microseconds. Measure the frequency  of this trigger signal using a debugging tool like Signaltap or output the signal to pins and measure the output with an oscilloscope.
      
     %| Required Lab Demo
     %| =================================================================================================
@@ -76,11 +76,12 @@
         \vspace{10px}
         \begin{tabular}{p{1.8cm}  p{5.4cm}}
           %|==Requirements for lab demo==
-          \raggedright Physical deliverable:                & Constructed circuit on breadboard,  the Nano programmed with your AOI module.\\
+          \raggedright Physical deliverable:                          & Constructed circuit on breadboard,  the Nano generating timing signals.\\
           \\
-          \raggedright Documentation deliverable:           & Labeled schematic of circuit,  truth table from your  experimental result.\\
+          \raggedright Documentation deliverable:           & Labeled schematic of circuit,  oscilloscope capture of signal with timing information.\\
           \\
-          Process :                                         & The student will be asked the result of a few random numbers to verify the correct operation of their circuit.
+          Process :                                                                             & The student will be asked to show the device in operation.
+
         \end{tabular}
       \end{fminipage}
     \end{centering} 
@@ -98,11 +99,11 @@
       \vspace{10px}
       \begin{tabular}{p{1.8cm}  p{5.4cm}}
         %|==Requirements for lab demo==
-        \raggedright Physical deliverable:           &Constructed circuit on breadboard,  the Nano programmed with your AOI module.\\
+        \raggedright Physical deliverable:                     &Constructed circuit on breadboard,  the Nano programmed with your AOI module.\\
         \\
         \raggedright Documentation deliverable:      & Labeled schematic of circuit,  truth table from your  experimental result.\\
         \\
-        Process :                                    &The student will be asked the result of a few random numbers to verify the correct operation of their circuit.
+        Process :                                                                        &The student will be asked the result of a few random numbers to verify the correct operation of their circuit.
       \end{tabular}
     \end{fminipage}
   \end{centering} 
