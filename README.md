@@ -6,6 +6,7 @@ Each lab is made up of three parts in this repository. The lab manual is written
 ##text of labs
 To find the rendered text of the lab manual look in an individual lab's folder. For example lab2/manual.pdf would be the text of lab two. These rendered documents will be included with changes to the source Latex.
 
+<!-- ############################################################################ -->
 ##Written lab manual content
 
 ###Lab Two
@@ -31,6 +32,7 @@ To find the rendered text of the lab manual look in an individual lab's folder. 
 ### Lab Six
 - objective: Allow Student to investigate particular topic of interest through project.
 
+<!-- ############################################################################ -->
 ## Screencasts
 ### Lab Two
 - Installing Quartus
@@ -45,6 +47,7 @@ To find the rendered text of the lab manual look in an individual lab's folder. 
 
 ### Lab Five
 
+<!-- ############################################################################ -->
 ## Content to add
 ###Lab Two
 
@@ -53,7 +56,8 @@ To find the rendered text of the lab manual look in an individual lab's folder. 
 
 ### Lab Four
 - Signaltap
+- tri-state 
 
 ### Lab Five
-
+- Timing closure
 ### Lab Six
