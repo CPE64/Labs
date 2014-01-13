@@ -17,19 +17,32 @@
 
   \maketitle
     \begin{abstract}
-      This document introduces concepts related to the implementation of Registers and Timers in the System Verilog hardware descriptive language.
+      This document introduces concepts related to the implementation of Registers and Timers in the System Verilog hardware descriptive language. The effects of register timing, metastability and the FPGA timing closure process are breifly discussed.
     \end{abstract}
 %| =================================================================================================
 %| Introduction
 %| =================================================================================================
 \section{Introduction}
-  \PARstart{T}{his} lab will reinforce the idea of modularity as we design modules which depend on a clock. Clocking circuits allows the synchronization of large blocks of logic. The concepts this lab introduces are at the core of design with Verilog. The sensitivity list will allow you to communicate with a number of different devices on different system clocks greatly expanding the usefulness of the language. It is important to remember that each one of these blocks evaluates simultaneously, he behavioral block is at the core of Verilog's parallel nature.
+  \PARstart{T}{his} lab will reinforce the idea of modularity as we design modules which depend on a clocking signal. Clocking circuits allows the synchronization of large blocks of logic. The concepts this lab introduces are at the core of design with Verilog. The sensitivity list will allow you to communicate with a number of different devices on different system clocks greatly expanding the usefulness of the FPGA. It is important to remember that each one of these blocks evaluates simultaneously, the behavioral block is at the core of Verilog's parallel nature. 
 
   %| Clocked designs in Verilog
   %| =================================================================================================
   \subsection{Clocked designs in Verilog}
-    \subsubsection{Posedge and Negedge in the sensitivity list}
 
+    \subsubsection{Posedge and Negedge in the sensitivity list}
+      These operators are commonly used in the sensativity list of a logical block in Verilog.
+    
+    \subsubsection{Register metastability and timing closure}
+    
+    \begin{enumerate}
+      \item When modeling sequential logic, use nonblocking assignments.
+      \item When modeling latches, use nonblocking assignments.
+      \item When modeling combinational logic with an always block, use blocking assignments.
+      \item When modeling both sequential and combinational logic within the same always block, use nonblocking assignments.
+      \item Do not mix blocking and nonblocking assignments in the same always block.
+      \item Do not make assignments to the same variable from more than one always block.
+      \item Use \$strobe to display values that have been assigned using non blocking assignments.
+    \end{enumerate}
 
   %| Blocking and non blocking operators
   %| =================================================================================================
@@ -37,26 +50,20 @@
     Verilog statements can be structured by using two different assignments. These two types of statements must be used to avoid race conditions when your code is synthesized. Once again Clifford Cummings offers a great insight into the operation of these language constructs. 
       
     \subsubsection{Blocking assignments \bfseries ( = )} 
-      Blocking assignments occur in one step, all other operations are ``paused'' while waiting for the operation to complete.Evaluate the RHS (right-hand side equation) and update the LHS (left-hand side expression) of the blocking assignment without interruption from any other Verilog statement.''\cite{Sunburst:BlockNoBlock}.
+      Blocking assignments occur in one step, all other operations are ``paused'' while waiting for the operation to complete.Evaluate the RHS (right-hand side equation) and update the LHS (left-hand side expression) of the blocking assignment without interruption from any other Verilog statement.''\cite{Sunburst:BlockNoBlock}
 
-    \subsubsection{Blocking assignments \bfseries ( $<$= )} 
+    \subsubsection{Non-Blocking assignments \bfseries ( $<$= )} 
       The evaluation of nonblocking assignments is a bit more complex than the blocking operator and requires special consideration. The execution of these statements is defined as follows
       \begin{enumerate}
         \item Evaluate the RHS of nonblocking statements at the beginning of the time step.
         \item Update the LHS of nonblocking statements at the end of the time step.
       \end{enumerate}
-      \cite{Sunburst:BlockNoBlock}.
-
-  %| Blocking and non blocking operators
-  %| =================================================================================================
-  \subsection{Blocking and non blocking operators}
-
-
+      \cite{Sunburst:BlockNoBlock}
 
   %| Clock division with registers
   %| =================================================================================================
   \subsection{Clock division with Counters}
-    The idea of a clock divider in verilog is identical to a divider with discrete logic. Because of the constraints on FPGA design a synchronus counter is the best option for our purpose. If one d flip-flop divides a clock by two, then the addition of another will divide the input clock by four and so on. this can be generalized to $$f_{out}=\frac{f_{in}}{\text{number of bits in register}}$$ 
+    The idea of a clock divider in verilog is identical to a divider with discrete logic. Because of the timing constraints on the FPGA, a synchronus counter is the best option for our requirements. If one d flip-flop divides a clock by two, then the addition of another will divide the input clock by four and so on. this can be generalized to $$f_{out}=\frac{f_{in}}{\text{number of bits in register}}$$
     
 %| =================================================================================================
 %| Procedure
@@ -76,11 +83,11 @@
         \vspace{10px}
         \begin{tabular}{p{1.8cm}  p{5.4cm}}
           %|==Requirements for lab demo==
-          \raggedright Physical deliverable:                          & Constructed circuit on breadboard,  the Nano generating timing signals.\\
+          \raggedright Physical deliverable:         & Constructed circuit on breadboard,  the Nano generating timing signals.\\
           \\
-          \raggedright Documentation deliverable:           & Labeled schematic of circuit,  oscilloscope capture of signal with timing information.\\
+          \raggedright Documentation deliverable:    & Labeled schematic of circuit,  oscilloscope capture of signal with timing information.\\
           \\
-          Process :                                                                             & The student will be asked to show the device in operation.
+          Process :                                  & The student will be asked to show the device in operation.
 
         \end{tabular}
       \end{fminipage}
@@ -99,11 +106,11 @@
       \vspace{10px}
       \begin{tabular}{p{1.8cm}  p{5.4cm}}
         %|==Requirements for lab demo==
-        \raggedright Physical deliverable:                     &Constructed circuit on breadboard,  the Nano programmed with your AOI module.\\
+        \raggedright Physical deliverable:           & Constructed circuit on breadboard,  the Nano programmed with your AOI module.\\
         \\
         \raggedright Documentation deliverable:      & Labeled schematic of circuit,  truth table from your  experimental result.\\
         \\
-        Process :                                                                        &The student will be asked the result of a few random numbers to verify the correct operation of their circuit.
+        Process :                                    & The student will be asked the result of a few random numbers to verify the correct operation of their circuit.
       \end{tabular}
     \end{fminipage}
   \end{centering} 
@@ -118,10 +125,9 @@
 %| =================================================================================================
 \section{\bfseries  Conclusion}
  
-
 %| =================================================================================================
 %| Bibliography
 %| =================================================================================================
-%\input{../../ProjectWideTex/Bibliography}
+\input{../../ProjectWideTex/Bibliography}
 
 \end{document}
