@@ -53,7 +53,7 @@
   %| Procedure
   %| =================================================================================================
   \section{Lab Procedure}
-    \PARstart{T}{his} section is a guide for what must be accomplished in the lab. Keep in mind, the some of the following material will need to be documented in your lab report. It would behoove you to take a look at the lab report section before starting the procedure. Recording results of experiments will be stressed because the documentation of what you do is the most important part. To begin these labs you will need:w
+    \PARstart{T}{his} section is a guide for what must be accomplished in the lab. Keep in mind, the some of the following material will need to be documented in your lab report. It would behoove you to take a look at the lab report section before starting the procedure. Recording results of experiments will be stressed because the documentation of what you do is the most important part. To begin these labs you will need:
     \begin{itemize}
       \item De0-Nano Development board
       \item A breadboard
@@ -62,43 +62,40 @@
       \item Windows or Linux based computer
       \item Internets
     \end{itemize}
-
-    %| Step Zero: Install Quartus
-    %| =================================================================================================
-    \subsection{Optional: Install Quartus}
-    You can download the most recent version of Quartus and Cyclone device drivers from Altera. Screencast 1is a walk through for windows, but Quartus is also available for Linux. This is preinstalled on the computers in the Digital design laboratory. The same version is available from Altera free of charge if you would like to use your own computer.
-
-    %| Step One: Expand source .zip
-    %| =================================================================================================
-    \subsection{Expand Source.Zip}
-    The Quartus project file and top level schematic are contained within this archive. Expand it wherever is convenient for you, it will be accessed frequently. The Quartus project file included with the source code is generated with the Terasic DE0-Nano System Builder that is included with the Terasic System CD. You can use this if you want to generate a clean project for yourself. The contents of the archive file are explained below from the perspective of the root of the archive.
-
-    \begin{enumerate}
-    \item Folder: Quartus Project \\
-      The quartus project file is contained in here with the myriad of required support files, generated reports, and logfiles.
-    \item Folder: Source Code \\
-      The Quartus project references these files. I choose to store them outside of the quartus project file so they are easy to access.
-      \begin{enumerate}
-        \item 64Lab1.bdf: top level schematic that will be used to capture logic designs
-        \item .SV: System Verilog source file
-        \item .V: Verilog source file
-      \end{enumerate}
-    \end{enumerate}
-    these files are used to save you some of the tedium of setup. It's worth attempting to create your own project, A tutorial has been included called ScreencastX.
     
-    %| Step Two: Open Quartus project
+    %| Step One: Introduction to DE0-Nano Board
     %| =================================================================================================
-    \subsection{Open Quartus project}
-    Navigate to where you expanded the Source.zip file. The Quartus project file you want to open is called``./Verilog/Quartus Project/64LabOne.qpf''\footnote{The ./ refers to the root of the source.zip package} When you open the project file open the ``Top Level'' .BDF (Block Diagram File) Inside this file there will be a number of logic gates attached to pins of the FPGA. A screencast explains the intricacies of the Schematic editor.
-    \begin{figure}[htpb]
-      \includegraphics[width=.48\textwidth]{Images/LogicPreview.png}
-      \caption{Quartus logic schematic editor example}
-      \label{nanoBlock}
-    \end{figure}
+    \subsection{Getting start with your DE0-Nano}
+      Altera's University program provides excellent tutorials for Quartus. This first tutorial covers installation of drivers for the DE-Series board. This is information will only be pertenent to those installing quartus on their own computer. \href{ftp://ftp.altera.com/up/pub/Altera_Material/13.0/Tutorials/Schematic/Quartus_II_Introduction.pdf}{Getting Started with DE0-Series boards} 
+
+    %| Step One: Introduction to Quartus
+    %| =================================================================================================
+    \subsection{Lab Part One: LED controller with onboard devices.}
+      The included document \href{ftp://ftp.altera.com/up/pub/Altera_Material/13.0/Tutorials/Schematic/Quartus_II_Introduction.pdf}{Quartus II Introduction} shows how to use the graphical editor feature of quartus. Use the two schematics above to create a way to interact with the FPGA. Dont worry about section 8 
+      of the Quartus Introduciton, we'll cover simulators later. The product of this tutorial will be the first lab demo for this lab.
+
+    %| Required Lab Demo
+    %| =================================================================================================
+    \vspace{15px}
+    \begin{centering}
+      \begin{fminipage}{.43\textwidth}
+        \vspace{3px}
+        \centering{\bfseries \large Laboratory Demo: Light Controller}\\*
+        \vspace{10px}
+        \begin{tabular}{p{1.8cm}  p{5.4cm}}
+          %|==Requirements for lab demo==
+          \raggedright Physical deliverable:        &Programmed DE0-Nano. \\
+          \\
+          \raggedright Documentation deliverable:   &Screen capture of .BDF Schematic of design\\
+          \\
+          Process :                                 & The student will be asked the demonstrate the proper operation of their design by cycling through the switches.
+        \end{tabular}
+      \end{fminipage}
+    \end{centering}
 
     %| Step Three: Prepare circuit
     %| =================================================================================================
-    \subsection{Prepare circuit to test Verilog gate modules with DE0-Nano}
+    \subsection{Lab Part Two: Interacting with external devices though GPIO}
       A switch and LED are going to be used to test the FPGA while it's operating. This switch will allow you to generate inputs for the FPGA. Figure \ref{LEDCircuit} LED circuit needs a current limiting resistor.
       \begin{figure}[htpb]
         \label{LEDCircuit}
@@ -129,70 +126,6 @@
           \label{pinmap}
         \end{figure*}
         This is the header pin schematic from the DE0-Nano user manual. Inside the Verilog code, these pins follow a different nomenclature. What is labeled as GPIO\_0\_IN[0] in figure 5 is GPIO0\_IN[0] and GPIO\_00 is GPIO0[0]. Refer to the DE0-Nano user guide for details on the orientation of the headers.        
-      
-      %| Step Five: Compile
-      \subsubsection{Compile example with Quartus}
-        Once you've created and tested your switch circuit we'll need to compile the example project. This can be done with the Quartus development environment. A walk through is provided in screencastX. 
-
-      %| Step Six: Program Nano
-      \subsubsection{Use Quartus to program the Nano} 
-        Refer to screencastX for a walk through of how to program the Nano. After synthesis Quartus will generate a .SOF\footnote{the .SOF stands for SRAM object file. This is an Altera standard for of their FPGAs.} file that a can be used to program the FPGA using Quartus' programmer.
-
-      %| Step Seven: Record Results
-      \subsection{Test behavior against expected truth table} 
-        Use the known behavior of the logic gates to test your design on the FPGA. It is imperative that you always verify the operation of a design. This design can be verified by creating a Logic Table for each of the gates. If the LED and switch behaves as expected, record the experimental data in your lab report and move forward. If not the design will have to be debugged.\\*
-
-      %| Step Eight: Create XOR from logic primitives
-      %| =================================================================================================
-      \subsection{Design XOR module} 
-        Now that you have had the opportunity to experiment with the logic primitives in the schematic editor the time has come to create your own design. Lets say that we need a four input XOR gate for some reason. We know the truth table of a XOR gate, it must be high when any number of the inputs is high but all of them as shown in Table \ref{XORTT}. Quartus does have an embedded XOR primitive which the use of is disallowed. Create the circuit from the basic 7400 series logic operators(AND, OR, NOT, NAND). Always remember, Google is your best friend. 
-        \begin{table}[htpb]
-          \renewcommand{\arraystretch}{1.3}
-            \caption{Truth table for XOR logic function}
-            \label{XORTT}
-            \centering
-            \begin{tabular}{c|c|c|c|c}
-            \hline
-              A &B &C &D &Output Q \\
-            \hline\hline
-              0 &0 &0 &0 &0\\
-              0 &0 &0 &1 &1\\
-              0 &0 &1 &0 &1\\
-              0 &0 &1 &1 &1\\
-              0 &1 &0 &0 &1\\
-              0 &1 &0 &1 &1\\
-              0 &1 &1 &0 &1\\
-              0 &1 &1 &1 &1\\
-              1 &0 &0 &0 &1\\
-              1 &0 &0 &1 &1\\
-              1 &0 &1 &0 &1\\
-              1 &0 &1 &1 &1\\
-              1 &1 &0 &0 &1\\
-              1 &1 &0 &1 &1\\
-              1 &1 &1 &0 &1\\
-              1 &1 &1 &1 &0\\
-            \hline
-            \end{tabular}
-          \end{table}
-      
-      %| Required Lab Demo
-      %| =================================================================================================
-      \vspace{15px}
-      \begin{centering}
-        \begin{fminipage}{.43\textwidth}
-          \vspace{3px}
-          \centering{\bfseries \large Laboratory Demo: XOR gate}\\*
-          \vspace{10px}
-          \begin{tabular}{p{1.8cm}  p{5.4cm}}
-            %|==Requirements for lab demo==
-            \raggedright Physical deliverable:        &4 dipswitch inputs and 4 LED outputs with appropriate pulldown and current limiting resistors for the DE0-Nano Development board. \\
-            \\
-            \raggedright Documentation deliverable:   & Labeled schematic of circuit with I/O pins labeled with FPGA pin number and Verilog net name,  truth table from your  experimental result.\\
-            \\
-            Process :                                 & The student will be asked the result of a few random numbers to verify the correct operation of their circuit.
-          \end{tabular}
-        \end{fminipage}
-      \end{centering}
 
       %| Step Eight: Create AOI module from equation
       %| =================================================================================================
@@ -213,7 +146,7 @@
           \vspace{10px}
           \begin{tabular}{p{1.8cm}  p{5.4cm}}
             %|==Requirements for lab demo==
-            \raggedright Physical deliverable:        &4 dipswitch inputs and 4 LED outputs with appropriate pulldown and current limiting resistors for the DE0-Nano Development board. \\
+            \raggedright Physical deliverable:        &4 dipswitch inputs and 1 LED outputs with appropriate pulldown and current limiting resistors for the DE0-Nano Development board. \\
             \\
             \raggedright Documentation deliverable:   & Labeled schematic of circuit with I/O pins labeled with FPGA pin number and Verilog net name,  truth table from your  experimental result.\\
             \\
@@ -226,7 +159,7 @@
   %| Lab Report Requirements
   %| =================================================================================================
   \section{Lab Report}
-    \IEEEPARstart{T}{he} lab report must be typed and submitted in a PDF format. Look to IEEE's guidelines for  guidelines on format. The document should include the following items.
+    \IEEEPARstart{T}{he} lab report must be typed and submitted in a PDF format. Look to IEEE's guidelines-for  guidelines on format. The document should include the following items.
     
     \subsection{Figures to include}
     \begin{itemize}
