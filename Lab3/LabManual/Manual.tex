@@ -36,7 +36,7 @@
     \end{itemize}
     
     \subsection{Verilog Design Entry}
-      Verilog is a powerful way to describe circuits. Logic diagrams like those being used in lecture can become cumbersome in large designs. ``Text based design entry'' can be less prone to error because it is easier to track differences in large designs with a diff tool than a sprawling schematic. Verilog is a text based hardware descriptive language the begun being used in ASIC(Application Specific Integrated Circuit). It is now the language of choice for FPGAs(Field Programmable Gate Array) and CPLDs(Computer Programmable Logic Devices). It is important to note that if you have some programming experience Verilog is superficially similar to many programming languages. All of the Quartus provides a comprehensive solution for testing Verilog and synthesizing it for use on their FPGAs and CPLDs.
+      Verilog is a powerful way to describe circuits. Logic diagrams like those being used in lecture can become cumbersome in large designs. ``Text based design entry'' can be less prone to error because it is easier to track differences in large designs with a diff tool than a sprawling schematic. Verilog is a text based hardware descriptive language the begun being used in ASIC(Application Specific Integrated Circuit). It is now the language of choice for FPGAs(Field Programmable Gate Array) and CPLDs(Computer Programmable Logic Devices). It is important to note that if you have some programming experience Verilog is superficially similar to many programming languages. Quartus provides a comprehensive solution for testing Verilog and synthesizing it for use on their FPGAs and CPLDs. Altera offers a tutorial very similar to the one used in Lab Two for Verilog design entry instead of the graphical method. The tutorial can be \href{ftp://ftp.altera.com/up/pub/Altera_Material/13.0/Tutorials/Verilog/Quartus_II_Introduction.pdf}{found here} for the interested reader.
 
     \subsection{Anatomy of a Verilog Module}
       The ``module'' is at the heart of Verilog. Cleaver design will allow you to create a module that you can reuse in many designs. These labs will stress design for re usability as it is the core of efficiency in the workplace.
@@ -83,9 +83,9 @@
   \subsection{Verilog Testbench}
     \IEEEPARstart{T}{his} section will explore the basics of Modelsim and using a Verilog Testbench in Modelsim. The schematic representation of the first lab's logic blocks have been replaced with Verilog behavioral code. Using a simulator for single logic gates is a bit asinine but the experience gained with the example test bench will help you greatly in the future, particularly when you write your own testbench in the next lab. Start a new simulation and add the waveforms as shown in screencast 2. Figure \ref{LogicOut} shows an example of what the wave section should look like. 
     \begin{figure}[H]
-      \label{LogicOut}
       \includegraphics[width=.48\textwidth]{Images/LogicOutput.png}
       \caption{Example output of testbench}
+      \label{LogicOut}
     \end{figure}
 
     Take a moment to look at the simulation transcript, it provides the states of the logic elements being tested.
@@ -93,7 +93,6 @@
     lines in the testbench. listing the outputs can be a very powerful debugging tool. I typically use the \$assert()
     statement, which will be explored below, which can execute two different blocks of code based on a logical test and alert you when an unexpected result is produced.
     \lstinputlisting[caption=Example output of Testbench]{./codesnips/testbenchoutput.txt}
-
 
   %| =================================================================================================
   %| Procedure: Verilog Testbench
@@ -108,6 +107,18 @@
     The logical statement in this code block checks to see if the output of the module is equal to the sum of specified constant and Number.Many designers write the test bench from specification in advance of the Verilog module. Testing should be an integral part of Verilog development from the beginning.
 
     All of the code from this first section is provided in source.zip. There is quite a learning curve to this part, be sure to watch the screen cast which describes the included modules. You will be assigned a constant by the lab instructor that the input number will be added to. This number should be entered as a parameter in the adder module's instantiation as is done in the test bench.
+
+  %| =================================================================================================
+  %| Procedure: Verilog Testbench
+  %| =================================================================================================
+  \subsection{Signal Tap Embedded Logic analyzer}
+    The single most valuable debugging tool is the Signaltap Logic analyzer. The device is implemented by the on chip logic and transmits information to Quartus over the USB link.  Signaltap provides the state of a signal with repsect to time. This is identical to the Simulator waveform but  is recorded from the running logic on the FPGA. Once again Altera provides a \href{ftp://ftp.altera.com/up/pub/Altera_Material/13.0/Tutorials/Verilog/SignalTap.pdf}{comprehensive tutorial} on the use of signal tap.
+
+  %| =================================================================================================
+  %| Procedure: 4-bit and constant adder 
+  %| =================================================================================================
+  \subsection{4-bit and Constant Adder Synthesis}
+    The second section's adder will be synthesized and loaded onto the FPGA for this section. Use your dip switches and the LED circuits from the previous labs to test the adder for expected operation. This section is included with the example code, all you need to do is change the constant and test its operation.  
 
     %| Required Lab Demo
     %| =================================================================================================
@@ -127,17 +138,6 @@
           \end{tabular}
         \end{fminipage}
       \end{centering}
-  %| =================================================================================================
-  %| Procedure: 4-bit and constant adder 
-  %| =================================================================================================
-  \subsection{4-bit and Constant Adder Synthesis}
-    The second section's adder will be synthesized and loaded onto the FPGA for this section. Use your dip switches and the LED circuits from the previous labs to test the adder for expected operation. This section is included with the example code, all you need to do is change the constant and test its operation.  
-
-  %| =================================================================================================
-  %| Procedure: 4-bit and 4-bit adder
-  %| =================================================================================================
-  \subsection{4-bit Full Adder Synthesis}
-    This section requires the previous sections code to be modified to add two 4-bit inputs. This will require the removal of the previous modules' parametrization and the addition of an additional input port. 
 
   %| =================================================================================================
   %| Procedure: Comparator Design
@@ -164,7 +164,7 @@
             \\
             \raggedright Documentation deliverable:          & Labeled schematic of circuit,  truth table from your  experimental result.\\
             \\
-            Process :                                                                            &The student will be asked the result of a few random numbers to verify the correct operation of their circuit.
+            Process :                                                                                 &The student will be asked the result of a few random numbers to verify the correct operation of their circuit.
           \end{tabular}
         \end{fminipage}
       \end{centering}

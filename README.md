@@ -17,17 +17,17 @@ To find the rendered text of the lab manual look in an individual lab's folder. 
 ###Lab Three
 - objective: Introduce the student to Verilog design entry and Verification
 - Lab Demo 1: 4-bit and constant adder
-- Lab Demo 2: 4-bit to 4-bit comparitor. 
+- Lab Demo 2: 4-bit to 4-bit comparitor using parametrized modules. 
 
 ###Lab Four
 - objective:  Introduce timers and shift registers
-- Lab Demo 1: Timer pulse generation
-- Lab Demo 2: Shift register IO
+- Lab Demo 1: Timer pulse generation + Clean timequest report
+- Lab Demo 2: Shift register IO + Clean timequest report
 
 ### Lab Five
 - objective: Introduce practical application of Mealy and Moore state machines
-- Lab Demo 1:  Button LED control
-- Lab Demo 2: Binary sequence detector
+- Lab Demo 1:  Button LED control 
+- Lab Demo 2: Binary sequence detector + Clean timequest report 
 
 ### Lab Six
 - objective: Allow Student to investigate particular topic of interest through project.
@@ -44,11 +44,14 @@ To find the rendered text of the lab manual look in an individual lab's folder. 
 - Automated debugging
 
 ### Lab Four
+- Latch Generation
 
 ### Lab Five
 
 <!-- ############################################################################ -->
 ## Content to add
+http://www.altera.com/education/univ/materials/digital_logic/tutorials/unv-tutorials.html
+
 ###Lab Two
 
 ###Lab Three
@@ -60,4 +63,11 @@ To find the rendered text of the lab manual look in an individual lab's folder. 
 
 ### Lab Five
 - Timing closure
+- Example clock divider
+- Example shift register
+
 ### Lab Six
+
+<!-- ############################################################################ -->
+##TODO
+- update lab manual section for lab one

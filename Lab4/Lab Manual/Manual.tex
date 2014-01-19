@@ -30,19 +30,10 @@
   \subsection{Clocked designs in Verilog}
 
     \subsubsection{Posedge and Negedge in the sensitivity list}
-      These operators are commonly used in the sensativity list of a logical block in Verilog.
+      These operators are commonly used in the sensitivity list of a logical block in Verilog. They indicate where operations are performed on a square wave clock signal. Posedge performs the specified operation at the low to high transition and negedge the high to low edge.
     
     \subsubsection{Register metastability and timing closure}
-    
-    \begin{enumerate}
-      \item When modeling sequential logic, use nonblocking assignments.
-      \item When modeling latches, use nonblocking assignments.
-      \item When modeling combinational logic with an always block, use blocking assignments.
-      \item When modeling both sequential and combinational logic within the same always block, use nonblocking assignments.
-      \item Do not mix blocking and nonblocking assignments in the same always block.
-      \item Do not make assignments to the same variable from more than one always block.
-      \item Use \$strobe to display values that have been assigned using non blocking assignments.
-    \end{enumerate}
+      ``Timing Closure'' is the process of making sure the physical circuits on the FPGA (or any digital system) and produce a desired functionality. The electrical properties of capacitance and inductance limit the maximum operating frequency of a circuit, even on the nanometer scale on the FPGA. The systems that are built in this lab do not approach the abilities of the Cyclone FPGA we are using. But the topic is very important, it has been one of the first questions i have been asked on a job interview. If you would like to learn about the topic (not required) Altera's white paper \href{http://www.altera.com/literature/wp/wp-01082-quartus-ii-metastability.pdf}{01082} offers a technical discussion of metastability and how to mitigate the effects of the phenomenon.
 
   %| Blocking and non blocking operators
   %| =================================================================================================
@@ -53,25 +44,39 @@
       Blocking assignments occur in one step, all other operations are ``paused'' while waiting for the operation to complete.Evaluate the RHS (right-hand side equation) and update the LHS (left-hand side expression) of the blocking assignment without interruption from any other Verilog statement.''\cite{Sunburst:BlockNoBlock}
 
     \subsubsection{Non-Blocking assignments \bfseries ( $<$= )} 
-      The evaluation of nonblocking assignments is a bit more complex than the blocking operator and requires special consideration. The execution of these statements is defined as follows
+      The evaluation of nonblocking assignments is a bit more complex than the blocking operator and requires special consideration. The execution of these statements is defined as follows. This is how the logic synthesizer schedules the specified operations as it processes the Verilog design you have created. This information is particularly relevant in the simulator as you try to debug your design. 
       \begin{enumerate}
         \item Evaluate the RHS of nonblocking statements at the beginning of the time step.
         \item Update the LHS of nonblocking statements at the end of the time step.
       \end{enumerate}
       \cite{Sunburst:BlockNoBlock}
 
+    \subsubsection{Tips for the effective use of behavioral blocks}
+      The following tips come form A paper discussing the use of blocking and non-blocking statements in Verilog 
+      \begin{itemize}
+        \item When modeling sequential logic, use nonblocking assignments.
+        \item When modeling latches, use nonblocking assignments.
+        \item When modeling combinational logic with an always block, use blocking assignments.
+        \item When modeling both sequential and combinational logic within the same always block, use nonblocking assignments.
+        \item Do not mix blocking and nonblocking assignments in the same always block.
+        \item Do not make assignments to the same variable from more than one always block.
+        \item Use \$strobe to display values that have been assigned using non blocking assignments.
+      \end{itemize}
+
   %| Clock division with registers
   %| =================================================================================================
   \subsection{Clock division with Counters}
-    The idea of a clock divider in verilog is identical to a divider with discrete logic. Because of the timing constraints on the FPGA, a synchronus counter is the best option for our requirements. If one d flip-flop divides a clock by two, then the addition of another will divide the input clock by four and so on. this can be generalized to $$f_{out}=\frac{f_{in}}{\text{number of bits in register}}$$
+    The idea of a clock divider in verilog is identical to a divider with discrete logic. Because of the timing constraints on the FPGA, a synchronous counter is the best option for our requirements. If one d flip-flop divides a clock by two, then the addition of another will divide the input clock by four and so on. this can be generalized to $$f_{out}=\frac{f_{in}}{\text{number of bits in register}}$$
     
 %| =================================================================================================
 %| Procedure
 %| =================================================================================================
 \section{Lab Procedure}
+  \subsection{Investigating timing closure}
+    Altera provides a tutorial on the basics of using the TimeQuest Timing analyzer. The effective use of this tool is critical to a successful design. Complete the \href{ftp://ftp.altera.com/up/pub/Altera_Material/13.0/Tutorials/Timequest.pdf}{Altera tutorial} and include the contents of the generated timing constraints file (.SDC) in your lab report.
 
   \subsection{Application of registers: Timers}
-      The DE0-Nano has a 50MHz crystal oscillator and this is input to the FPGA clock pin.  This clock must used to trigger operations every second and every 2 milliseconds. The operations are triggered by a pulse longer than 100 microseconds. Measure the frequency  of this trigger signal using a debugging tool like Signaltap or output the signal to pins and measure the output with an oscilloscope.
+    The DE0-Nano has a 50MHz crystal oscillator and this is input to the FPGA clock pin.  This clock must used to trigger operations every second and every 2 milliseconds. The operations are triggered by a pulse longer than 100 microseconds. Measure the frequency  of this trigger signal using a debugging tool like Signaltap or output the signal to pins and measure the output with an oscilloscope.
      
     %| Required Lab Demo
     %| =================================================================================================
