@@ -33,11 +33,11 @@ TOC.fls
 
 /LabThree/LabManual/Output/Manual.lof
 
-.summary
+*.summary
 
-.rpt
+*.rpt
 
-.lol
+*.lol
 
 *.rpt
 
