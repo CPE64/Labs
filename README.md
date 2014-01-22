@@ -11,7 +11,7 @@ To find the rendered text of the lab manual look in an individual lab's folder. 
 
 ###Lab Two
 - objective:  Introduce the DE0-Nano development board and the Quartus development environment.
-- Lab Demo 1: 4 input XOR gate
+- Lab Demo 1: 4 Two input LED controller from Altera's University program
 - Lab Demo 2: 4 input AOI module
 
 ###Lab Three
@@ -21,12 +21,12 @@ To find the rendered text of the lab manual look in an individual lab's folder. 
 
 ###Lab Four
 - objective:  Introduce timers and shift registers
-- Lab Demo 1: Timer pulse generation + Clean timequest report
-- Lab Demo 2: Shift register IO + Clean timequest report
+- Lab Demo 1: Timer pulse generation
+- Lab Demo 2: Shift register IO
 
 ### Lab Five
 - objective: Introduce practical application of Mealy and Moore state machines
-- Lab Demo 1:  Button LED control 
+- Lab Demo 1: Button LED control 
 - Lab Demo 2: Binary sequence detector + Clean timequest report 
 
 ### Lab Six
@@ -50,8 +50,6 @@ To find the rendered text of the lab manual look in an individual lab's folder. 
 
 <!-- ############################################################################ -->
 ## Content to add
-http://www.altera.com/education/univ/materials/digital_logic/tutorials/unv-tutorials.html
-
 ###Lab Two
 
 ###Lab Three
@@ -70,4 +68,5 @@ http://www.altera.com/education/univ/materials/digital_logic/tutorials/unv-tutor
 
 <!-- ############################################################################ -->
 ##TODO
-- update lab manual section for lab one
+Add requirements for synthesis compilation and warnings
+Add information about synthesys optimiztion

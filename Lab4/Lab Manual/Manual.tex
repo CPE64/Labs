@@ -23,7 +23,12 @@
 %| Introduction
 %| =================================================================================================
 \section{Introduction}
-  \PARstart{T}{his} lab will reinforce the idea of modularity as we design modules which depend on a clocking signal. Clocking circuits allows the synchronization of large blocks of logic. The concepts this lab introduces are at the core of design with Verilog. The sensitivity list will allow you to communicate with a number of different devices on different system clocks greatly expanding the usefulness of the FPGA. It is important to remember that each one of these blocks evaluates simultaneously, the behavioral block is at the core of Verilog's parallel nature. 
+  \PARstart{T}{his} lab will reinforce the idea of modularity as we design modules which depend on a clocking signal. Clocking circuits allows the synchronization of large blocks of logic. The concepts this lab introduces are at the core of design with Verilog. The sensitivity list will allow you to communicate with a number of different devices on different system clocks greatly expanding the usefulness of the FPGA. It is important to remember that each one of these blocks evaluates simultaneously, the behavioral block is at the core of Verilog's parallel nature. The purpose of this lab is to introduce the following concepts:
+    \begin{itemize}
+      \item Using synchronous logic with a system clock
+      \item The implications of timing constraints
+    \end{itemize}
+    
 
   %| Clocked designs in Verilog
   %| =================================================================================================
@@ -52,7 +57,7 @@
       \cite{Sunburst:BlockNoBlock}
 
     \subsubsection{Tips for the effective use of behavioral blocks}
-      The following tips come form A paper discussing the use of blocking and non-blocking statements in Verilog 
+      The following tips come form A paper discussing the use of blocking and non-blocking statements in Verilog . Mixing the operators without thinking may lead to errors that are very hard to track down.
       \begin{itemize}
         \item When modeling sequential logic, use nonblocking assignments.
         \item When modeling latches, use nonblocking assignments.
@@ -66,59 +71,42 @@
   %| Clock division with registers
   %| =================================================================================================
   \subsection{Clock division with Counters}
-    The idea of a clock divider in verilog is identical to a divider with discrete logic. Because of the timing constraints on the FPGA, a synchronous counter is the best option for our requirements. If one d flip-flop divides a clock by two, then the addition of another will divide the input clock by four and so on. this can be generalized to $$f_{out}=\frac{f_{in}}{\text{number of bits in register}}$$
+    The idea of a clock divider in verilog is identical to a divider with discrete logic. Because of the timing constraints on the FPGA, a synchronous counter is the best option for our requirements. If one d flip-flop divides a clock by two, then the addition of another will divide the input clock by four and so on. this can be generalized to $$f_{out}=\frac{f_{in}}{2^n}$$ where $n$ is the number of bits in the register.
     
 %| =================================================================================================
 %| Procedure
 %| =================================================================================================
 \section{Lab Procedure}
-  \subsection{Investigating timing closure}
-    Altera provides a tutorial on the basics of using the TimeQuest Timing analyzer. The effective use of this tool is critical to a successful design. Complete the \href{ftp://ftp.altera.com/up/pub/Altera_Material/13.0/Tutorials/Timequest.pdf}{Altera tutorial} and include the contents of the generated timing constraints file (.SDC) in your lab report.
+    \subsection{Investigating timing closure}
+     Altera provides a tutorial on the basics of using the TimeQuest Timing analyzer. The effective use of this tool is critical to a successful design. Complete the \href{ftp://ftp.altera.com/up/pub/Altera_Material/13.0/Tutorials/Timequest.pdf}{Altera tutorial} and include the contents of the generated timing constraints file (.SDC) in your lab report.
 
-  \subsection{Application of registers: Timers}
+    \subsection{Application of registers: Timers}
     The DE0-Nano has a 50MHz crystal oscillator and this is input to the FPGA clock pin.  This clock must used to trigger operations every second and every 2 milliseconds. The operations are triggered by a pulse longer than 100 microseconds. Measure the frequency  of this trigger signal using a debugging tool like Signaltap or output the signal to pins and measure the output with an oscilloscope.
      
     %| Required Lab Demo
     %| =================================================================================================
-    \vspace{15px}
-    \begin{centering}
-      \begin{fminipage}{.45\textwidth}
-        \vspace{3px}
-        \centering{\bfseries \large Laboratory Demo}\\*
-        \vspace{10px}
-        \begin{tabular}{p{1.8cm}  p{5.4cm}}
-          %|==Requirements for lab demo==
-          \raggedright Physical deliverable:         & Constructed circuit on breadboard,  the Nano generating timing signals.\\
-          \\
-          \raggedright Documentation deliverable:    & Labeled schematic of circuit,  oscilloscope capture of signal with timing information.\\
-          \\
-          Process :                                  & The student will be asked to show the device in operation.
+    \demo{Timed pulse generator}
+      {Generate a 100$\mu s$ pulse every two $ms$ and every second and output these signals to GPIO pins on the DE0-Nano.}
+      {DE0-Nano attached to Oscilloscope for verification, Clean timing report from TimeQuest}
+      {The signals need to be verified with the Oscilloscope on the DE0-Nano. Attach the two channel scope to the GPIO pins and use the frequency measurement function.}
 
-        \end{tabular}
-      \end{fminipage}
-    \end{centering} 
 
-  \subsection{Application of Shift Registers: IO expansion}
-    This sections focuses on a application of the shift register. It can be found in a number of uses like the serialization and de-serialization of data streams. A common trick to expand IO on a device is to use the venerable HC595 shift register. The data for the output pins can be output serially to the shift register instead of directly parallel. This trades update speed and code complexity for IO pin usage. Let's take some indicator LED's for example. They do not need to be updated frequently and we can save the complex IO pins on the FPGA for other purposes. 
+    \subsection{Application of Shift Registers: IO expansion}
+    This sections focuses on a application of the shift register. It can be found in a number of uses like the serialization and de-serialization of data streams. A common trick to expand IO on a device is to use the venerable HC595 shift register. The data for the output pins can be output serially to the shift register instead of directly parallel. This trades update speed and code complexity for IO pin usage. Let's take some indicator LED's for example. They do not need to be updated frequently and we can save the complex IO pins on the FPGA for other purposes.  Figure \ref{SR} shows how a Shift Register could be used in this configuration.
 
-  %| Required Lab Demo
-  %| =================================================================================================
-  \vspace{15px}
-  \begin{centering}
-    \begin{fminipage}{.43\textwidth}
-      \vspace{3px}
-      \centering{\bfseries \large Laboratory Demo}\\*
-      \vspace{10px}
-      \begin{tabular}{p{1.8cm}  p{5.4cm}}
-        %|==Requirements for lab demo==
-        \raggedright Physical deliverable:           & Constructed circuit on breadboard,  the Nano programmed with your AOI module.\\
-        \\
-        \raggedright Documentation deliverable:      & Labeled schematic of circuit,  truth table from your  experimental result.\\
-        \\
-        Process :                                    & The student will be asked the result of a few random numbers to verify the correct operation of their circuit.
-      \end{tabular}
-    \end{fminipage}
-  \end{centering} 
+    \begin{figure}[H]
+      \includegraphics[width=.48\textwidth]{Schematics/ShiftRegister.png}
+      \caption{Example application of 595 Shift Register}
+      \label{SR}
+    \end{figure}
+
+    %| Required Lab Demo
+    %| =================================================================================================
+    \demo{IO Expansion with Shift Register}
+      {Use External DIP switches for 8-bit input and control 8 LEDs attached to a Shift Register though a serial line.}
+      {DE0-Nano configured with Comparitor, Clean timing report from TimeQuest}
+      {Output LEDs will be inspected for proper operation as the student cycles through the inputs}
+
 
 %| =================================================================================================
 %| Lab Report Requirements

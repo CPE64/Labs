@@ -19,16 +19,11 @@ module moore_mac
   // Output depends only on the state
   always @ (state) begin
     case (state)
-      S0:
-        data_out = 2'b01;
-      S1:
-        data_out = 2'b10;
-      S2:
-        data_out = 2'b11;
-      S3:
-        data_out = 2'b00;
-      default:
-        data_out = 2'b00;
+      S0: data_out = 2'b01;
+      S1: data_out = 2'b10;
+      S2: data_out = 2'b11;
+      S3: data_out = 2'b00;
+      default: data_out = 2'b00;
     endcase
   end
 
@@ -41,21 +36,14 @@ module moore_mac
         S0:
           state <= S1;
         S1:
-          if (data_in)
-            state <= S2;
-          else
-            state <= S1;
+          if (data_in)  state <= S2;
+          else          state <= S1;
         S2:
-          if (data_in)
-            state <= S3;
-          else
-            state <= S1;
+          if (data_in)  state <= S3;
+          else          state <= S1;
         S3:
-          if (data_in)
-            state <= S2;
-          else
-            state <= S3;
+          if (data_in)  state <= S2;
+          else          state <= S3;
       endcase
   end
-
 endmodule

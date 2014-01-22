@@ -1,8 +1,8 @@
   //|       Title: Example adder module for CSUS CPE/EEE64
   //|      Author: Ben Smith
-  //| Description: This module will add a specified number to a constant parameter.
+  //| Description: This module will add a specified number to a paramterized constant.
   module Adder(
-  input     wire [3:0]    UserNumber,
+  input     wire  [3:0]    UserNumber,
   output    reg  [7:0]    sum = 0
   );
 

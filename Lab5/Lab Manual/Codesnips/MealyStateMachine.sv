@@ -25,41 +25,17 @@ module mealy_mac
     else
       case (state)
         S0:
-          if (data_in)
-          begin
-            state <= S1;
-          end
-          else
-          begin
-            state <= S1;
-          end
+          if (data_in) state <= S1;
+          else         state <= S1;
         S1:
-          if (data_in)
-          begin
-            state <= S2;
-          end
-          else
-          begin
-            state <= S1;
-          end
+          if (data_in) state <= S2;
+          else         state <= S1;
         S2:
-          if (data_in)
-          begin
-            state <= S3;
-          end
-          else
-          begin
-            state <= S1;
-          end
+          if (data_in) state <= S3;
+          else         state <= S1;
         S3:
-          if (data_in)
-          begin
-            state <= S2;
-          end
-          else
-          begin
-            state <= S3;
-          end
+          if (data_in) state <= S2;
+          else         state <= S3;
       endcase
   end
 
@@ -69,42 +45,17 @@ module mealy_mac
   begin
     case (state)
       S0:
-        if (data_in)
-        begin
-          data_out = 2'b00;
-        end
-        else
-        begin
-          data_out = 2'b10;
-        end
+        if (data_in) data_out = 2'b00;
+        else         data_out = 2'b10;
       S1:
-        if (data_in)
-        begin
-          data_out = 2'b01;
-        end
-        else
-        begin
-          data_out = 2'b00;
-        end
+        if (data_in) data_out = 2'b01;
+        else         data_out = 2'b00;
       S2:
-        if (data_in)
-        begin
-          data_out = 2'b10;
-        end
-        else
-        begin
-          data_out = 2'b01;
-        end
+        if (data_in) data_out = 2'b10;
+        else         data_out = 2'b01;
       S3:
-        if (data_in)
-        begin
-          data_out = 2'b11;
-        end
-        else
-        begin
-          data_out = 2'b00;
-        end
+        if (data_in) data_out = 2'b11;
+        else         data_out = 2'b00;
     endcase
   end
-
 endmodule

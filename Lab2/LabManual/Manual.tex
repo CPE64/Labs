@@ -23,7 +23,7 @@
   %| Introduction
   %| =================================================================================================
   \section{Introduction}
-    \PARstart{T}{his} lab introduces the DE0-Nano development board and Altera's Quartus development environment. Quartus will be used to program the Altera Cyclone IV FPGA on the Terasic DE0-Nano development board.\footnote{FPGAs remained a mystery to me for quite some time, this video does a great job of discussing the benefits and drawbacks of the devices \href{https://www.youtube.com/watch?v=gUsHwi4M4xE}{EEV Blog: What is a FPGA?}}  The schematic entry method  will be very similar to the  design entry method that have experience with in Multisim. This first lab will follow the same processes that you implemented with discrete 7400 series logic ICs. The only difference is now the discrete logic can be implemented using the FPGA. The Cyclone IV could implement 3300 2-input nand gates, go ahead and breadboard that.This lab is intended to introduce the student to the following concepts:
+    \PARstart{T}{his} lab introduces the DE0-Nano development board and Altera's Quartus development environment. Quartus will be used to program the Altera Cyclone IV FPGA on the Terasic DE0-Nano development board.\footnote{FPGAs remained a mystery to me for quite some time, this video does a great job of discussing the benefits and drawbacks of the devices \href{https://www.youtube.com/watch?v=gUsHwi4M4xE}{EEV Blog: What is a FPGA?}}  The schematic entry method  used in this first lab will be very similar to the  design entry method that have experience with in Multisim. The only difference is now the discrete logic can be implemented using the FPGA instead of 7400 series ICs. The Cyclone IV could implement 3300 2-input nand gates. Imagine hand wiring and the space all that logic would require if using Discrete ICs. This lab is intended to introduce the student to the following concepts:
     \begin{itemize}
        \item Logic primitives on a FPGA
        \item Quartus development environment
@@ -42,12 +42,13 @@
       \end{enumerate}
 
     \subsection{DE0-Nano Development board}
-      The DE0-Nano has a number of peripheral devices built into the board to expand the capabilities of the FPGA. Interacting with most of these will be beyond the scope of this course but represent real world design challenges and are worth experimenting with after this basic course is completed. Altera offers a number of tutorials for anyone interested in learning more. These labs will mostly use one of the 40-pin GPIO headers to interact with the outside world. Let's take a moment to recognise the potential of this development board should you choose to pursue it. Figure \ref{DEOBlockDia} shows a high level diagram of the development board. There is much more information available in the DE0-Nano manual but the highlights are all here. The SDRAM can be used to store large amounts of information for fast access, great for a ``soft processor''\footnote{A soft processor is a microcontroller implemented inside of the FPGA. These softprocessors can be programmed in languages like C for more standard development processes that typically are much faster than HDL languages. The advantage of this method is the ability to build the microcontroller to need using a hardware descriptive language}. The EEPROM allows program memory that does not clear with power reset, also very useful for a soft processor. The A/D converter allows analog voltages to be read which allows the development board to interact with the outside world. It also features an accelerometer that will refresh at rates up to 1600Hz.      \begin{figure}[htpb]
+      The DE0-Nano has a number of peripheral devices built into the board to expand the capabilities of the FPGA. Interacting with most of these will be beyond the scope of this course but represent real world design challenges and are worth experimenting with after this course is completed. Altera and Terasic offer a number of tutorials for the periphrial devices though in the DE0-Nano user manual and the Altera University Program. These labs will mostly use one of the 40-pin GPIO headers to interact with the outside world. Let's take a moment to recognise the potential of this development board should you choose to pursue it. Figure \ref{DEOBlockDia} shows a high level diagram of the development board. There is much more information available in the DE0-Nano manual but these are some system highlights. The SDRAM can be used to store large amounts of information for fast access, great for a ``soft processor''\footnote{A soft processor is a microcontroller implemented inside of the FPGA. These softprocessors can be programmed in languages like C for more standard development processes that typically are much faster than HDL languages. The advantage of this method is the ability to build the microcontroller to suit a particular design and build hardware periphrials with the FPGA}. The EEPROM allows program memory that does not clear with power reset, also very useful for a soft processor. The A/D converter allows analog voltages to be read which allows the development board to interact with the outside world. It also features an accelerometer that will refresh at rates up to 1600Hz.      
+      \begin{figure}[htpb]
         \includegraphics[width=.48\textwidth]{Images/DEONanoBlockDiagram.png}
         \caption{Block Diagram of DE0-Nano \cite{DE0Manual}}
         \label{DEOBlockDia}
       \end{figure}
-      The A/D converter and G-sensor will be great tools to interact with sensors in your later classes. If you choose to go down a path of controls engineering FPGAs will be a great way to implement ``deterministic''\footnote{a deterministic system is a system in which no randomness is involved in the development of future states of the system. A deterministic model will thus always produce the same output from a given starting condition or initial state.\cite{DynamicSystems}} Control systems. Interfacing with these components will require the implementation of a SPI or I2C bus protocol. The De0-Nano system CD comes with some example code that uses these devices that would get the interested student off the ground in no time.
+      The A/D converter and G-sensor will be great tools to interact with sensors in your later classes. If you choose to go down a path of controls engineering FPGAs will be a great way to implement ``deterministic''\footnote{a deterministic system is a system in which no randomness is involved in the development of future states of the system. A deterministic model will thus always produce the same output from a given starting condition or initial state.\cite{DynamicSystems}} Control systems. Interfacing with these periphrials will require the implementation of a bus protocal like SPI or I2C. The De0-Nano system CD comes with some example code that uses these devices that would get the interested student off the ground in no time.
 
   %| =================================================================================================
   %| Procedure
@@ -71,27 +72,14 @@
     %| Step One: Introduction to Quartus
     %| =================================================================================================
     \subsection{Lab Part One: LED controller with onboard devices.}
-      The included document \href{ftp://ftp.altera.com/up/pub/Altera_Material/13.0/Tutorials/Schematic/Quartus_II_Introduction.pdf}{Quartus II Introduction} shows how to use the graphical editor feature of quartus. Use the two schematics above to create a way to interact with the FPGA. Dont worry about section 8 
-      of the Quartus Introduciton, we'll cover simulators later. The product of this tutorial will be the first lab demo for this lab.
+      The included document \href{ftp://ftp.altera.com/up/pub/Altera_Material/13.0/Tutorials/Schematic/Quartus_II_Introduction.pdf}{Quartus II Introduction} shows how to use the graphical editor feature of quartus. Dont worry about section 8 of the Quartus Introduciton, we'll cover simulators later. The product of this tutorial will be the first lab demo for this lab. Notice the Boxed section below, demos will be presented as a specification and deliverable format. The specification is the requirement of what your hardware must do. The deliverable is the actual hardware that is to be present for the demo, this will most often be your DE0-Nano board configured in some manner. 
 
     %| Required Lab Demo
     %| =================================================================================================
-    \vspace{15px}
-    \begin{centering}
-      \begin{fminipage}{.43\textwidth}
-        \vspace{3px}
-        \centering{\bfseries \large Laboratory Demo: Light Controller}\\*
-        \vspace{10px}
-        \begin{tabular}{p{1.8cm}  p{5.4cm}}
-          %|==Requirements for lab demo==
-          \raggedright Physical deliverable:        &Programmed DE0-Nano. \\
-          \\
-          \raggedright Documentation deliverable:   &Screen capture of .BDF Schematic of design\\
-          \\
-          Process :                                 & The student will be asked the demonstrate the proper operation of their design by cycling through the switches.
-        \end{tabular}
-      \end{fminipage}
-    \end{centering}
+      \demo{Light Controller}
+                    {Use onboard periphrials to generate inputs for the FPGA to control an LED according to Figure 11 of the Altera tutorial ``Quartus II Introduction.''}
+                    {Labeled schematic of circuit with I/O pins labeled with FPGA pin number and Verilog net name,  truth table from your  experimental result.}
+                    {The student will be asked the result of a few random numbers to verify the correct operation of their circuit.}
 
     %| Step Three: Prepare circuit
     %| =================================================================================================
@@ -112,7 +100,8 @@
 
       %| GPIO Headers
       \subsubsection{GPIO headers on the DE0-Nano} 
-        Be careful when referencing the pin diagrams in the DE0-Nano user manual. It is easy to read it backwards, that cost you hours. It is easiest to match the Nano's orientation with the schematic and count from the nearest edge. Figure \ref{pinmap} shows GPIO 0 next to a schematic of the header. Always check VCC\_SYS, VCC3P3, and GND with a multimeter before attaching a circuit you have built.        \begin{figure*}
+        Be careful when referencing the pin diagrams in the DE0-Nano user manual. It is easy to read it backwards, that cost you hours. It is easiest to match the Nano's orientation with the schematic and count from the nearest edge. Figure \ref{pinmap} shows GPIO 0 next to a schematic of the header. Always check VCC\_SYS, VCC3P3, and GND with a multimeter before attaching a circuit you have built.        
+        \begin{figure*}
           \centering
           \begin{subfigure}[b]{.38\textwidth}
             \includegraphics[angle=270, width=.9\textwidth]{Images/LabeledGPIOHeaders.jpg}
@@ -130,30 +119,18 @@
       %| Step Eight: Create AOI module from equation
       %| =================================================================================================
       \subsection{Design AOI module from logical equation} 
-        The ``And or Invert'' function is common in digital design. You will implement it with logic primitives in the schematic editor. There will be a wealth of information available online about how to implement the function on the Internet but take a stab at it before heading to Google.
+        The ``And or Invert'' function is common in digital design. You will implement it with logic primitives in the schematic editor. There will be a wealth of information available online about how to implement the function on the Internet, but try and fail at least once before heading to Google.
 
       \begin{displaymath}
         F = \overline{(A \wedge B) \vee (C \wedge D)}
       \end{displaymath}
 
-      %| Required Lab Demo
-      %| =================================================================================================
-      \vspace{15px}
-      \begin{centering}
-        \begin{fminipage}{.43\textwidth}
-          \vspace{3px}
-          \centering{\bfseries \large Laboratory Demo: AOI Gate}\\*
-          \vspace{10px}
-          \begin{tabular}{p{1.8cm}  p{5.4cm}}
-            %|==Requirements for lab demo==
-            \raggedright Physical deliverable:                   &4 dipswitch inputs and 1 LED outputs with appropriate pulldown and current limiting resistors for the DE0-Nano Development board. \\
-            \\
-            \raggedright Documentation deliverable:   & Labeled schematic of circuit with I/O pins labeled with FPGA pin number and Verilog net name,  truth table from your  experimental result.\\
-            \\
-            Process :                                                                      &The student will be asked the result of a few random numbers to verify the correct operation of their circuit.
-          \end{tabular}
-        \end{fminipage}
-      \end{centering}
+    %| Required Lab Demo
+    %| =================================================================================================
+      \demo{AOI Gate}
+                    {4 dipswitch inputs and 1 LED outputs with appropriate pulldown and current limiting resistors for the DE0-Nano Development board. }
+                    {Labeled schematic of circuit with I/O pins labeled with FPGA pin number and Verilog net name,  truth table from your  experimental result.}
+                    {The student will be asked the result of a few random numbers to verify the correct operation of their circuit.}
 
   %| =================================================================================================
   %| Lab Report Requirements
@@ -165,6 +142,7 @@
     \begin{itemize}
       \item Schematic of your Light Controller module.
       \item Schematic of your AOI module.
+      \item Truth tables for both designs.
     \end{itemize}
 
     \subsection{Questions to answer}
@@ -178,7 +156,7 @@
   %| Conclusions
   %| =================================================================================================
   \section{Conclusion}
-    \IEEEPARstart{T}{this} lab introduced Quartus and some of it's basic functionality. Quartus is very similar to many industry standard tools. Xilinx, another manufacturer of programmable logic devices, offers a tool suite very similar to Quartus called ISE. Although we will not discuss ISE, a understanding of Quartus will allow ISE to be learned very quickly. These are tools that you can expect to see in Industry as a CPE or EEE student. There is an extreme demand right now for engineers with an understanding of programmable logic.
+    \IEEEPARstart{T}{this} lab introduced Quartus and some of it's basic functionality. Quartus is very similar to many industry standard tools. Xilinx, another manufacturer of programmable logic devices, offers a tool suite very similar to Quartus called ISE. Although we will not discuss ISE, an understanding of Quartus will allow ISE to be learned very quickly. These are tools that you can expect to see in Industry as a CPE or EEE student. There is an extreme demand right now for engineers with an understanding of programmable logic.
 
   %| =================================================================================================
   %| Bibliography
