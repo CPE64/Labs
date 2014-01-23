@@ -17,7 +17,7 @@ To find the rendered text of the lab manual look in an individual lab's folder. 
 ###Lab Three
 - objective: Introduce the student to Verilog design entry and Verification
 - Lab Demo 1: 4-bit and constant adder
-- Lab Demo 2: 4-bit to 4-bit comparitor using parametrized modules. 
+- Lab Demo 2: 4-bit to 4-bit comparator using parametrized modules. 
 
 ###Lab Four
 - objective:  Introduce timers and shift registers
@@ -69,4 +69,4 @@ To find the rendered text of the lab manual look in an individual lab's folder. 
 <!-- ############################################################################ -->
 ##TODO
 Add requirements for synthesis compilation and warnings
-Add information about synthesys optimiztion
+Add information about synthesis optimization
