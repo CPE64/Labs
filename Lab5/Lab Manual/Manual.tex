@@ -55,14 +55,37 @@
 
       \subsection{User-Encoded State Machine:} This can be incorporated into all of the previous types. It allows the states to be named which aids in debugging and overall code readability. Signaltap can also be configured to show the named state values for ease of debugging. ScreencastX shows the use of encoded states in Signaltap.
 
+      \subsection{Example State Machine}
+      We could code a state machine directly from a state table. If you don't know how to do it well it will come back haunt you it has for me. 
+
+      %| Side by side listing
       \clearpage
-      \subsection{Coding the state machine}
-        \lstinputlisting[caption=Mealey Machine]{./Codesnips/MealyStateMachine.sv}\newpage
-        \lstinputlisting[caption=Moore Machine]{./Codesnips/MooreStateMachine.sv}
+      \subsection{Coding the example state machine}
+      A Mealy machine has outputs that depend on both the state and the inputs.  When the inputs change, the outputs are updated immediately, without waiting for a clock edge.  The outputs can be written more than once per state or per clock cycle.\\
+      \smallfig{./Images/MealyMachine.pdf}
+              {Example Mealy machine}
+              {FSML}
+      \noindent\begin{minipage}{.48\textwidth}
+      \lstinputlisting[caption=Mealy Machine]{./Codesnips/MealyStateMachine.sv}
+      \end{minipage}
+      \vfill \hfill
+      \newpage
+      A Moore machine's outputs are dependent only on the current state. The output is written only when the state changes. State transitions are synchronous. which makes the Moore machine a little more resilient against bugs related to asynchronous feedback and race conditions. \\
+      \smallfig{./Images/MooreMachine.pdf}
+               {Example Moore machine}
+               {FSML}
+      \begin{minipage}{.48\textwidth}
+      \lstinputlisting[caption=Moore Machine]{./Codesnips/MooreStateMachine.sv}
+      \end{minipage}
+      \newpage
       \clearpage
 
-      \smallfig{./Images/FSMLogic.png}{Illustration of FSM logic\cite{Sunburst:FSMs}}{FSML}
-      \smallfig{./Images/FSMDiagram.png}{State diagram for example code\cite{Sunburst:FSMs}}{FSML}
+      \smallfig{./Images/FSMLogic.png}
+              {Illustration of FSM logic\cite{Sunburst:FSMs}}
+              {FSML}
+      \smallfig{./Images/FSMDiagram.png}
+              {State diagram for example code\cite{Sunburst:FSMs}}
+              {FSML}
 
       \lstinputlisting[caption=Example of enumerated state machine\cite{Sunburst:FSMs}]{./Codesnips/StateMachineExample.sv}
       Let's take a look at why the author of this code recomends this particular style of coding.
@@ -92,7 +115,7 @@
 
 %| Required Lab Demo
 %| =================================================================================================
-  \demo{IO Expansion with Shift Register}
+  \demo{Control of LED though state machine}
     {Control the location of a single illuminated LED on the on board LEDs with the onboard switches though a mealy state machine.}
     {DE0-Nano configured with control design}
     {Output LEDs will be inspected for proper operation as the student controls the LED}

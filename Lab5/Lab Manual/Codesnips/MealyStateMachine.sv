@@ -1,10 +1,4 @@
 // 4-State Mealy state machine
-
-// A Mealy machine has outputs that depend on both the state and
-// the inputs.  When the inputs change, the outputs are updated
-// immediately, without waiting for a clock edge.  The outputs
-// can be written more than once per state or per clock cycle.
-
 module mealy_mac
 (
   input clk, data_in, reset,

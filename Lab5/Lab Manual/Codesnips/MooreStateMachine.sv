@@ -1,9 +1,4 @@
 // 4-State Moore state machine
-
-// A Moore machine's outputs are dependent only on the current state.
-// The output is written only when the state changes.  (State
-// transitions are synchronous.)
-
 module moore_mac
 (
   input clk, data_in, reset,
@@ -19,10 +14,14 @@ module moore_mac
   // Output depends only on the state
   always @ (state) begin
     case (state)
-      S0: data_out = 2'b01;
-      S1: data_out = 2'b10;
-      S2: data_out = 2'b11;
-      S3: data_out = 2'b00;
+      S0:
+        data_out = 2'b01;
+      S1:
+        data_out = 2'b10;
+      S2:
+        data_out = 2'b11;
+      S3:
+        data_out = 2'b00;
       default: data_out = 2'b00;
     endcase
   end
