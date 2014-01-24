@@ -68,13 +68,13 @@ applicable agreement for further details.
 		(line (pt 109 12)(pt 113 8))
 	)
 	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect 200 320 256 336))
+	(annotation_block (location)(rect 96 104 152 120))
 )
 (pin
 	(input)
 	(rect 152 64 320 80)
 	(text "INPUT" (rect 125 0 153 10)(font "Arial" (font_size 6)))
-	(text "GPIO0[1]" (rect 5 0 52 12)(font "Arial" ))
+	(text "GPIO0[1]" (rect 5 0 51 12)(font "Arial" ))
 	(pt 168 8)
 	(drawing
 		(line (pt 84 12)(pt 109 12))
@@ -85,7 +85,7 @@ applicable agreement for further details.
 		(line (pt 109 12)(pt 113 8))
 	)
 	(text "VCC" (rect 128 7 148 17)(font "Arial" (font_size 6)))
-	(annotation_block (location)(rect 200 280 256 296))
+	(annotation_block (location)(rect 96 64 152 80))
 )
 (pin
 	(output)
