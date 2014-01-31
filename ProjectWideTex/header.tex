@@ -143,3 +143,18 @@
     \label{#3}
   \end{figure}
 }
+
+%| Single figure
+%| \simpletable{c||c}{Caption}{Label}{content}
+%| =================================================================================================
+\newcommand{\simpletable}[4] {
+  \begin{table}[!t]
+    \caption{#2}
+    \label{#3}
+    \centering
+    \begin{tabular}{#1}
+      \hline
+      #4
+    \end{tabular}
+  \end{table}
+}

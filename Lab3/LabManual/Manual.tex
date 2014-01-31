@@ -1,14 +1,3 @@
-%| Weekly report template for CSUS Senior Design
-%|
-%| language: LaTeX
-%| Author: Ben Smith
-%| 
-%| This source has been tagged with the "<CHANGE" tag in areas
-%| that require updating when making a new docuent
-%|
-%| This source will generate a PDF file complete with thumbnails navigation menu and metadata.
-%| Much of the tex awesomeness comes from http://www.michaelshell.org/ praise be to him for creating the guide
-
 \title{Lab Three: Introduction to Verilog}
 \author{Ben Smith}
 
@@ -23,7 +12,7 @@
   %| Introduction
   %| =================================================================================================
   \section{Introduction}
-    \IEEEPARstart{T}{his} lab will introduce text based design entry in particular, Verilog's behavioral modeling ability. It is a powerful tool that allows the digital designer to abstract themselves from the burdens of structural modeling.  Text based design entry is the Industry standard for digital design. The two most prevalent languages are Verilog and VHDL are both IEEE standards. In the previous lab we used schematic representation of gates,we created individual gate ``structures'' and wired them together to implement the design. This provides a great intuitive explanation of what was built on the FPGA but can become very cumbersome.  Imagine creating Karnaugh maps for all 72GPIO pins, or better yet the 548 user configurable pins on the Altera's larger FPGA The Stratix\cite{Altera:StratixVDeviceOverview}; this is simply unreasonable! Verilog provides a very concise way to describe the behavior of very large systems. Behavioral modeling allows the use of higher level statements like If and Case statements that can implement complex functionality in only a few lines of HDL. If you don't know what these programming constructs are, don't worry, we will explore them in this lab. The purpose of this lab is to introduce the following concepts:
+    \IEEEPARstart{L}{ab} two will introduce text based design entry, and in particular, Verilog's behavioral modeling ability. It is a powerful tool that allows the digital designer to abstract themselves from the burdens of structural modeling.  Text based design entry is the Industry standard for digital design. The two most prevalent languages, Verilog and VHDL, are both IEEE standards. In the previous lab,  we used schematic representations of gates to implement a design. Individual gate structures and wired them together to implement the design. This provides a great intuitive explanation of what was built on the FPGA but can become very cumbersome in large designs.  Imagine creating Karnaugh maps for all 72GPIO pins, or better yet the 548 user configurable pins on the Altera's larger FPGA The Stratix\cite{Altera:StratixVDeviceOverview}; this is simply unreasonable! Verilog provides a very concise way to describe the behavior of very large systems. Behavioral modeling allows the use of higher level statements like If and Case statements that can implement complex functionality in only a few lines of HDL. If you don't know what these programming constructs are, don't worry, we will explore them in this lab. The purpose of this lab is to introduce the following concepts:
     \begin{itemize}
       \item Verilog behavioral modeling
       \item Verilog's constant syntax
@@ -36,10 +25,9 @@
 
     \subsection{Included Screencasts}
       \begin{enumerate}
-        \item TIME - Some video
-        \item TIME - Some video
-        \item TIME - Some video
-        \item TIME - Some video
+        \item TIME - Verilog Module Anatomy, instantiation, modularity, and parameterization
+        \item TIME - Verilog testbench and Modelsim
+        \item TIME - Netlist Viewers
       \end{enumerate}
     
     \subsection{Verilog Design Entry}
@@ -72,11 +60,11 @@
       \lstinputlisting[caption=Instantiation example form the testbench]{./codesnips/AdderInstantiationTemplate.sv}
 
     \subsection{Test Bench for automated debugging}
-      Verilog roughly breaks into two halves synthesizable and non-synthesizable. FPGAs synthesis cantake a very long time, using a simulator to verify individual modules can be much faster than resynthesizing the entire design. The Testbench also offers a unique ability to check expected outputs and generate test stimulus. We will use a test bench to check the provided Verilog modules are providing the desired operation in part C of the procedure. This simulation should be verified against the known truth table for the logic gate to ensure the module is accurate. Verification is a very important topic in logic design. \footnote{If you are particularly driven to be an expert in programmable logic I highly recommend a series of MOOC courses on debugging taught by Andreas Zeller on debugging. Both classes deal only with Python but the way of thinking is important topic. The classes are \href{https://www.udacity.com/course/cs258}{Software Testing} and \href{https://www.udacity.com/course/cs259}{Software Debugging} the first few videos in each series cover the important topics. Keep in mind these classes are outside the scope of this class and I only offer them because how much they helped me be a better designer.}
+      The Verilog language roughly breaks into two halves synthesizable and non-synthesizable. The FPGA synthesis can take a very long time, using a simulator to verify individual modules can be much faster than resynthesizing the entire design. The Testbench also offers a unique ability to check expected outputs. This will ensure your design behaves as expected. We will use a test bench to check the provided Verilog modules are providing the desired operation in part C of the procedure. This simulation should be verified against the known truth table for the logic gate to ensure the module is accurate. Verification is a very important topic in logic design. \footnote{If you are particularly driven to be an expert in programmable logic I highly recommend a series of MOOC courses on debugging taught by Andreas Zeller on debugging. Both classes deal only with Python but the way of thinking is important topic. The classes are \href{https://www.udacity.com/course/cs258}{Automated Software Testing} and \href{https://www.udacity.com/course/cs259}{Software Debugging} the first few videos in each series cover the important topics. Keep in mind these classes are outside the scope of this class and I only offer them because how much they helped me be a better designer.}
 
       \lstinputlisting[caption=Example testbench]{./codesnips/AdderTestbench.sv}
 
-      This section will explore the basics of Modelsim and using a Verilog Testbench in Modelsim. The schematic representation of the first lab's logic blocks have been replaced with Verilog behavioral code. Using a simulator for single logic gates is a bit asinine but the experience gained with the example test bench will help you greatly in the future, particularly when you write your own testbench in the next lab. Start a new simulation and add the waveforms as shown in screencast 2. Figure \ref{LogicOut} shows an example of what the wave section should look like. 
+      This section will explore the basics of Modelsim and using a Verilog Testbench in Modelsim. Start a new simulation and add the waveforms as shown in screencast 2. Figure \ref{LogicOut} shows an example of what the wave section should look like for the example adder. 
       \begin{figure}[H]
         \includegraphics[width=.48\textwidth]{Images/LogicOutput.png}
         \caption{Example output of testbench}
@@ -89,11 +77,11 @@
       statement, which will be explored below, which can execute two different blocks of code based on a logical test and alert you when an unexpected result is produced.
       \lstinputlisting[caption=Example output of Testbench]{./codesnips/testbenchoutput.txt}
 
-      Verification is more than half the battle when working with Verilog. Many times a design will work Mentor Graphics HDL simulator Modelsim is installed with Quartus. Modelsim is used extensively in logic design with Verilog. Fortunately Verilog offers a number of tools to make checking your code easier. The first of which is the assertion; it will run two different blocks of code depending on if a logical condition is met, It works much like an if statement that might be more familiar.
+      Verification is a large part of working with Verilog. Verilog provides little assistance in assuring the functionality of a design. You must catch the flaws in your design. This comes from a through understanding of the specification and through testing to ensure adherance. To ensure this a simulator called Modelsim is used extensively in logic design with Verilog. Fortunately Verilog offers a number of tools to make checking your code easier for use in simulation. The most basic, but very powerful, is the assertion. The assertion will run two different blocks of code depending on if a logical condition is met, It works much like an if statement.
       \lstinputlisting[caption=Template for System Verilog Modules]{./codesnips/AssertionTemplate.sv}
 
-      The same code is used to test the adder from this lab's example code. The true case is used to display the valid output of the module. The false case throws a simulation error and shows the user the case. 
-      \lstinputlisting[caption=Template for System Verilog Modules]{./codesnips/AssertionFromLab.sv}
+      The same code is used to test the adder from this lab's example code. The true case is used to display the valid output of the module. The false case throws a simulation error and shows the user the case. The syntax used to display text to the console follows ``printf'' syntax popularized by the C language. A reference for use can be found on \href{https://en.wikipedia.org/wiki/Printf_format_string}{Wikipedia}.
+      \lstinputlisting[caption=Example assertion from adder testbench]{./codesnips/AssertionFromLab.sv}
 
       The logical statement in this code block checks to see if the output of the module is equal to the sum of specified constant and Number. Many designers write the test bench from specification in advance of the Verilog module. Testing should be an integral part of Verilog development from the beginning.
 
@@ -103,18 +91,19 @@
   %| Procedure: Verilog Testbench
   %| =================================================================================================
   \section{Laboratory Procedure}
+    \IEEEPARstart{T}{he} Lab procedure for this lab is a bit more involved. It is the first interaction with text based entry, Signaltap, and Modelsim. The skills learned are industry applicable, I've used all of these tools and methods while working at a firm developing for Altera FPGAs. It's going to seem very foreign, don't worry, ask a lab instructor any questions you might have we're here to help.
 
   %| =================================================================================================
   %| Procedure: Verilog Testbench
   %| =================================================================================================
   \subsection{Signal Tap Embedded Logic analyzer}
-    The single most valuable debugging tool in Quartus is the Signaltap Logic analyzer. The device is implemented by the on chip logic and transmits information to Quartus over the USB link.  Signaltap provides the state of a signal with repsect to time. This is identical to the Simulator waveform but  is recorded from the running logic on the FPGA. Once again Altera provides a \href{ftp://ftp.altera.com/up/pub/Altera_Material/13.0/Tutorials/Verilog/SignalTap.pdf}{comprehensive tutorial} on the use of signal tap.
+    The single most valuable debugging tool in Quartus is the Signaltap Logic analyzer. The device is implemented by the on chip logic and transmits information to Quartus over the USB link.  Signaltap provides the state of a signal with respect to time. This is identical to the Simulator waveform but is recorded from the running logic on the FPGA. Once again Altera provides a \href{ftp://ftp.altera.com/up/pub/Altera_Material/13.0/Tutorials/Verilog/SignalTap.pdf}{comprehensive tutorial} on the use of signal tap.
 
   %| =================================================================================================
   %| Procedure: 4-bit and constant adder 
   %| =================================================================================================
-  \subsection{4-bit and Constant Adder Synthesis}
-    The second section's adder will be synthesized and loaded onto the FPGA for this section. Use your dip switches and the LED circuits from the previous labs to test the adder for expected operation. This section is included with the example code, all you need to do is change the constant and test its operation.  
+  \subsection{Unsigned Adder}
+    The second section's example adder will be synthesized and loaded onto the FPGA for this section. Use your dip switches and the LED circuits from the previous labs to test the adder for expected operation. This section is included with the example code. Remove the parametrization and make an adder for two 4-bit unsigned integers. If you're interested in FPGA development and would like to expand your understanding try implementing an adder for two four bit two's complement numbers. 
 
     %| Required Lab Demo
     %| =================================================================================================
@@ -145,12 +134,12 @@
   %| Lab Report
   %| =================================================================================================
   \section{Lab report}
-    \IEEEPARstart{D}{ocumentation} is the most important part of an engineer's job. The sharper your writing skills the more employable you will be. Keep that in mind as you have to churn out documentation throughout college. This lab manual is written in almost textbook This particular lab report will require:
+    \IEEEPARstart{D}{ocumentation} is the most important part of an engineer's job. The sharper your writing skills the more employable you will be. Keep that in mind as you have to churn out documentation throughout college, it's not just busywork. This lab manual is written in almost textbook This particular lab report will require:
     \subsection{figures to include}
     \begin{itemize}
       \item Code listing of Full Adder
       \item Code listing for comparator
-      \item It's important to remember Verilog is a Hardware Descriptive Language. The synthesis actually implements the Verilog in code. Quartus contains what are called ``Netlist Viewers'' that show the actual implementation. take a look at how Quartus synthesized your design as is shown in screencastX. Include screen captures of the combinatorial blocks listed in your design.
+      \item It's important to remember Verilog is a Hardware Descriptive Language. The synthesis actually implements the Verilog in code. Quartus contains what are called \it{Netlist Viewers} that show the actual implementation. take a look at how Quartus synthesized your design as is shown in screencastX. Include screen captures of the combinatorial blocks listed in your design.
     \end{itemize}
 
     \subsection{Questions to Answer}

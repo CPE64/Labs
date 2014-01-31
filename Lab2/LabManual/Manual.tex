@@ -1,13 +1,3 @@
-%|  CSUS CPE64/EEE64 Verilog Labs: Lab Two
-%|
-%|  language: LaTeX
-%|  Author: Ben Smith
-%| 
-%|  This source generates the lab manual document when compiled using a LaTeX processor.  All packages are included in a full
-%|  installation of a LaTeX System.  
-%|
-%| 
-%| 
 \title{Lab Two: Introduction to logic on the FPGA}
 \author{Ben Smith}
 \input{./../../ProjectWideTex/header.tex}
@@ -23,7 +13,7 @@
   %| Introduction
   %| =================================================================================================
   \section{Introduction}
-    \PARstart{T}{he} first lab in this intraductory series introduces the DE0-Nano development board and Altera's Quartus development environment. Quartus will be used to program the Altera Cyclone IV FPGA on the Terasic DE0-Nano development board.\footnote{FPGAs remained a mystery to me for quite some time, the video does a great job of discussing the benefits and drawbacks of the devices \href{https://www.youtube.com/watch?v=gUsHwi4M4xE}{EEV Blog: What is a FPGA?}}  The schematic entry method used in this lab will be very similar to the design entry method that you have experienced with in first lab with Multisim. Now, instead of discrete logic, the FPGA will implement the logic. The Cyclone IV could implement the equivalent of 3300 2-input nand gates. Imagine hand wiring and the amount of circuit board space all that logic would require if using Discrete ICs. This lab is intended to introduce the student to the following concepts:
+    \PARstart{T}{he} first lab in this introductory series introduces the DE0-Nano development board and Altera's Quartus development environment. Quartus will be used to program the Altera Cyclone IV FPGA on the Terasic DE0-Nano development board.\footnote{FPGAs remained a mystery to me for quite some time, the video does a great job of discussing the benefits and drawbacks of the devices \href{https://www.youtube.com/watch?v=gUsHwi4M4xE}{EEV Blog: What is a FPGA?}}  The schematic entry method used in this lab will be very similar to the design entry method that you have experienced with in first lab with Multisim. Now, instead of discrete logic, the FPGA will implement the logic. The Cyclone IV could implement the equivalent of 3300 2-input nand gates. Imagine hand wiring and the amount of circuit board space all that logic would require if using Discrete ICs. This lab is intended to introduce the student to the following concepts:
     \begin{itemize}
        \item Logic primitives on a FPGA
        \item Quartus development environment
@@ -33,20 +23,20 @@
     \end{itemize}
 
     \subsection{Included Screencasts}
-      A number of screencasts are included with this set of labs. They are available on Youtube and as zipped MP4s on the course website. They are intended to be brief so they cover individual topics.
+      A number of screencasts are included with the Lab. They are available on Youtube and as zipped MP4s on the course website. They are intended to be brief so they cover individual topics.
       \begin{enumerate}
         \item TIME - Installing Quartus
         \item TIME - Block editor in Quartus
       \end{enumerate}
 
     \subsection{DE0-Nano Development board}
-      The DE0-Nano has a number of peripheral devices built into the board to expand the capabilities of the FPGA. Interacting with most of these devices will be beyond the scope of this course but represent real world design challenges and are worth experimenting with after this course is completed. Altera and Terasic offer a number of tutorials for the periphrial devices though in the \href{http://www.terasic.com.tw/cgi-bin/page/archive_download.pl?Language=English&No=593&FID=75023fa36c9bf8639384f942e65a46f3}{DE0-Nano user manual} and the Altera University Program. These labs will mostly use one of the 40-pin GPIO headers to interact with the outside world. Let's take a moment to recognise the potential of this development board should you choose to pursue it. Figure \ref{DEOBlockDia} shows a high level diagram of the development board. There is much more information available in the DE0-Nano manual but these are some system highlights. The SDRAM can be used to store large amounts of information for fast access, great for a {\it soft processor} \footnote{A soft processor is a microprocessor implemented inside of the FPGA. These softprocessors can be programmed in languages like C for more standard development processes that typically are much faster than HDL languages. The advantage of this method is the ability to build the microcontroller to suit a particular design and build hardware periphrials with the FPGA}. The EEPROM allows program memory that does not clear with power reset, also very useful for a soft processor. The A/D converter allows analog voltages to be read which allows the development board to interact with the outside world. It also features an accelerometer that will refresh at rates up to 1600Hz.      
+      The DE0-Nano has a number of peripheral devices built into the board to expand the capabilities of the FPGA. Interacting with most of these devices will be beyond the scope of this course but represent real world design challenges and are worth experimenting with after this course is completed. Altera and Terasic offer a number of tutorials for the periphrial devices though in the \href{http://www.terasic.com.tw/cgi-bin/page/archive_download.pl?Language=English&No=593&FID=75023fa36c9bf8639384f942e65a46f3}{DE0-Nano user manual} and the Altera University Program. These labs will mostly use one of the 40-pin GPIO headers to interact with the outside world. Let's take a moment to recognise the potential of this development board should you choose to pursue it. Figure \ref{DEOBlockDia} shows a high level diagram of the development board. There is much more information available in the DE0-Nano manual but these are some system highlights. The SDRAM can be used to store large amounts of information for fast access, great for a {\it soft processor} \footnote{A soft processor is a microprocessor implemented inside of the FPGA. These softprocessors can be programmed in languages like C for more standard development processes that typically are much faster than HDL languages. The advantage of this method is the ability to build the microprocessor to suit a particular design and build hardware peripherals with the FPGA}. The EEPROM allows program memory that does not clear with power reset, also very useful for a soft processor. The A/D converter allows analog voltages to be read which allows the development board to interact with the outside world. It also features an accelerometer that will refresh at rates up to 1600Hz.      
       \begin{figure}[htpb]
         \includegraphics[width=.48\textwidth]{Images/DEONanoBlockDiagram.png}
         \caption{Block Diagram of DE0-Nano \cite{DE0Manual}}
         \label{DEOBlockDia}
       \end{figure}
-      The A/D converter and G-sensor will be great tools to interact with sensors in your later classes. If you choose to go down a path of controls engineering FPGAs will be a great way to implement {\it deterministic}\footnote{a deterministic system is a system in which no randomness is involved in the development of future states of the system. A deterministic model will thus always produce the same output from a given starting condition or initial state.\cite{DynamicSystems}} Control systems. Interfacing with these periphrials will require the implementation of a bus protocal like SPI or I2C. The De0-Nano system CD comes with some example code that uses these devices that would get the interested student off the ground in no time.
+      The A/D converter and G-sensor will be great tools to interact with sensors in your later classes. If you choose to go down a path of controls engineering FPGAs will be a great way to implement {\it deterministic}\footnote{a deterministic system is a system in which no randomness is involved in the development of future states of the system. A deterministic model will thus always produce the same output from a given starting condition or initial state.\cite{DynamicSystems}} Control systems. Interfacing with these periphrials will require the implementation of a bus protocol like SPI or I2C. The De0-Nano system CD comes with some example code that uses these devices that would get the interested student off the ground in no time. Take the time to read through the DE0-Nano board's manual.
 
   %| =================================================================================================
   %| Procedure
@@ -129,9 +119,9 @@
     %| Required Lab Demo
     %| =================================================================================================
     \demo{AOI Gate}
-                  {4 dipswitch inputs and 1 LED outputs with appropriate pulldown and current limiting resistors for the DE0-Nano Development board. }
-                  {Labeled schematic of circuit with I/O pins labeled with FPGA pin number and Verilog net name,  truth table from your  experimental result.}
-                  {The student will be asked the result of a few random numbers to verify the correct operation of their circuit.}
+    {4 dipswitch inputs and 1 LED outputs with appropriate pulldown and current limiting resistors for the DE0-Nano Development board. }
+    {Labeled schematic of circuit with I/O pins labeled with FPGA pin number and Verilog net name,  truth table from your  experimental result.}
+    {The student will be asked the result of a few random numbers to verify the correct operation of their circuit.}
 
   %| =================================================================================================
   %| Lab Report Requirements
@@ -157,7 +147,7 @@
   %| Conclusion
   %| =================================================================================================
   \section{Conclusion}
-    \IEEEPARstart{T}{this} lab introduced Quartus and some of it's basic functionality. Quartus is very similar to many industry standard tools. Xilinx, another manufacturer of programmable logic devices, offers a tool suite very similar to Quartus called ISE. Although we will not discuss ISE, an understanding of Quartus will allow ISE to be learned very quickly. These are tools that you can expect to see in Industry as a CPE or EEE student. There is an extreme demand right now for engineers with an understanding of programmable logic.
+    \IEEEPARstart{T}{this} lab introduced Quartus and some of it's basic functionality. Quartus is very similar to many industry standard tools. Xilinx, another manufacturer of programmable logic devices, offers a tool suite very similar to Quartus called ISE. Although we will not discuss ISE, an understanding of Quartus will allow ISE to be learned very quickly. The tools used in this lab are the what you can expect to see in Industry as a CPE or EEE.
 
   %| =================================================================================================
   %| Bibliography
