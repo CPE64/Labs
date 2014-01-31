@@ -13,7 +13,7 @@
   %| Introduction
   %| =================================================================================================
   \section{Introduction}
-    \PARstart{T}{he} first lab in this introductory series introduces the DE0-Nano development board and Altera's Quartus development environment. Quartus will be used to program the Altera Cyclone IV FPGA on the Terasic DE0-Nano development board.\footnote{FPGAs remained a mystery to me for quite some time, the video does a great job of discussing the benefits and drawbacks of the devices \href{https://www.youtube.com/watch?v=gUsHwi4M4xE}{EEV Blog: What is a FPGA?}}  The schematic entry method used in this lab will be very similar to the design entry method that you have experienced with in first lab with Multisim. Now, instead of discrete logic, the FPGA will implement the logic. The Cyclone IV could implement the equivalent of 3300 2-input nand gates. Imagine hand wiring and the amount of circuit board space all that logic would require if using Discrete ICs. This lab is intended to introduce the student to the following concepts:
+    \PARstart{T}{he} first lab in this introductory series introduces the DE0-Nano development board and Altera's Quartus development environment. Quartus will be used to program the Altera Cyclone IV FPGA on the Terasic DE0-Nano development board.\footnote{FPGAs remained a mystery to me for quite some time, the video does a great job of discussing the benefits and drawbacks of the devices \href{https://www.youtube.com/watch?v=gUsHwi4M4xE}{EEV Blog: What is a FPGA?}}  The schematic entry method used in this lab will be very similar to the design entry method that you have experienced with in fiwrst lab with Multisim. Now, instead of discrete logic, the FPGA will implement the logic. The Cyclone IV could implement the equivalent of 3300 2-input nand gates. Imagine hand wiring and the amount of circuit board space all that logic would require if using Discrete ICs. This lab is intended to introduce the student to the following concepts:
     \begin{itemize}
        \item Logic primitives on a FPGA
        \item Quartus development environment
@@ -21,13 +21,6 @@
        \item Assigning pins for a design
        \item Programming an Altera FPGA
     \end{itemize}
-
-    \subsection{Included Screencasts}
-      A number of screencasts are included with the Lab. They are available on Youtube and as zipped MP4s on the course website. They are intended to be brief so they cover individual topics.
-      \begin{enumerate}
-        \item TIME - Installing Quartus
-        \item TIME - Block editor in Quartus
-      \end{enumerate}
 
     \subsection{DE0-Nano Development board}
       The DE0-Nano has a number of peripheral devices built into the board to expand the capabilities of the FPGA. Interacting with most of these devices will be beyond the scope of this course but represent real world design challenges and are worth experimenting with after this course is completed. Altera and Terasic offer a number of tutorials for the periphrial devices though in the \href{http://www.terasic.com.tw/cgi-bin/page/archive_download.pl?Language=English&No=593&FID=75023fa36c9bf8639384f942e65a46f3}{DE0-Nano user manual} and the Altera University Program. These labs will mostly use one of the 40-pin GPIO headers to interact with the outside world. Let's take a moment to recognise the potential of this development board should you choose to pursue it. Figure \ref{DEOBlockDia} shows a high level diagram of the development board. There is much more information available in the DE0-Nano manual but these are some system highlights. The SDRAM can be used to store large amounts of information for fast access, great for a {\it soft processor} \footnote{A soft processor is a microprocessor implemented inside of the FPGA. These softprocessors can be programmed in languages like C for more standard development processes that typically are much faster than HDL languages. The advantage of this method is the ability to build the microprocessor to suit a particular design and build hardware peripherals with the FPGA}. The EEPROM allows program memory that does not clear with power reset, also very useful for a soft processor. The A/D converter allows analog voltages to be read which allows the development board to interact with the outside world. It also features an accelerometer that will refresh at rates up to 1600Hz.      
@@ -61,11 +54,6 @@
     %| =================================================================================================
     \subsection{Lab Part One: LED controller with onboard devices.}
       The included document \href{ftp://ftp.altera.com/up/pub/Altera_Material/13.0/Tutorials/Schematic/Quartus_II_Introduction.pdf}{Quartus II Introduction} shows how to use the graphical editor feature of quartus. Dont worry about section 8 of the Quartus Introduction, we'll cover simulators later. The product of this tutorial will be the first lab demo. Notice the Boxed section below, demos will be presented as a specification and deliverable format. This first Example box describes what the three sections mean and how to use this information to help you successfully demo the lab.
-
-      \demo{Example 2-input NAND Gate}
-          {The Specification will be a description of device behavior and a set of constraints for it's implementation. Assume all demos have the technology constraint of using the DE0-Nano. The specification for this example would be to implement a NAND gate with the onboard dip switches as inputs and the LEDs as outputs.}
-          {The deliverable will always be the DEO0-Nano board with or without some associated circuitry}
-          {The product of the specification is to be verified in some way during the laboratory peroid. This will involve demonstrating the design to instructor or one of the lab assistants.}
 
       \demo{Light Controller}
           {Use onboard periphrials to generate inputs for the FPGA to control an LED according to Figure 11 of the Altera tutorial {\it Quartus II Introduction.}}
