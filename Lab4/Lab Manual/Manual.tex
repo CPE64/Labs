@@ -1,15 +1,4 @@
-%| Weekly report template for CSUS Senior Design
-%|
-%| language: LaTeX
-%| Author: Ben Smith
-%| 
-%| This source has been tagged with the "<CHANGE" tag in areas
-%| that require updating when making a new docuent
-%|
-%| This source will generate a PDF file complete with thumbnails navigation menu and metadata.
-%| Much of the tex awesomeness comes from http://www.michaelshell.org/ praise be to him for creating the guide
-
-\title{Lab Four: Shift registers, Counters}
+\title{Lab Four: Shift registers and counters}
 \author{Ben Smith}
 
 \input{./../../ProjectWideTex/header.tex}
@@ -38,7 +27,7 @@
       These operators are commonly used in the sensitivity list of a logical block in Verilog. They indicate where operations are performed on a square wave clock signal. Posedge performs the specified operation at the low to high transition and negedge the high to low edge.
     
     \subsubsection{Register metastability and timing closure}
-      ``Timing Closure'' is the process of making sure the physical circuits on the FPGA (or any digital system) and produce a desired functionality. The electrical properties of capacitance and inductance limit the maximum operating frequency of a circuit, even on the nanometer scale on the FPGA. The systems that are built in this lab do not approach the abilities of the Cyclone FPGA we are using. But the topic is very important, it has been one of the first questions i have been asked on a job interview. If you would like to learn about the topic (not required) Altera's white paper \href{http://www.altera.com/literature/wp/wp-01082-quartus-ii-metastability.pdf}{01082} offers a technical discussion of metastability and how to mitigate the effects of the phenomenon.
+      ``Timing Closure'' is the process of making sure the physical circuits on the FPGA (or any digital system) and produce a desired functionality. The electrical properties of capacitance and inductance limit the maximum operating frequency of a circuit, even on the nanometer scale on the FPGA. The systems that are built in this lab do not approach the abilities of the Cyclone FPGA we are using. But the topic is very important, it has been one of the first questions I have been asked on a job interview. If you would like to learn about the topic (not required) Altera's white paper \href{http://www.altera.com/literature/wp/wp-01082-quartus-ii-metastability.pdf}{01082} offers a technical discussion of metastability and how to mitigate the effects of the phenomenon.
 
   %| Blocking and non blocking operators
   %| =================================================================================================
@@ -49,15 +38,14 @@
       Blocking assignments occur in one step, all other operations are ``paused'' while waiting for the operation to complete.Evaluate the RHS (right-hand side equation) and update the LHS (left-hand side expression) of the blocking assignment without interruption from any other Verilog statement.''\cite{Sunburst:BlockNoBlock}
 
     \subsubsection{Non-Blocking assignments \bfseries ( $<$= )} 
-      The evaluation of nonblocking assignments is a bit more complex than the blocking operator and requires special consideration. The execution of these statements is defined as follows. This is how the logic synthesizer schedules the specified operations as it processes the Verilog design you have created. This information is particularly relevant in the simulator as you try to debug your design. 
+      The evaluation of nonblocking assignments is a bit more complex than the blocking operator and requires special consideration. The execution of these statements is defined as follows. This information is particularly relevant in the simulator as you try to debug your design. \cite{Sunburst:BlockNoBlock} 
       \begin{enumerate}
         \item Evaluate the RHS of nonblocking statements at the beginning of the time step.
         \item Update the LHS of nonblocking statements at the end of the time step.
       \end{enumerate}
-      \cite{Sunburst:BlockNoBlock}
 
     \subsubsection{Tips for the effective use of behavioral blocks}
-      The following tips come form A paper discussing the use of blocking and non-blocking statements in Verilog . Mixing the operators without thinking may lead to errors that are very hard to track down.
+      The following tips come form A paper discussing the use of blocking and non-blocking statements in Verilog\cite{Sunburst:BlockNoBlock}. Mixing the operators without thinking may lead to errors that are very hard to track down. In general following these guidelines will help you write error free code.
       \begin{itemize}
         \item When modeling sequential logic, use nonblocking assignments.
         \item When modeling latches, use nonblocking assignments.
@@ -71,7 +59,7 @@
   %| Clock division with registers
   %| =================================================================================================
   \subsection{Clock division with Counters}
-    The idea of a clock divider in verilog is identical to a divider with discrete logic. Because of the timing constraints on the FPGA, a synchronous counter is the best option for our requirements. If one d flip-flop divides a clock by two, then the addition of another will divide the input clock by four and so on. this can be generalized to $$f_{out}=\frac{f_{in}}{2^n}$$ where $n$ is the number of bits in the register.
+    The idea of a clock divider in verilog is identical to a divider with discrete logic. Because of the timing constraints on the FPGA, a synchronous counter is the best option for our requirements. If one d flip-flop divides a clock by two, then the addition of another will divide the input clock by four and so on. this can be generalized to $$f_{out}=\frac{f_{in}}{2^n}$$ where $n$ is the number of bits in the register. 
     
 %| =================================================================================================
 %| Procedure
@@ -87,9 +75,8 @@
     %| =================================================================================================
     \demo{Timed pulse generator}
       {Generate a 100$\mu s$ pulse every two $ms$ and every second and output these signals to GPIO pins on the DE0-Nano.}
-      {DE0-Nano attached to Oscilloscope for verification, Clean timing report from TimeQuest}
+      {DE0-Nano attached to Oscilloscope for verification}
       {The signals need to be verified with the Oscilloscope on the DE0-Nano. Attach the two channel scope to the GPIO pins and use the frequency measurement function.}
-
 
     \subsection{Application of Shift Registers: IO expansion}
     This sections focuses on a application of the shift register. It can be found in a number of uses like the serialization and de-serialization of data streams. A common trick to expand IO on a device is to use the venerable HC595 shift register. The data for the output pins can be output serially to the shift register instead of directly parallel. This trades update speed and code complexity for IO pin usage. Let's take some indicator LED's for example. They do not need to be updated frequently and we can save the complex IO pins on the FPGA for other purposes.  Figure \ref{SR} shows how a Shift Register could be used in this configuration.
@@ -107,17 +94,29 @@
       {DE0-Nano configured with Comparitor, Clean timing report from TimeQuest}
       {Output LEDs will be inspected for proper operation as the student cycles through the inputs}
 
-
 %| =================================================================================================
 %| Lab Report Requirements
 %| =================================================================================================
 \section{\bfseries  Lab Report}
-  
+    \IEEEPARstart{T}{he} writeup for this lab should be fairly short. This particular lab report will require:
+    \subsection{figures to include}
+    \begin{itemize}
+      \item SignalTap captures for the function generator and shift register.
+      \item Code listings for the function generator and shift register
+      \item Netlist schematics from the Quartus RTL Netlist viewer.
+    \end{itemize}
+
+    \subsection{Questions to Answer}
+      \begin{enumerate}
+        \item The quartus timing analyzer will report a maximum operating frequency for a circuit. This is dictated by how your design synthesizes and the technology of the FPGA. Can you find the maximum operating frequency of your circuit. \href{http://quartushelp.altera.com/12.1/mergedProjects/analyze/sta/sta_com_report_fmax.htm}{*hint*}
+      \end{enumerate}
+
 %| =================================================================================================
 %| Conclusions
 %| =================================================================================================
 \section{\bfseries  Conclusion}
- 
+  \IEEEPARstart{L}{ab} four introduced some very important topics. Most applications for FPGA devices will involve frequency requirements that create very difficult timing problems to solve. This is another area where practicing a skill can have a direct effect on employability. The shift register demo is very similar to the implementation of a {\it Serial Periphrial Interface} or SPI in industry. Almost all periphrial devices (Sensors, ADCs, DACs, ...) offer the SPI bus to interact with a control device.
+
 %| =================================================================================================
 %| Bibliography
 %| =================================================================================================

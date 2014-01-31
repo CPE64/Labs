@@ -12,7 +12,7 @@
   %| Introduction
   %| =================================================================================================
   \section{Introduction}
-    \IEEEPARstart{L}{ab} two will introduce text based design entry, and in particular, Verilog's behavioral modeling ability. It is a powerful tool that allows the digital designer to abstract themselves from the burdens of structural modeling.  Text based design entry is the Industry standard for digital design. The two most prevalent languages, Verilog and VHDL, are both IEEE standards. In the previous lab,  we used schematic representations of gates to implement a design. Individual gate structures and wired them together to implement the design. This provides a great intuitive explanation of what was built on the FPGA but can become very cumbersome in large designs.  Imagine creating Karnaugh maps for all 72GPIO pins, or better yet the 548 user configurable pins on the Altera's larger FPGA The Stratix\cite{Altera:StratixVDeviceOverview}; this is simply unreasonable! Verilog provides a very concise way to describe the behavior of very large systems. Behavioral modeling allows the use of higher level statements like If and Case statements that can implement complex functionality in only a few lines of HDL. If you don't know what these programming constructs are, don't worry, we will explore them in this lab. The purpose of this lab is to introduce the following concepts:
+    \IEEEPARstart{L}{ab} three will introduce text based design entry, and in particular, Verilog's behavioral modeling ability. Verilog is a powerful tool that allows the digital designer to abstract themselves from the burdens of structural modeling.  Text based design entry is the Industry standard for digital design. The two most prevalent languages, Verilog and VHDL, are both IEEE standards. In the previous lab,  we used schematic representations of gates to implement a design. Individual gate structures and wired them together to implement the design. Representing te design as a schematic provides an intuitive explanation of what was built on the FPGA but can become cumbersome in large designs. Imagine creating Karnaugh maps for all 72GPIO pins, or better yet the 548 user configurable pins on the Altera's larger FPGA, the Stratix\cite{Altera:StratixVDeviceOverview}. Verilog provides a concise way to describe the behavior of large systems. Behavioral modeling allows the use of higher level statements like {\it if} and {\it case} statements that can implement complex functionality in only a few lines of HDL. If you don't know what these programming constructs are, don't worry, we will explore them in lab. The purpose of this lab is to introduce the following concepts:
     \begin{itemize}
       \item Verilog behavioral modeling
       \item Verilog's constant syntax
@@ -22,30 +22,23 @@
       \item Use a System Verilog Testbench
       \item Synthesize Verilog code for an FPGA
     \end{itemize}
-
-    \subsection{Included Screencasts}
-      \begin{enumerate}
-        \item TIME - Verilog Module Anatomy, instantiation, modularity, and parameterization
-        \item TIME - Verilog testbench and Modelsim
-        \item TIME - Netlist Viewers
-      \end{enumerate}
     
     \subsection{Verilog Design Entry}
-      Verilog is a powerful way to describe circuits. Logic diagrams like those being used in lecture can become cumbersome in large designs. ``Text based design entry'' can be less prone to error because it is easier to track differences in large designs with a diff tool than a sprawling schematic. Verilog is a text based hardware descriptive language the begun being used in ASIC(Application Specific Integrated Circuit). It is now the language of choice for FPGAs(Field Programmable Gate Array) and CPLDs(Computer Programmable Logic Devices). It is important to note that if you have some programming experience Verilog is superficially similar to many programming languages. Quartus provides a comprehensive solution for testing Verilog and synthesizing it for use on their FPGAs and CPLDs. Altera offers a tutorial very similar to the one used in Lab Two for Verilog design entry instead of the graphical method. The same tutorial that was used in lab one is also written for Verilog design entry, it can be \href{ftp://ftp.altera.com/up/pub/Altera_Material/13.0/Tutorials/Verilog/Quartus_II_Introduction.pdf}{found here} for the interested reader.
+      Verilog is a powerful way to describe circuits. Logic diagrams like those being used in lecture can become cumbersome in large designs. {\it Text based design entry} can be less prone to error because it is easier to track differences in large designs with a {\it diff tool} than a sprawling schematic. Verilog is a text based hardware descriptive language the begun being used in ASIC(Application Specific Integrated Circuit). It is now the language of choice for FPGAs(Field Programmable Gate Array) and CPLDs(Computer Programmable Logic Devices). It is important to note that if you have some programming experience Verilog is superficially similar to many programming languages. Quartus provides a comprehensive solution for testing Verilog and synthesizing it for use on their FPGAs and CPLDs. Altera offers a tutorial very similar to the one used in Lab Two for Verilog design entry instead of the graphical method. The same tutorial that was used in lab one is also written for Verilog design entry, it can be \href{ftp://ftp.altera.com/up/pub/Altera_Material/13.0/Tutorials/Verilog/Quartus_II_Introduction.pdf}{found here} for the interested reader.
 
     \subsection{Anatomy of a Verilog Module}
-      The ``module'' is at the heart of Verilog. Clever design will allow you to create a module that you can reuse many times. These labs will stress design for re-usability as it is the core of efficiency in the workplace.
+      The {\it module} is at the heart of Verilog. Clever design will allow you to create a module that you can reuse many times. These labs will stress design for re-usability as it is the core of efficiency in the workplace.
       \lstinputlisting[caption=Template for System Verilog Modules]{./codesnips/exampleModule.sv} 
 
-      Notice the [7:0] next to the wire declarations. This is a way to declare a ``parallel'' bus. We are just hooking up 7 wires at once. Compare this template to the example constant adder module from the Laboratory Procedure section.
+      Notice the [7:0] next to the wire declarations. This is a way to declare a {\it parallel} bus. Seven wires are being connected at once. Compare this template to the example constant adder module from the Laboratory Procedure section.
       
       \lstinputlisting[caption=Adder from example code]{./codesnips/AdderExample.sv}
 
     \subsection{Verilog Modularity}
-      One of the most important features of Verilog is it's ability to reuse a design. Reusing code allows you to  rapidly assemble and test new designs. The configurability of the FPGA allows a designer to rapidly prototype a design. Reusing these modules is very similar to how you would reuse code in the workplace to be more productive. You could think of this as the source libraries that would be available at the company that you might work for.
+      One of the most important features of Verilog is its ability to reuse a design. Reusing code allows you to  rapidly assemble and test new designs. The configurability of the FPGA allows a designer to rapidly prototype a design. Reusing these modules is very similar to how you would reuse code in the workplace to be more productive. You could think of this as the source libraries that would be available at the company that you might work for.
 
     \subsection{Instantiation of a Verilog module}
-      At the core of modular design is the module instantiation. Think of it of plopping a piece of hardware down on a breadboard. You could make a LS7400 Verilog module and every instantiation would be another discrete device just like using a real LS7400 on your breadboard. In Verilog the module name, is the name of the module you are instantiating.
+      At the core of modular design is the module instantiation. Instantiating a module is just like using a discrete IC. You could make a LS7400 Verilog module and every instantiation would be another discrete device just like using a real LS7400 on your breadboard.
       \lstinputlisting[caption=Template for System Verilog module instantiation]{./codesnips/instantiationTemplate.sv}
     
     \subsection{Parameterization of Verilog modules}
@@ -53,26 +46,25 @@
       \begin{lstlisting}
   parameter constant = 4'b0000;
       \end{lstlisting}
-      This is the Value that will be used if the parameter is not specified in the module instantiation. An example of parameter usage when instantiating a new module is below. Anything in angle brackets is something that you will need to replace with the information form your design.
-      \lstinputlisting[caption=Paramaterized instantiation example]{./codesnips/ParamaterizedInstantiationTemplate.sv}
+      This parameter is the Value that will be used if none is specified in the module instantiation. An example of parameter usage when instantiating a new module in Listing \ref{param} Anything in angle brackets is something that you will need to replace with the information form your design.
+      \lstinputlisting[caption=Paramaterized instantiation example, label=param]{./codesnips/ParamaterizedInstantiationTemplate.sv}
 
       Notice the addition of the \#() before the instance name in the last design. We can see the adder module instantiation in the test bench follows this syntax.
       \lstinputlisting[caption=Instantiation example form the testbench]{./codesnips/AdderInstantiationTemplate.sv}
 
     \subsection{Test Bench for automated debugging}
-      The Verilog language roughly breaks into two halves synthesizable and non-synthesizable. The FPGA synthesis can take a very long time, using a simulator to verify individual modules can be much faster than resynthesizing the entire design. The Testbench also offers a unique ability to check expected outputs. This will ensure your design behaves as expected. We will use a test bench to check the provided Verilog modules are providing the desired operation in part C of the procedure. This simulation should be verified against the known truth table for the logic gate to ensure the module is accurate. Verification is a very important topic in logic design. \footnote{If you are particularly driven to be an expert in programmable logic I highly recommend a series of MOOC courses on debugging taught by Andreas Zeller on debugging. Both classes deal only with Python but the way of thinking is important topic. The classes are \href{https://www.udacity.com/course/cs258}{Automated Software Testing} and \href{https://www.udacity.com/course/cs259}{Software Debugging} the first few videos in each series cover the important topics. Keep in mind these classes are outside the scope of this class and I only offer them because how much they helped me be a better designer.}
+      The Verilog language roughly breaks into two halves synthesizable and non-synthesizable. The FPGA synthesis can take a long time, using a simulator to verify individual modules can be faster than resynthesizing the entire design. The Testbench also offers a unique ability to check expected outputs. This will ensure your design behaves as expected. We will use a test bench to check the provided Verilog modules are providing the desired operation in part C of the procedure. This simulation should be verified against the known truth table for the logic gate to ensure the module is accurate. Verification is a very important topic in logic design. \footnote{If you are particularly driven to be an expert in programmable logic I highly recommend a series of MOOC courses on debugging taught by Andreas Zeller on debugging. Both classes deal only with Python but the way of thinking is important topic. The classes are \href{https://www.udacity.com/course/cs258}{Automated Software Testing} and \href{https://www.udacity.com/course/cs259}{Software Debugging} the first few videos in each series cover the important topics. Keep in mind these classes are outside the scope of this class and I only offer them because how much they helped me be a better designer.}
 
       \lstinputlisting[caption=Example testbench]{./codesnips/AdderTestbench.sv}
 
-      This section will explore the basics of Modelsim and using a Verilog Testbench in Modelsim. Start a new simulation and add the waveforms as shown in screencast 2. Figure \ref{LogicOut} shows an example of what the wave section should look like for the example adder. 
+      This section will explore the basics of Modelsim and using a Verilog Testbench in Modelsim. Start a new simulation and add the waveforms as shown!!!!!!!!!!!!!!!!!!!.Figure \ref{LogicOut} shows an example of what the wave section should look like for the example adder. 
       \begin{figure}[H]
         \includegraphics[width=.48\textwidth]{Images/LogicOutput.png}
         \caption{Example output of testbench}
         \label{LogicOut}
       \end{figure}
 
-      Take a moment to look at the simulation transcript, it provides the states of the logic elements being tested.
-      I prefer having the simulator give a test listing instead of reading the waveforms. This is from the \$display()
+      Take a moment to look at the simulation transcript, it provides the states of the logic elements being tested. I prefer having the simulator give a test listing instead of reading the waveforms. This is from the \$display()
       lines in the testbench. listing the outputs can be a very powerful debugging tool. I typically use the \$assert()
       statement, which will be explored below, which can execute two different blocks of code based on a logical test and alert you when an unexpected result is produced.
       \lstinputlisting[caption=Example output of Testbench]{./codesnips/testbenchoutput.txt}
@@ -85,7 +77,6 @@
 
       The logical statement in this code block checks to see if the output of the module is equal to the sum of specified constant and Number. Many designers write the test bench from specification in advance of the Verilog module. Testing should be an integral part of Verilog development from the beginning.
 
-      All of the code from this first section is provided in source.zip. There is quite a learning curve to this part, be sure to watch the screen cast which describes the included modules. You will be assigned a constant by the lab instructor that the input number will be added to. This number should be entered as a parameter in the adder module's instantiation as is done in the test bench.
 
   %| =================================================================================================
   %| Procedure: Verilog Testbench
@@ -126,7 +117,7 @@
     %| Required Lab Demo
     %| =================================================================================================
     \demo{Comparitor}
-      {Assign comparitor output to external LED module and use dipswitches for two four-bit inputs}
+      {Assign comparitor output to external LED module and use dipswitches for two four-bit two's complement inputs}
       {DE0-Nano configured with Comparitor}
       {Output LEDs will be inspected for proper operation as the student cycles through the inputs}
 
@@ -139,7 +130,7 @@
     \begin{itemize}
       \item Code listing of Full Adder
       \item Code listing for comparator
-      \item It's important to remember Verilog is a Hardware Descriptive Language. The synthesis actually implements the Verilog in code. Quartus contains what are called \it{Netlist Viewers} that show the actual implementation. take a look at how Quartus synthesized your design as is shown in screencastX. Include screen captures of the combinatorial blocks listed in your design.
+      \item It's important to remember Verilog is a Hardware Descriptive Language. The synthesis actually implements the Verilog in code. Quartus contains what are called \it{Netlist Viewers} that show the actual implementation. Include screen captures of the combinatorial blocks listed in your design.
     \end{itemize}
 
     \subsection{Questions to Answer}
