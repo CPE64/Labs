@@ -70,3 +70,5 @@ To find the rendered text of the lab manual look in an individual lab's folder. 
 ##TODO
 Add requirements for synthesis compilation and warnings
 Add information about synthesis optimization
+Add info about System Verilog scope
+basic OVM/UVM validation?
